@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-12-10T01:27:59.157690+00:00",
+  "timestamp": "2023-12-12T01:22:35.175310+00:00",
   "repo": "bgp/draft-ietf-peering-api",
   "labels": [
     {
@@ -49,6 +49,82 @@
       "color": "ffffff"
     }
   ],
-  "issues": [],
-  "pulls": []
+  "issues": [
+    {
+      "number": 2,
+      "id": "I_kwDOKwWQEM55Vo5K",
+      "title": "Do one sentence per line",
+      "url": "https://github.com/bgp/draft-ietf-peering-api/issues/2",
+      "state": "OPEN",
+      "author": "job",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "tip: By adhering to the convention of a single sentence per line; the git diffs will be much easier to read & review, and overly long sentences are more easily recognized",
+      "createdAt": "2023-12-11T13:45:06Z",
+      "updatedAt": "2023-12-11T13:45:06Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 3,
+      "id": "I_kwDOKwWQEM55VpzK",
+      "title": "Clarify this doc is about inter-domain peering",
+      "url": "https://github.com/bgp/draft-ietf-peering-api/issues/3",
+      "state": "OPEN",
+      "author": "job",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "The document should clarify that the proposed methodology applies in context of inter-domain interconnection in the _Global Internet Routing System_.\r\n\r\nThe word _peering_ is used in many contexts in IETF, so clarification that this is about interconnecting Autonomous Systems that participate in the global Internet routing system is perhaps useful.",
+      "createdAt": "2023-12-11T13:47:01Z",
+      "updatedAt": "2023-12-11T13:47:01Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 4,
+      "id": "I_kwDOKwWQEM55Vr2a",
+      "title": "In addition to PeeringDB OAuth, propose that RPKI can also be used",
+      "url": "https://github.com/bgp/draft-ietf-peering-api/issues/4",
+      "state": "OPEN",
+      "author": "job",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "[RFC 9323](https://datatracker.ietf.org/doc/html/rfc9323) specifies a mechanism for Autonomous System holders to issue a signature over an arbitrary SHA256 message digest, then in turn, Relying Parties can verify this signature against the global RPKI.\r\n\r\nThis means that the Initiator and the Receiver can perform a challenge/response procedure based on the RPKI - which is cryptographically stronger than relying on PeeringDB's OAuth infrastructure.\r\n\r\nThe Initator and the Receiver can establish an arc of trust by having the Initator signal an arbitrary SHA256 hash over which the Receiver must produce a RPKI-RSC signature; the receiver can challenge the Initator in a similar manner. Once both parties have signed the other-party's challenge, both parties know that each party possesses access to private keys associated with the Autonomous Systems on both sides.",
+      "createdAt": "2023-12-11T13:51:21Z",
+      "updatedAt": "2023-12-11T13:51:21Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOKwWQEM5hrq-v",
+      "title": "Update draft-ramseyer-grow-peering-api.md",
+      "url": "https://github.com/bgp/draft-ietf-peering-api/pull/1",
+      "state": "OPEN",
+      "author": "therealr2d2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Added/changed some text and some rewriting to the introduction.",
+      "createdAt": "2023-12-11T13:26:23Z",
+      "updatedAt": "2023-12-11T13:27:47Z",
+      "baseRepository": "bgp/draft-ietf-peering-api",
+      "baseRefName": "main",
+      "baseRefOid": "c34f72263856a8210e3c60e6874706deb9f9ee56",
+      "headRepository": "bgp/draft-ietf-peering-api",
+      "headRefName": "therealr2d2-patch-1",
+      "headRefOid": "09f0647ee7a5755e31234da24582d01b180856dc",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    }
+  ]
 }
