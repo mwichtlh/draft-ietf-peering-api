@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-12-14T01:21:04.859227+00:00",
+  "timestamp": "2023-12-17T01:27:05.775956+00:00",
   "repo": "bgp/draft-ietf-peering-api",
   "labels": [
     {
@@ -94,9 +94,24 @@
       "labels": [],
       "body": "[RFC 9323](https://datatracker.ietf.org/doc/html/rfc9323) specifies a mechanism for Autonomous System holders to issue a signature over an arbitrary SHA256 message digest, then in turn, Relying Parties can verify this signature against the global RPKI.\r\n\r\nThis means that the Initiator and the Receiver can perform a challenge/response procedure based on the RPKI - which is cryptographically stronger than relying on PeeringDB's OAuth infrastructure.\r\n\r\nThe Initator and the Receiver can establish an arc of trust by having the Initator signal an arbitrary SHA256 hash over which the Receiver must produce a RPKI-RSC signature; the receiver can challenge the Initator in a similar manner. Once both parties have signed the other-party's challenge, both parties know that each party possesses access to private keys associated with the Autonomous Systems on both sides.",
       "createdAt": "2023-12-11T13:51:21Z",
-      "updatedAt": "2023-12-11T13:51:21Z",
+      "updatedAt": "2023-12-15T10:27:22Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "caguado",
+          "authorAssociation": "COLLABORATOR",
+          "body": "+1 on RFC9323 (or RTA too) to bind API requests to ASN holdership.\r\n\r\nI would build on top of that to, instead of a dynamic challenge/response chain of trust between parties as I understand it, use the RSC/RTA to bind the INRs to a OAuth2 issuer via their well-known discovery point ([RFC8414](https://datatracker.ietf.org/doc/html/rfc8414)). This would allow to:\r\n- reuse current identity management solutions based on bearer tokens for async validation\r\n- maintain attestation of individual caller identities on API requests as well as the capability to constrain access to parts of the API defined in this doc via usual scopes or other claims\r\n- extend the integrity checks to the entire API call payload, beyond reliance on a TLS transport, for proof of possession and HTTP signing when those become standard (e.g. [RFC9449](https://datatracker.ietf.org/doc/html/rfc9449))\r\n\r\nI would also defer this to a separate RFC process that builds atop this doc and now gather consensus on the peering API using a bespoke authz implementation.",
+          "createdAt": "2023-12-15T09:56:03Z",
+          "updatedAt": "2023-12-15T09:56:03Z"
+        },
+        {
+          "author": "job",
+          "authorAssociation": "NONE",
+          "body": "The RTA proposal was abandoned by the working group. There are no implementations.",
+          "createdAt": "2023-12-15T10:27:21Z",
+          "updatedAt": "2023-12-15T10:27:21Z"
+        }
+      ]
     }
   ],
   "pulls": [
