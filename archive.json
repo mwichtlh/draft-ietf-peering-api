@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-12-21T01:20:34.311840+00:00",
+  "timestamp": "2023-12-24T01:25:00.426826+00:00",
   "repo": "bgp/draft-ietf-peering-api",
   "labels": [
     {
@@ -74,11 +74,13 @@
       "state": "OPEN",
       "author": "job",
       "authorAssociation": "NONE",
-      "assignees": [],
+      "assignees": [
+        "jramseyer"
+      ],
       "labels": [],
       "body": "The document should clarify that the proposed methodology applies in context of inter-domain interconnection in the _Global Internet Routing System_.\r\n\r\nThe word _peering_ is used in many contexts in IETF, so clarification that this is about interconnecting Autonomous Systems that participate in the global Internet routing system is perhaps useful.",
       "createdAt": "2023-12-11T13:47:01Z",
-      "updatedAt": "2023-12-11T13:47:01Z",
+      "updatedAt": "2023-12-21T19:37:09Z",
       "closedAt": null,
       "comments": []
     },
@@ -94,7 +96,7 @@
       "labels": [],
       "body": "[RFC 9323](https://datatracker.ietf.org/doc/html/rfc9323) specifies a mechanism for Autonomous System holders to issue a signature over an arbitrary SHA256 message digest, then in turn, Relying Parties can verify this signature against the global RPKI.\r\n\r\nThis means that the Initiator and the Receiver can perform a challenge/response procedure based on the RPKI - which is cryptographically stronger than relying on PeeringDB's OAuth infrastructure.\r\n\r\nThe Initator and the Receiver can establish an arc of trust by having the Initator signal an arbitrary SHA256 hash over which the Receiver must produce a RPKI-RSC signature; the receiver can challenge the Initator in a similar manner. Once both parties have signed the other-party's challenge, both parties know that each party possesses access to private keys associated with the Autonomous Systems on both sides.",
       "createdAt": "2023-12-11T13:51:21Z",
-      "updatedAt": "2023-12-15T10:27:22Z",
+      "updatedAt": "2023-12-21T19:33:32Z",
       "closedAt": null,
       "comments": [
         {
@@ -110,6 +112,20 @@
           "body": "The RTA proposal was abandoned by the working group. There are no implementations.",
           "createdAt": "2023-12-15T10:27:21Z",
           "updatedAt": "2023-12-15T10:27:21Z"
+        },
+        {
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I like the idea of splitting it into two proposals, or having authentication be a \"future work\" part of this RFC.\r\n\r\nTrying to tackle both the idea of a machine-to-machine peering API, and machine-to-machine API network verification seems like two related projects.  We could put them all into one RFC, but I worry that we risk distracting ourselves in one or the other, and achieving neither.  If you think it would be appropriate, I would propose we submit\r\n* peering API, with \"future work\" or \"proposed discussion\" around authentication and different options\r\n* (second) send an amendment or second RFC around API authentication for network configuration\r\nIf you think it would be more appropriate just to file one, larger, RFC, please let me know and we can rescope.",
+          "createdAt": "2023-12-21T19:32:32Z",
+          "updatedAt": "2023-12-21T19:32:32Z"
+        },
+        {
+          "author": "job",
+          "authorAssociation": "NONE",
+          "body": "Id stick it in one larger doc, that way people have a complete spec to look at. ",
+          "createdAt": "2023-12-21T19:33:31Z",
+          "updatedAt": "2023-12-21T19:33:31Z"
         }
       ]
     }
@@ -127,13 +143,53 @@
       "labels": [],
       "body": "Added/changed some text and some rewriting to the introduction.",
       "createdAt": "2023-12-11T13:26:23Z",
-      "updatedAt": "2023-12-11T13:27:47Z",
+      "updatedAt": "2023-12-21T19:28:03Z",
       "baseRepository": "bgp/draft-ietf-peering-api",
       "baseRefName": "main",
       "baseRefOid": "c34f72263856a8210e3c60e6874706deb9f9ee56",
       "headRepository": "bgp/draft-ietf-peering-api",
       "headRefName": "therealr2d2-patch-1",
       "headRefOid": "09f0647ee7a5755e31234da24582d01b180856dc",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKwWQEM5q52QV",
+          "commit": {
+            "abbreviatedOid": "09f0647"
+          },
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Looks good to me.  Thanks!",
+          "createdAt": "2023-12-21T19:28:03Z",
+          "updatedAt": "2023-12-21T19:28:03Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "id": "PR_kwDOKwWQEM5imhy3",
+      "title": "Ramseyer patch intro",
+      "url": "https://github.com/bgp/draft-ietf-peering-api/pull/5",
+      "state": "OPEN",
+      "author": "jramseyer",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Feedback from https://github.com/bgp/draft-ietf-peering-api/issues/3 -- added clarification around Peering\r\nSwitched intro to one-sentence-per-line, as in https://github.com/bgp/draft-ietf-peering-api/issues/2\r\nRemoved trailing whitespace to fix lint errors",
+      "createdAt": "2023-12-21T19:56:49Z",
+      "updatedAt": "2023-12-21T19:56:49Z",
+      "baseRepository": "bgp/draft-ietf-peering-api",
+      "baseRefName": "main",
+      "baseRefOid": "c34f72263856a8210e3c60e6874706deb9f9ee56",
+      "headRepository": "bgp/draft-ietf-peering-api",
+      "headRefName": "ramseyer_patch_intro",
+      "headRefOid": "88b2cef67293444c81537e1cb18a7c8b14433a36",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
