@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-01-09T01:22:46.385732+00:00",
+  "timestamp": "2024-01-11T01:22:51.206385+00:00",
   "repo": "bgp/draft-ietf-peering-api",
   "labels": [
     {
@@ -55,15 +55,15 @@
       "id": "I_kwDOKwWQEM55Vo5K",
       "title": "Do one sentence per line",
       "url": "https://github.com/bgp/draft-ietf-peering-api/issues/2",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "job",
       "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "tip: By adhering to the convention of a single sentence per line; the git diffs will be much easier to read & review, and overly long sentences are more easily recognized",
       "createdAt": "2023-12-11T13:45:06Z",
-      "updatedAt": "2023-12-11T13:45:06Z",
-      "closedAt": null,
+      "updatedAt": "2024-01-10T21:52:10Z",
+      "closedAt": "2024-01-10T21:52:10Z",
       "comments": []
     },
     {
@@ -128,6 +128,30 @@
           "updatedAt": "2023-12-21T19:33:31Z"
         }
       ]
+    },
+    {
+      "number": 6,
+      "id": "I_kwDOKwWQEM57sn8j",
+      "title": "PeeringDB OAuth token usage",
+      "url": "https://github.com/bgp/draft-ietf-peering-api/issues/6",
+      "state": "OPEN",
+      "author": "jramseyer",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "After our discussion today, I thought more about whether or not you could impersonate someone with the PeeringDB Token.\r\n\r\nThe token we ask for from the user is the access token, not the authorization code.  Authorization code comes first, and is what you use to get a token.  The token is then put in the headers of the call.\r\n\r\nOf note: when you go to register an oauth app on PeeringDB, you get a client ID, which you pass back in order to get an authorization code.  \r\nLater, you take the authorization code, and pass that back to peeringDB to get a token.\r\n\r\nOnce you have the token, one can \"forget about\" the client ID (PeeringDB does not need the client ID to validate the token, it validates the token on its own).  I don't believe this poses a problem to the API, as our implementation only wants the token.  Clients can set up their own \"token-fetching\" method separately.\r\n\r\nIt turns out the lead author on OAuth comes to the IETF regularly (as it is an IETF working group), so maybe we can get his opinion as well.\r\n\r\nAnyway, it doesn't look like you can take actions on PeeringDB with only the access token (at least from a quick look, I didn't poke too hard), but maybe @grizz would have a better idea (looking at https://github.com/peeringdb/peeringdb/issues/131)\r\ncc @caguado for discussion as well.",
+      "createdAt": "2024-01-10T22:07:31Z",
+      "updatedAt": "2024-01-10T22:19:20Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "job",
+          "authorAssociation": "NONE",
+          "body": "Yeah, this type of issue is exactly why I think that also mentioning RPKI-based authentication as a option will resolve some trust issues: with RPKI the trust arc is build directly between the two parties, without an intermediate.\r\n\r\nIf the draft offers multiple ways to establish trust between parties, consumers of this technology can choose what risk appetite they have and whether they will offer one or all auth options.",
+          "createdAt": "2024-01-10T22:19:18Z",
+          "updatedAt": "2024-01-10T22:19:18Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -136,25 +160,35 @@
       "id": "PR_kwDOKwWQEM5hrq-v",
       "title": "Update draft-ramseyer-grow-peering-api.md",
       "url": "https://github.com/bgp/draft-ietf-peering-api/pull/1",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "therealr2d2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Added/changed some text and some rewriting to the introduction.",
       "createdAt": "2023-12-11T13:26:23Z",
-      "updatedAt": "2023-12-21T19:28:03Z",
+      "updatedAt": "2024-01-09T20:36:06Z",
       "baseRepository": "bgp/draft-ietf-peering-api",
       "baseRefName": "main",
-      "baseRefOid": "c34f72263856a8210e3c60e6874706deb9f9ee56",
+      "baseRefOid": "f0e4a1800c41b3ffd9d20fa512ec93a9cd7095ba",
       "headRepository": "bgp/draft-ietf-peering-api",
       "headRefName": "therealr2d2-patch-1",
-      "headRefOid": "09f0647ee7a5755e31234da24582d01b180856dc",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
-      "comments": [],
+      "headRefOid": "82605ed595ce1343a2938f0d6b84a80837e0d169",
+      "closedAt": "2024-01-09T20:36:05Z",
+      "mergedAt": "2024-01-09T20:36:05Z",
+      "mergedBy": "jramseyer",
+      "mergeCommit": {
+        "oid": "e38d8a01def9c25cc3b5d12ba6ce7c6e41681a47"
+      },
+      "comments": [
+        {
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "body": "merged with later changes, to fix the build process",
+          "createdAt": "2024-01-09T20:34:20Z",
+          "updatedAt": "2024-01-09T20:34:20Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOKwWQEM5q52QV",
@@ -176,20 +210,48 @@
       "id": "PR_kwDOKwWQEM5imhy3",
       "title": "Ramseyer patch intro",
       "url": "https://github.com/bgp/draft-ietf-peering-api/pull/5",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "jramseyer",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Feedback from https://github.com/bgp/draft-ietf-peering-api/issues/3 -- added clarification around Peering\r\nSwitched intro to one-sentence-per-line, as in https://github.com/bgp/draft-ietf-peering-api/issues/2\r\nRemoved trailing whitespace to fix lint errors",
       "createdAt": "2023-12-21T19:56:49Z",
-      "updatedAt": "2023-12-21T19:56:49Z",
+      "updatedAt": "2024-01-09T20:27:18Z",
       "baseRepository": "bgp/draft-ietf-peering-api",
       "baseRefName": "main",
       "baseRefOid": "c34f72263856a8210e3c60e6874706deb9f9ee56",
       "headRepository": "bgp/draft-ietf-peering-api",
       "headRefName": "ramseyer_patch_intro",
       "headRefOid": "88b2cef67293444c81537e1cb18a7c8b14433a36",
+      "closedAt": "2024-01-09T20:27:00Z",
+      "mergedAt": "2024-01-09T20:27:00Z",
+      "mergedBy": "jramseyer",
+      "mergeCommit": {
+        "oid": "f0e4a1800c41b3ffd9d20fa512ec93a9cd7095ba"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 7,
+      "id": "PR_kwDOKwWQEM5jvB3o",
+      "title": "Update draft-ramseyer-grow-peering-api.md (Abstract)",
+      "url": "https://github.com/bgp/draft-ietf-peering-api/pull/7",
+      "state": "OPEN",
+      "author": "jramseyer",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Adding an abstract to the doc",
+      "createdAt": "2024-01-10T22:15:44Z",
+      "updatedAt": "2024-01-10T22:15:44Z",
+      "baseRepository": "bgp/draft-ietf-peering-api",
+      "baseRefName": "main",
+      "baseRefOid": "e38d8a01def9c25cc3b5d12ba6ce7c6e41681a47",
+      "headRepository": "bgp/draft-ietf-peering-api",
+      "headRefName": "jramseyer-patch-abstract",
+      "headRefOid": "8cc612a21400318580ab0fe45c3a47ec5e1f91ca",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
