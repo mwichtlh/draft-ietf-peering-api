@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-01-11T01:22:51.206385+00:00",
+  "timestamp": "2024-01-14T01:33:57.607622+00:00",
   "repo": "bgp/draft-ietf-peering-api",
   "labels": [
     {
@@ -141,7 +141,7 @@
       "labels": [],
       "body": "After our discussion today, I thought more about whether or not you could impersonate someone with the PeeringDB Token.\r\n\r\nThe token we ask for from the user is the access token, not the authorization code.  Authorization code comes first, and is what you use to get a token.  The token is then put in the headers of the call.\r\n\r\nOf note: when you go to register an oauth app on PeeringDB, you get a client ID, which you pass back in order to get an authorization code.  \r\nLater, you take the authorization code, and pass that back to peeringDB to get a token.\r\n\r\nOnce you have the token, one can \"forget about\" the client ID (PeeringDB does not need the client ID to validate the token, it validates the token on its own).  I don't believe this poses a problem to the API, as our implementation only wants the token.  Clients can set up their own \"token-fetching\" method separately.\r\n\r\nIt turns out the lead author on OAuth comes to the IETF regularly (as it is an IETF working group), so maybe we can get his opinion as well.\r\n\r\nAnyway, it doesn't look like you can take actions on PeeringDB with only the access token (at least from a quick look, I didn't poke too hard), but maybe @grizz would have a better idea (looking at https://github.com/peeringdb/peeringdb/issues/131)\r\ncc @caguado for discussion as well.",
       "createdAt": "2024-01-10T22:07:31Z",
-      "updatedAt": "2024-01-10T22:19:20Z",
+      "updatedAt": "2024-01-12T15:51:04Z",
       "closedAt": null,
       "comments": [
         {
@@ -150,6 +150,41 @@
           "body": "Yeah, this type of issue is exactly why I think that also mentioning RPKI-based authentication as a option will resolve some trust issues: with RPKI the trust arc is build directly between the two parties, without an intermediate.\r\n\r\nIf the draft offers multiple ways to establish trust between parties, consumers of this technology can choose what risk appetite they have and whether they will offer one or all auth options.",
           "createdAt": "2024-01-10T22:19:18Z",
           "updatedAt": "2024-01-10T22:19:18Z"
+        },
+        {
+          "author": "caguado",
+          "authorAssociation": "COLLABORATOR",
+          "body": "About the trust via PeeringDB's OAuth2/OIDC (or any other third party for the matter), what I referred to in the call is that we should probably use the standard as intended when multiple parties are involved, not only in terms of crypto validation but also adequate scoping to each consuming audience. Ref [rfc8725](https://www.rfc-editor.org/rfc/rfc8725#section-2.8) with one more recent example of this scenario in [rfc9068](https://datatracker.ietf.org/doc/html/rfc9068#SecurityConsiderations).\r\n\r\nUnfortunately it is a bit more nuanced than the access tokens being just cryptographically valid, but to verify among other things whether the consuming API (resource server - RS) is the intended audience to trust the scopes the bearer claims to have. Currently the access token PeeringDB hands over to the client is for the use of the PeeringDB RS alone, unless modified to include other RSs, e.g. our collective autopeer APIs. As a counter example, having direct possession of the current access token handed over by PeeringDB means the new consuming service can in turn use it to reach to PeeringDB's API itself during the time period such token is valid.\r\n\r\nUsing Id Tokens for third-party purposes would follow a similar reasoning where those tokens are not expected to be shared outside the original Oauth2 client-AS relation.\r\n\r\nI found [this resource from auth0](https://auth0.com/blog/how-the-jwt-profile-for-oauth-20-access-tokens-became-rfc9068/) useful to understand the nuanced context on all this. As we spoke, I'll bring more of this summarized to our next meeting.",
+          "createdAt": "2024-01-11T10:16:46Z",
+          "updatedAt": "2024-01-11T10:16:46Z"
+        },
+        {
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thank you both for the quick reply!\r\n\r\nRegarding RPKI-based authentication--let me take another pass through RFC 9323 to understand it better.  From discussion in issue #4, probably we should give a full spec, with alternate auth options (and cover the private peering and maintenance ideas, but that's another thread).  I was trying to keep it simpler by only proposing one authentication model, but if you think the IETF audience would prefer to see all the options, we can list the full spec and discuss. \r\n\r\nPeeringDB--thanks for the article, that was a neat insight into the IETF process as well.  Re: \r\n\r\n> \"having direct possession of the current access token handed over by PeeringDB means the new consuming service can in turn use it to reach to PeeringDB's API itself during the time period such token is valid.\"\r\n\r\nIsn't this token only for the identity?  Could the API could issue GET/DELETE requests to PeeringDB, based on the permissions of the token?  \r\n I had thought that the token was only the ID token, and therefore, could only be used to get the identity and permissions of the user, as described in the OpenID spec here: https://openid.net/specs/openid-connect-core-1_0.html\r\n\r\nFrom what I can understand from here: https://docs.peeringdb.com/howto/authenticate/\r\nOAuth can be used to verify your identity, but other endpoints are behind user/pass or API-key-based authentication.  \r\n\r\nI guess a malicious provider might be able to take that token and use it to auth against some other server's endpoint, to incorrectly request peering?\r\n\r\nJust thinking through possibilities, I am not an expert on OAuth intricacies and best practices.  I will look forward to your summary as well.",
+          "createdAt": "2024-01-11T18:43:43Z",
+          "updatedAt": "2024-01-11T18:43:43Z"
+        },
+        {
+          "author": "grizz",
+          "authorAssociation": "NONE",
+          "body": "> Anyway, it doesn't look like you can take actions on PeeringDB with only the access token (at least from a quick look, I didn't poke too hard), but maybe @grizz would have a better idea (looking at [peeringdb/peeringdb#131](https://github.com/peeringdb/peeringdb/issues/131))\r\n\r\nRight, I don't think there is risk in using the access token, as this is exactly what OAuth2 was designed for, as Carlos said, we need to make sure we're using it correctly. It's been a while, and we should definitely verify that, but that is what the review is for. :)\r\n\r\nRegarding RPKI, @job we are definitely planning on supporting it in a future iteration, like Jenny says, it would need a thread just for it. Our idea is that PDB, or other OAuth2 providers can say who the party is that is doing the request (and with PeeringDB scopes, it can give some authorization for if that party is allowed to do it), while RPKI signing would prove that they're allowed to make requests. Having both would be ideal, and it would be up to the server to decide what level of authentication and authorization they require.",
+          "createdAt": "2024-01-12T03:59:46Z",
+          "updatedAt": "2024-01-12T03:59:46Z"
+        },
+        {
+          "author": "grizz",
+          "authorAssociation": "NONE",
+          "body": "Err, posted too quickly and missed a paragraph.\r\n\r\n> Isn't this token only for the identity? Could the API could issue GET/DELETE requests to PeeringDB, based on the permissions of the token?\r\n\r\nThat's correct.\r\n\r\n> I had thought that the token was only the ID token, and therefore, could only be used to get the identity and permissions of the user, as described in the OpenID spec here: https://openid.net/specs/openid-connect-core-1_0.html\r\n\r\nYes, I think we discussed this last NANOG and realized we were technically using OIDC and not OAuth. I can double check in our implementation later, but to reiterate, as long as we're following the standards how it's supposed to be done, we should be fine.",
+          "createdAt": "2024-01-12T04:09:22Z",
+          "updatedAt": "2024-01-12T04:09:22Z"
+        },
+        {
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "body": "That's right, I remember we decided it was OIDC at NANOG88, I think.  \r\n\r\nI updated the security considerations section here: https://github.com/bgp/draft-ietf-peering-api/pull/8\r\nOf course, if we discover we are using the tokens incorrectly, we can edit or scrap this section, but I figured I would keep the draft up to date for now.  Let me know if that looks sensible.  \r\n\r\nThanks all of you for reviewing the implementation--if we are using it incorrectly, let me know and I will hold off submitting a draft.  I'm planning to submit in a week or two if we can manage it.",
+          "createdAt": "2024-01-12T15:51:03Z",
+          "updatedAt": "2024-01-12T15:51:03Z"
         }
       ]
     }
@@ -245,13 +280,97 @@
       "labels": [],
       "body": "Adding an abstract to the doc",
       "createdAt": "2024-01-10T22:15:44Z",
-      "updatedAt": "2024-01-10T22:15:44Z",
+      "updatedAt": "2024-01-12T19:16:59Z",
       "baseRepository": "bgp/draft-ietf-peering-api",
       "baseRefName": "main",
       "baseRefOid": "e38d8a01def9c25cc3b5d12ba6ce7c6e41681a47",
       "headRepository": "bgp/draft-ietf-peering-api",
       "headRefName": "jramseyer-patch-abstract",
       "headRefOid": "8cc612a21400318580ab0fe45c3a47ec5e1f91ca",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "grizz",
+          "authorAssociation": "NONE",
+          "body": "@jramseyer probably want to `s/OAuth/OIDC` or similar?",
+          "createdAt": "2024-01-12T19:16:59Z",
+          "updatedAt": "2024-01-12T19:16:59Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 8,
+      "id": "PR_kwDOKwWQEM5j2dxI",
+      "title": "Security Considerations section",
+      "url": "https://github.com/bgp/draft-ietf-peering-api/pull/8",
+      "state": "MERGED",
+      "author": "jramseyer",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Security Considerations, one typo.\r\n\r\nAdding a section on Security Considerations.\r\nSince we are still in discussions around security considerations for the API, I left this one somewhat ambiguous.  \r\n\r\nThis is by no means perfect, but now we have something.  Trying to get the draft into a minimal reasonable state before we submit for March.\r\n\r\nfrom discussions in:\r\nhttps://github.com/bgp/draft-ietf-peering-api/issues/6 \r\nhttps://github.com/bgp/draft-ietf-peering-api/issues/4",
+      "createdAt": "2024-01-11T19:39:56Z",
+      "updatedAt": "2024-01-12T23:15:00Z",
+      "baseRepository": "bgp/draft-ietf-peering-api",
+      "baseRefName": "main",
+      "baseRefOid": "e38d8a01def9c25cc3b5d12ba6ce7c6e41681a47",
+      "headRepository": "bgp/draft-ietf-peering-api",
+      "headRefName": "jramseyer-patch-security-1",
+      "headRefOid": "970df359642d92f9ff33135cf5d4457da2ec37d5",
+      "closedAt": "2024-01-12T23:14:57Z",
+      "mergedAt": "2024-01-12T23:14:57Z",
+      "mergedBy": "jramseyer",
+      "mergeCommit": {
+        "oid": "c13eb5f55f64ddaa140bc17af764f94b2b44421e"
+      },
+      "comments": [
+        {
+          "author": "grizz",
+          "authorAssociation": "NONE",
+          "body": "@jramseyer looks good to me, thanks for writing it up!",
+          "createdAt": "2024-01-12T19:13:52Z",
+          "updatedAt": "2024-01-12T19:13:52Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKwWQEM5saeWG",
+          "commit": {
+            "abbreviatedOid": "970df35"
+          },
+          "author": "grizz",
+          "authorAssociation": "NONE",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-01-12T19:13:09Z",
+          "updatedAt": "2024-01-12T19:13:09Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "id": "PR_kwDOKwWQEM5j21Gt",
+      "title": "Sample request flow",
+      "url": "https://github.com/bgp/draft-ietf-peering-api/pull/9",
+      "state": "OPEN",
+      "author": "jramseyer",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Adding a section with sample request flow.\r\n\r\nNot sure if we need this section in addition to the endpoints section.  We can reorder or remove it as necessary.\r\n\r\nTried to follow the spec as we (Meta) understand it, but I will update if I notice any discrepancies between it and the ENDPOINTS section.",
+      "createdAt": "2024-01-11T20:50:34Z",
+      "updatedAt": "2024-01-11T21:08:38Z",
+      "baseRepository": "bgp/draft-ietf-peering-api",
+      "baseRefName": "main",
+      "baseRefOid": "e38d8a01def9c25cc3b5d12ba6ce7c6e41681a47",
+      "headRepository": "bgp/draft-ietf-peering-api",
+      "headRefName": "jramseyer-patch-example-request",
+      "headRefOid": "29af1773a321d0f41de0bf3d6bb1cf5d6406b322",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
