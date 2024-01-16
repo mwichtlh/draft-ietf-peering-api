@@ -19,7 +19,7 @@ Abstract
    status of a request or BGP session, and list potential connection
    locations.  The API is backed by PeeringDB OIDC, the industry
    standard for peering authentication.  We also propose future work to
-   cover private (paid) peering, and alternative authentication methods.
+   cover private peering, and alternative authentication methods.
 
 About This Document
 
