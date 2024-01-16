@@ -4,8 +4,8 @@
 
 Network Working Group                                        J. Ramseyer
 Internet-Draft                                                      Meta
-Intended status: Informational                           10 January 2024
-Expires: 13 July 2024
+Intended status: Informational                           16 January 2024
+Expires: 19 July 2024
 
 
                               Peering API
@@ -17,7 +17,7 @@ Abstract
    interconnection through global Internet Routing.  This API offers a
    standard way to request public (settlement-free) peering, verify the
    status of a request or BGP session, and list potential connection
-   locations.  The API is backed by PeeringDB OAuth, the industry
+   locations.  The API is backed by PeeringDB OIDC, the industry
    standard for peering authentication.  We also propose future work to
    cover private (paid) peering, and alternative authentication methods.
 
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 13 July 2024.
+   This Internet-Draft will expire on 19 July 2024.
 
 Copyright Notice
 
@@ -119,7 +119,7 @@ Table of Contents
 
 3.  Security Considerations
 
-   PeeringDB OAuth will be the minimum requirement for authorization of
+   PeeringDB OIDC will be the minimum requirement for authorization of
    API requests.
 
 4.  Protocol
@@ -165,7 +165,7 @@ Table of Contents
 4.2.  Request flow
 
    1.  AUTH phase: initiator makes an authenticated request to receiver
-       via PeeringDB OAUTH.  This provides the receiver with initiator’s
+       via PeeringDB OIDC.  This provides the receiver with initiator’s
        credentials to verify who they say they are
 
    2.  REQUEST phase:
@@ -176,8 +176,8 @@ Table of Contents
 
               1.  Can use internal tools to check traffic levels
 
-              2.  Cross reference with OAUTH data to verify ASN as the
-                  same one received in the OAUTH token
+              2.  Cross reference with OIDC data to verify ASN as the
+                  same one received in the OIDC token
 
               3.  Can get prefix limit counters
 
@@ -196,8 +196,8 @@ Table of Contents
 
            1.  Your ASN
 
-               *  Cross reference with OAUTH data to verify ASN as the
-                  same one received in the OAUTH token
+               *  Cross reference with OIDC data to verify ASN as the
+                  same one received in the OIDC token
 
            2.  IXP ID
 
