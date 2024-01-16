@@ -4,8 +4,8 @@
 
 Network Working Group                                        J. Ramseyer
 Internet-Draft                                                      Meta
-Intended status: Informational                           12 January 2024
-Expires: 15 July 2024
+Intended status: Informational                           16 January 2024
+Expires: 19 July 2024
 
 
                               Peering API
@@ -13,7 +13,13 @@ Expires: 15 July 2024
 
 Abstract
 
-   TODO Abstract
+   We propose an API standard for BGP Peering, also known as interdomain
+   interconnection through global Internet Routing.  This API offers a
+   standard way to request public (settlement-free) peering, verify the
+   status of a request or BGP session, and list potential connection
+   locations.  The API is backed by PeeringDB OIDC, the industry
+   standard for peering authentication.  We also propose future work to
+   cover private peering, and alternative authentication methods.
 
 About This Document
 
@@ -43,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 15 July 2024.
+   This Internet-Draft will expire on 19 July 2024.
 
 Copyright Notice
 
@@ -190,8 +196,8 @@ Table of Contents
 
               1.  Can use internal tools to check traffic levels
 
-              2.  Cross reference with OAUTH data to verify ASN as the
-                  same one received in the OAUTH token
+              2.  Cross reference with OIDC data to verify ASN as the
+                  same one received in the OIDC token
 
               3.  Can get prefix limit counters
 
@@ -210,8 +216,8 @@ Table of Contents
 
            1.  Your ASN
 
-               *  Cross reference with OAUTH data to verify ASN as the
-                  same one received in the OAUTH token
+               *  Cross reference with OIDC data to verify ASN as the
+                  same one received in the OIDC token
 
            2.  IXP ID
 
