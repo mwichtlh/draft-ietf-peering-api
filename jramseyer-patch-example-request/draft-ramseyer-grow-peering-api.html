@@ -7,7 +7,10 @@
 <title>Peering API</title>
 <meta content="Jenny Ramseyer" name="author">
 <meta content="
-       TODO Abstract 
+       We propose an API standard for BGP Peering, also known as interdomain interconnection through global Internet Routing.
+This API offers a standard way to request public (settlement-free) peering, verify the status of a request or BGP session, and list potential connection locations.
+The API is backed by PeeringDB OIDC, the industry standard for peering authentication.
+We also propose future work to cover private peering, and alternative authentication methods. 
     " name="description">
 <meta content="xml2rfc 3.19.0" name="generator">
 <meta content="BGP" name="keyword">
@@ -1031,7 +1034,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Ramseyer</td>
-<td class="center">Expires 14 July 2024</td>
+<td class="center">Expires 19 July 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1044,12 +1047,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ramseyer-grow-peering-api-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-01-11" class="published">11 January 2024</time>
+<time datetime="2024-01-16" class="published">16 January 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-07-14">14 July 2024</time></dd>
+<dd class="expires"><time datetime="2024-07-19">19 July 2024</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1062,7 +1065,10 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">Peering API</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">TODO Abstract<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">We propose an API standard for BGP Peering, also known as interdomain interconnection through global Internet Routing.
+This API offers a standard way to request public (settlement-free) peering, verify the status of a request or BGP session, and list potential connection locations.
+The API is backed by PeeringDB OIDC, the industry standard for peering authentication.
+We also propose future work to cover private peering, and alternative authentication methods.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-about-this-document">
@@ -1094,7 +1100,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 14 July 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 19 July 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1144,10 +1150,13 @@ svg :is([fill="white"], [fill^="#fff"]) {
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
-            <p id="section-toc.1-1.5.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-api-endpoints-and-specifica" class="internal xref">API Endpoints and Specifications</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
-            <p id="section-toc.1-1.6.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-address" class="internal xref">Author's Address</a></p>
+            <p id="section-toc.1-1.6.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
+            <p id="section-toc.1-1.7.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-address" class="internal xref">Author's Address</a></p>
 </li>
         </ul>
 </nav>
@@ -1172,7 +1181,7 @@ As result, this improves end-user performance for all applications using network
           <p id="section-1-4.2.1">Reducing configuration mistakes by reducing human interaction<a href="#section-1-4.2.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-1-4.3">
-          <p id="section-1-4.3.1">And by peering, reducing network latency through expansion of interconneciton relationships<a href="#section-1-4.3.1" class="pilcrow">¶</a></p>
+          <p id="section-1-4.3.1">And by peering, reducing network latency through expansion of interconnection relationships<a href="#section-1-4.3.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 </section>
@@ -1204,7 +1213,16 @@ As result, this improves end-user performance for all applications using network
       <h2 id="name-security-considerations">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-3-1">PeeringDB OAuth will be the minimum requirement for authorization of API requests.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-1">As peering connections exchange real internet traffic, this API requires a security component to verify that the requestor is allowed to request peering on behalf of that ASN.
+In this initial proposal, this API requires PeeringDB-based authentication as the standard.
+After further discussion, the authors decided to offer alternate authentication options to accomodate the security concerns of different parties.
+As peers may require varying security standards, this API will support PeeringDB OIDC as the base requirement, with optional security extensions in addition (RPKI or alternate OIDCs, for example)
+This document hopes that, through the RFC process, the Working Group can come to a consensus on a base "authentication standard," to ease adoption for peering partners.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-2">Of particular interest is RPKI.
+PeeringDB OIDC allows the API to verify who the requesting party is, while RPKI-signing allows the requesting party to prove that they can configure a request.
+The combination of both authorizations provides a strong security guarantee.
+This document recognizes that not all partners have the time or engineering resources to support all authorization standards, so the API will offer an extensible security platform to meet varying security requirements.
+For RPKI-based authentication, this document refers to RFC9323.<a href="#section-3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="protocol">
@@ -1334,17 +1352,25 @@ If one side does not configure sessions within the server's acceptable configura
                 <p id="section-4.2-1.14.2.1.1">Rate limits, allowed senders, and other restriction options<a href="#section-4.2-1.14.2.1.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-4.2-1.14.2.2">
-                <p id="section-4.2-1.14.2.2.1">Request source
-# API Endpoints and Specifications
-TODO: list endpoints, both v0 and vLater
-TODO: Include diagram and openapi spec?<a href="#section-4.2-1.14.2.2.1" class="pilcrow">¶</a></p>
+                <p id="section-4.2-1.14.2.2.1">Request source<a href="#section-4.2-1.14.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
         </ul>
-<p id="section-4.2-2">Section: "Public Peering Session Negotiation"
-TODO put in a section about how the client and server handshake which locations to configure peering.<a href="#section-4.2-2" class="pilcrow">¶</a></p>
-<p id="section-4.2-3">Each peer needs an API endpoint that will listen on this and implement the above protocol
+</section>
+</div>
+</section>
+</div>
+<div id="api-endpoints-and-specifications">
+<section id="section-5">
+      <h2 id="name-api-endpoints-and-specifica">
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-api-endpoints-and-specifica" class="section-name selfRef">API Endpoints and Specifications</a>
+      </h2>
+<p id="section-5-1">TODO: list endpoints, both v0 and vLater
+TODO: Include diagram and openapi spec?<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-2">Section: "Public Peering Session Negotiation"
+TODO put in a section about how the client and server handshake which locations to configure peering.<a href="#section-5-2" class="pilcrow">¶</a></p>
+<p id="section-5-3">Each peer needs an API endpoint that will listen on this and implement the above protocol
 This API should be publicly listed in peeringDB and also as a potential expansion of RFC 9092 which provides endpoint integration to whois.
 Each API endpoint should be fuzz-tested and protected against abuse.  Attackers should not be able to access internal systems using the API.
 Every single request should come in with a unique guid called RequestID that maps to a peering request which can be referenced later.  This guid format should be standardized across all requests.  This guid should be provided by the receiver once it receives the request and must be embedded in all communication.  If there is no RequestID present then that should be interpreted as a new request and the process starts again.
@@ -1359,10 +1385,8 @@ TODO future work, is this worth mentioning?
 # Authentication Considerations
 TODO discuss the different auth considerations
 do we mention listing endpoints in peeringDB?
-# IANA Considerations<a href="#section-4.2-3" class="pilcrow">¶</a></p>
-<p id="section-4.2-4">This document has no IANA actions.<a href="#section-4.2-4" class="pilcrow">¶</a></p>
-</section>
-</div>
+# IANA Considerations<a href="#section-5-3" class="pilcrow">¶</a></p>
+<p id="section-5-4">This document has no IANA actions.<a href="#section-5-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="acknowledgments">
