@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-01-14T01:33:57.607622+00:00",
+  "timestamp": "2024-01-16T01:22:47.752807+00:00",
   "repo": "bgp/draft-ietf-peering-api",
   "labels": [
     {
@@ -280,7 +280,7 @@
       "labels": [],
       "body": "Adding an abstract to the doc",
       "createdAt": "2024-01-10T22:15:44Z",
-      "updatedAt": "2024-01-12T19:16:59Z",
+      "updatedAt": "2024-01-15T13:01:54Z",
       "baseRepository": "bgp/draft-ietf-peering-api",
       "baseRefName": "main",
       "baseRefOid": "e38d8a01def9c25cc3b5d12ba6ce7c6e41681a47",
@@ -300,7 +300,28 @@
           "updatedAt": "2024-01-12T19:16:59Z"
         }
       ],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOKwWQEM5slBo_",
+          "commit": {
+            "abbreviatedOid": "8cc612a"
+          },
+          "author": "therealr2d2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-01-15T13:01:54Z",
+          "updatedAt": "2024-01-15T13:01:54Z",
+          "comments": [
+            {
+              "originalPosition": 1,
+              "body": "--> 'Private (paid) peering'\r\n\r\nI think that private peering and paid peering are regularly two separated things.\r\n\r\nPrivate peering is done on private interfaces (mostly link to link,) and paid peering could be private peering or public peering but you pay to your peer to connect .\r\n\r\n",
+              "createdAt": "2024-01-15T13:01:54Z",
+              "updatedAt": "2024-01-15T13:01:54Z"
+            }
+          ]
+        }
+      ]
     },
     {
       "number": 8,
