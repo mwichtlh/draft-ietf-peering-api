@@ -73,10 +73,11 @@ Table of Contents
    4.  Protocol
      4.1.  Example Request Flow
    5.  API Endpoints and Specifications
-     5.1.  Endpoints:
+     5.1.  Public Peering over an Internet Exchange (IX):
    6.  Public Peering Session Negotiation
    7.  Private Peering
-   8.  IANA Considerations
+   8.  Maintenance
+   9.  IANA Considerations
    Acknowledgments
    Author's Address
 
@@ -154,24 +155,26 @@ Table of Contents
 
 4.1.  Example Request Flow
 
-   ### AUTH First, the client makes an authenticated request to the
-   server.  In this example, the client will use PeeringDB OAuth.
-   Authentication provides the server with client's email (for potential
-   manual discussion), along with client's entitlements, to confirm
-   client is permitted to request on behalf of the proposed ASN. ###
-   REQUEST 1.  ADD SESSION (CLIENT REQUEST) * Client provides: *
-   Dictionary (multiple): 1.  Local ASN (server) 2.  Local IP 3.  Peer
-   ASN (client) 4.  Peer IP 5.  Peer Type 6.  MD5 (optional) 7.  IXP ID
-   8.  Status 9: UUID 10.  Sent prefixes (0 if not Established)
-   (optional) 11.  Received prefixes (0 if not Established) (optional)
-   12.  Accepted Prefixes (optional) * Server actions: * Server confirms
-   requested clientASN in list of authorized ASN.  * Optional: checks
-   traffic levels, prefix limit counters, other desired internal checks.
-   2.  ADD SESSION (SERVER RESPONSE) * APPROVAL CASE * Server returns
-   dictionary of acceptable peering sessions.  Note: this dictionary may
-   also contain additional sessions on which to peer.  See "Public
-   Peering Session Negotiation" for details.  * REJECTION CASE * Server
-   returns dictionary of acceptable and rejected sessions.  * Optional
+   For a diagram, please see: https://github.com/bgp/
+   autopeer/?tab=readme-ov-file#sequence-diagram ### AUTH First, the
+   client makes an authenticated request to the server.  In this
+   example, the client will use PeeringDB OAuth.  Authentication
+   provides the server with client's email (for potential manual
+   discussion), along with client's entitlements, to confirm client is
+   permitted to request on behalf of the proposed ASN. ### REQUEST 1.
+   ADD SESSION (CLIENT REQUEST) * Client provides: * Dictionary
+   (multiple): 1.  Local ASN (server) 2.  Local IP 3.  Peer ASN (client)
+   4.  Peer IP 5.  Peer Type 6.  MD5 (optional) 7.  IXP ID 8.  Status 9:
+   UUID 10.  Sent prefixes (0 if not Established) (optional) 11.
+   Received prefixes (0 if not Established) (optional) 12.  Accepted
+   Prefixes (optional) * Server actions: * Server confirms requested
+   clientASN in list of authorized ASN.  * Optional: checks traffic
+   levels, prefix limit counters, other desired internal checks. 2.  ADD
+   SESSION (SERVER RESPONSE) * APPROVAL CASE * Server returns dictionary
+   of acceptable peering sessions.  Note: this dictionary may also
+   contain additional sessions on which to peer.  See "Public Peering
+   Session Negotiation" for details.  * REJECTION CASE * Server returns
+   dictionary of acceptable and rejected sessions.  * Optional
    information: * The server may also include the following details: 1.
    Prefix limit counters (optional value) 2.  TimeWindow: Time window
    indicating when sessions will be configured after being notified (may
@@ -224,55 +227,229 @@ Table of Contents
    for communication if the API fails or is not implemented properly
    (can be obtained through peeringdb).
 
-5.1.  Endpoints:
+   For a programmatic specification of the API, please see the public
+   Github here: https://github.com/bgp/autopeer/blob/main/api/
+   openapi.yaml
 
-   *  ADD IX PEER
+   This initial draft fully specifies the Public Peering endpoints.
+   Private Peering and Maintenance are under discussion, and the authors
+   invite collaboration and discussion from interested parties. ## DATA
+   TYPES (As defined in https://github.com/bgp/autopeer/blob/main/api/
+   openapi.yaml) ``` Location: title: Peering Location description:
+   location for session, contains an object with fields id pdb:ix:$ID
+   and type PUBLIC or PRIVATE type: object properties: id: type: string
+   type: $ref: '#/components/schemas/LocationType' LocationType: type:
+   string enum: - private - public
 
-   *  Augment IX PEER
+   SessionStatus: title: Session configuration status description: |-
+   BGP Session Statuses type: string
 
-   *  TOPUP IX
+   SessionArray: title: BGP Sessions description: Array of BGP Sessions
+   type: array items: $ref: '#/components/schemas/Session' uuid: type:
+   string description: |- unique identifier, request ID Optional--server
+   must provide UUID.  Client may provide initial UUID for client-side
+   tracking, but the server UUID will be the final definitive ID.
+   Request ID will not change across the request.
 
-   *  NEW IX
+   Session: title: BGP Session description: BGP Session type: object
+   properties: local_asn: type: integer local_ip: type: string peer_asn:
+   type: integer peer_ip: type: string peer_type: type: string md5:
+   (optional) type: string location: $ref: '#/components/schemas/
+   Location' status: $ref: '#/components/schemas/SessionStatus' uuid:
+   type: string description: |- unique identifier Optional--server must
+   provide UUID.  Client may provide initial UUID for client-side
+   tracking, but the server UUID will be the final definitive ID.
+   Error: title: Error type: object description: Error object for API
+   responses properties: errors: type: array description: |- Entity
+   field specific validation and operational error messages.
+
+    {field_name} will be substituted with the name of the field in which the validation error occured.
+  items:
+    $ref: '#/components/schemas/FieldError'
+  readOnly: true   required:
+- field_errors FieldError:   title: FieldError   type: object   description: Error object for field-specific errors in API responses   properties:
+name:
+  type: string
+  description: Field name
+  readOnly: true
+errors:
+  type: array
+  description: List of error messages
+  items:
+    type: string
+  readOnly: true   required:
+- name
+- errors
+
+   responses: ErrorResponse: description: API Error response content:
+   application/json: schema: type: object properties: errors: $ref:
+   '#/components/schemas/Error' required: - errors examples: error-
+   example: value: errors: - name: peer_asn messages: - asn not
+   available at that location ``` ## Endpoints: (As defined in
+   https://github.com/bgp/autopeer/blob/main/api/openapi.yaml) On each
+   call, there should be rate limits, allowed senders, and other
+   optional restrictions.
+
+5.1.  Public Peering over an Internet Exchange (IX):
+
+   *  ADD/AUGMENT IX PEER
+
+      -  Establish new BGP sessions between peers, at the desired
+         exchange.  /add_sessions: post: description: Request peering
+         requestBody: description: Request to create peering sessions
+         content: application/json: schema: $ref: '#/components/schemas/
+         SessionArray' required: true responses: '200': description: OK
+         content: application/json: schema: $ref: '#/components/schemas/
+         SessionArray' '300': description: Request modified or partially
+         accepted content: application/json: schema: $ref:
+         '#/components/schemas/SessionArray' '400': $ref:
+         '#/components/responses/ErrorResponse'
 
    *  REMOVE IX PEER
 
-   *  ADD PNI
+      -  Given a list of SessionArrays, remove the sessions in that
+         list.
 
-   *  AUGMENT PNI
+      -  This API serves as a notification to the server, as the client
+         may remove the sessions before sending the request to the
+         server.
 
-   *  REMOVE PNI
+      -  Server replies back with request ID and deletion status
+         (complete, in-progress). ### UTILITY API CALLS Endpoints which
+         provide useful information for potential interconnections.
 
-   *  STATUS of PNI/IX CONNECTIONS
+   *  LIST POTENTIAL PEERING LOCATIONS
 
-   *  MAINTENANCE (notification) (no tickets)
+      -  List potential peering locations, both public and private. ```
+         /list_locations: get: parameters: - name: asn in: query
+         description: List avaible locations for peering with the given
+         ASN required: true schema: type: integer - name: location_type
+         in: query description: Optional filter for only querying
+         locations able to establish public or private connections.
+         required: false schema: $ref: '#/components/schemas/
+         LocationType' responses: '200': description: OK content:
+         application/json: schema: type: array items: $ref:
+         '#/components/schemas/Location'
 
-   *  ADD ROUTE SERVER
-
-   *  DELETE RS
+         '400':
+           $ref: '#/components/responses/ErrorResponse' ```
 
    *  QUERY for request status
 
-   *  On each call, there should be:
+      -  Given a request ID, query for the status of that request.
 
-      -  Rate limits, allowed senders, and other restriction options
+      -  Given an ASN without request ID, query for status of all
+         connections between client and server. /get_status: get:
+         parameters: - name: asn in: query description: asn of requester
+         required: true schema: type: integer - name: request_id in:
+         query description: request identifier required: false schema:
+         type: string responses: '200': description: OK content:
+         application/json: schema: $ref: '#/components/schemas/
+         SessionArray' '400': $ref: '#/components/responses/
+         ErrorResponse' ### Private Peering
 
-      -  Request source
+   *  ADD/AUGMENT PNI
 
-   TODO: list endpoints, both v0 and vLater TODO: Include diagram and
-   openapi spec?
+   *  Parameters:
+
+      -  Peer ASN
+
+      -  Facility
+
+      -  email address (contact)
+
+      -  Action type: add/augment
+
+      -  LAG struct:
+
+         o  IPv4
+
+         o  IPv6
+
+         o  Circuit ID
+
+      -  Who provides LOA?  (and where to provide it).
+
+   *  Response:
+
+      -  200:
+
+         o  LAG struct, with server data populated
+
+         o  LOA or way to recieve it
+
+         o  Request ID
+
+      -  300:
+
+         o  Proposed Modification: LAG struct, LOA, email address for
+            further discussion
+
+      -  40x: rejections
+
+   *  REMOVE PNI
+
+      -  As ADD/AUGMENT in parameters.  Responses will include a request
+         ID and status.
 
 6.  Public Peering Session Negotiation
 
-   TODO put in a section about how the client and server handshake which
-   locations to configure peering.
+   As part of public peering configuration, this draft must consider how
+   the client and server should handshake at which sessions to configure
+   peering.  At first, a client will request sessions A, B, and C.  The
+   server may choose to accept all sessions A, B, and C.  At this point,
+   configuration proceeds as normal.  However, the server may choose to
+   rejest session B.  At that point, the server will reply back with A
+   and C marked as "Accepted," and B as "Rejected."  The server will
+   then configure A and C, and wait for the client to configure A and C.
+   If the client configured B as well, it will not come up.
+
+   This draft encourages peers to set up garbage collection for
+   unconfigured or down peering sessions, to remove stale configs and
+   maintain good router hygiene.
+
+   Related to rejection, if the server would like to configure
+   additional sessions with the client, the server may reply back with
+   additional peering sessions D and E.  The server will configure D and
+   E on their side, and D and E will become part of the sessions
+   requested in the UUID.  The client may choose whether or not to
+   accept those additional sessions.  If they do, the client should
+   configure D and E as well.  If they do not, the client will not
+   configure D and E, and the server should garbage-collect those
+   pending sessions.
+
+   As part of the IETF discussion, the authors would like to discuss how
+   to coordinate which side unfilters first.  Perhaps this information
+   could be conveyed over a preferences vector.
 
 7.  Private Peering
 
-   TODO this is future work?  Maybe here we touch on LOA negotiation,
-   unfiltering, etc? # Maintenance TODO future work, is this worth
-   mentioning?
+   Through future discussion with the IETF, the specification for
+   private peering will be solidified.  Of interest for discussion
+   includes Letter of Authorization (LOA) negotiation, and how to
+   coordinate unfiltering and configuration checks.
 
-8.  IANA Considerations
+8.  Maintenance
+
+   This draft does not want to invent a new ticketing system.  However,
+   there is an opportunity in this API to provide maintenance
+   notifications to peering partners.  If there is interest, this draft
+   would extend to propose a maintenance endpoint, where the server
+   could broadcast upcoming and current maintenance windows.  A
+   maintenance message would follow a format like: Title: string Start
+   Date: date maintenance start(s/ed): UTC End Date: date maintenance
+   ends: UTC Area: string or enum Details: freeform string
+
+   The "Area" field could be a freeform string, or could be a parseable
+   ENUM, like (BGP, PublicPeering, PrivatePeering, Configuration,
+   Caching, DNS, etc).
+
+   Past maintenances will not be advertised. # Possible Extensions The
+   authors acknowledge that route-server configuration may also be of
+   interest for this proposed API, and look forward to future
+   discussions in this area.
+
+9.  IANA Considerations
 
    This document has no IANA actions.
 
