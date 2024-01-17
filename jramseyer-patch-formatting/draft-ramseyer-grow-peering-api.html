@@ -1420,21 +1420,51 @@ For every session that the server rejected, the client removes that session from
         </h3>
 <p id="section-5.5-1">Both client and server wait for sessions to establish.
 At any point, client may send a "GET STATUS" request to the server, to request the status of the original request (by UUID) or of a session (by session UUID).
-The client will send a dictionary along with the request, as follows:
-* Dictionary:
-        1. Local ASN (server)
-        2. Local IP
-        3. Peer ASN (client)
-        4. Peer IP
-        5. Peer Type
-        6. MD5 (optional)
-        7. IXP ID
-        8. Status
-        9: UUID
-        10. Sent prefixes (0 if not Established) (optional)
-        11. Received prefixes (0 if not Established) (optional)
-        12. Accepted Prefixes (optional)
-The server then responds with the same dictionary, with the information that it understands (status, etc).<a href="#section-5.5-1" class="pilcrow">¶</a></p>
+The client will send a dictionary along with the request, as follows:<a href="#section-5.5-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.5-2.1">
+            <p id="section-5.5-2.1.1">Dictionary:<a href="#section-5.5-2.1.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.5-2.1.2.1">
+                <p id="section-5.5-2.1.2.1.1">Local ASN (server)<a href="#section-5.5-2.1.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-5.5-2.1.2.2">
+                <p id="section-5.5-2.1.2.2.1">Local IP<a href="#section-5.5-2.1.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-5.5-2.1.2.3">
+                <p id="section-5.5-2.1.2.3.1">Peer ASN (client)<a href="#section-5.5-2.1.2.3.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-5.5-2.1.2.4">
+                <p id="section-5.5-2.1.2.4.1">Peer IP<a href="#section-5.5-2.1.2.4.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-5.5-2.1.2.5">
+                <p id="section-5.5-2.1.2.5.1">Peer Type<a href="#section-5.5-2.1.2.5.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-5.5-2.1.2.6">
+                <p id="section-5.5-2.1.2.6.1">MD5 (optional)<a href="#section-5.5-2.1.2.6.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-5.5-2.1.2.7">
+                <p id="section-5.5-2.1.2.7.1">IXP ID<a href="#section-5.5-2.1.2.7.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-5.5-2.1.2.8">
+                <p id="section-5.5-2.1.2.8.1">Status<a href="#section-5.5-2.1.2.8.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-5.5-2.1.2.9">
+                <p id="section-5.5-2.1.2.9.1">UUID<a href="#section-5.5-2.1.2.9.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-5.5-2.1.2.10">
+                <p id="section-5.5-2.1.2.10.1">Sent prefixes (0 if not Established) (optional)<a href="#section-5.5-2.1.2.10.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-5.5-2.1.2.11">
+                <p id="section-5.5-2.1.2.11.1">Received prefixes (0 if not Established) (optional)<a href="#section-5.5-2.1.2.11.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-5.5-2.1.2.12">
+                <p id="section-5.5-2.1.2.12.1">Accepted Prefixes (optional)<a href="#section-5.5-2.1.2.12.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+        </ul>
+<p id="section-5.5-3">The server then responds with the same dictionary, with the information that it understands (status, etc).<a href="#section-5.5-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="completion">
@@ -1513,29 +1543,29 @@ On each call, there should be rate limits, allowed senders, and other optional r
               <p id="section-6.2.1-1.3.1">Below is based on OpenAPI specification: https://github.com/bgp/autopeer/blob/main/api/openapi.yaml<a href="#section-6.2.1-1.3.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-6.2.1-2">```
-POST: /add_sessions<a href="#section-6.2.1-2" class="pilcrow">¶</a></p>
-<p id="section-6.2.1-3">Request body: Session Array<a href="#section-6.2.1-3" class="pilcrow">¶</a></p>
-<p id="section-6.2.1-4">Responses:<a href="#section-6.2.1-4" class="pilcrow">¶</a></p>
-<p id="section-6.2.1-5">200 OK:<a href="#section-6.2.1-5" class="pilcrow">¶</a></p>
-<p id="section-6.2.1-6">Contents: Session Array (all sessions in request accepted for configuration).<a href="#section-6.2.1-6" class="pilcrow">¶</a></p>
-<p id="section-6.2.1-7">300:<a href="#section-6.2.1-7" class="pilcrow">¶</a></p>
-<p id="section-6.2.1-8">Contents: Modified Session Array, with rejected or additional sessions.<a href="#section-6.2.1-8" class="pilcrow">¶</a></p>
-<p id="section-6.2.1-9">400:<a href="#section-6.2.1-9" class="pilcrow">¶</a></p>
-<p id="section-6.2.1-10">Error
-```<a href="#section-6.2.1-10" class="pilcrow">¶</a></p>
+<p id="section-6.2.1-2">```<a href="#section-6.2.1-2" class="pilcrow">¶</a></p>
+<p id="section-6.2.1-3">POST: /add_sessions<a href="#section-6.2.1-3" class="pilcrow">¶</a></p>
+<p id="section-6.2.1-4">Request body: Session Array<a href="#section-6.2.1-4" class="pilcrow">¶</a></p>
+<p id="section-6.2.1-5">Responses:<a href="#section-6.2.1-5" class="pilcrow">¶</a></p>
+<p id="section-6.2.1-6">200 OK:<a href="#section-6.2.1-6" class="pilcrow">¶</a></p>
+<p id="section-6.2.1-7">Contents: Session Array (all sessions in request accepted for configuration).<a href="#section-6.2.1-7" class="pilcrow">¶</a></p>
+<p id="section-6.2.1-8">300:<a href="#section-6.2.1-8" class="pilcrow">¶</a></p>
+<p id="section-6.2.1-9">Contents: Modified Session Array, with rejected or additional sessions.<a href="#section-6.2.1-9" class="pilcrow">¶</a></p>
+<p id="section-6.2.1-10">400:<a href="#section-6.2.1-10" class="pilcrow">¶</a></p>
+<p id="section-6.2.1-11">Error<a href="#section-6.2.1-11" class="pilcrow">¶</a></p>
+<p id="section-6.2.1-12">```<a href="#section-6.2.1-12" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-6.2.1-11.1">
-              <p id="section-6.2.1-11.1.1">REMOVE IX PEER<a href="#section-6.2.1-11.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-6.2.1-13.1">
+              <p id="section-6.2.1-13.1.1">REMOVE IX PEER<a href="#section-6.2.1-13.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-6.2.1-11.1.2.1">
-                  <p id="section-6.2.1-11.1.2.1.1">Given a list of Session Arrays, remove the sessions in that list.<a href="#section-6.2.1-11.1.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-6.2.1-13.1.2.1">
+                  <p id="section-6.2.1-13.1.2.1.1">Given a list of Session Arrays, remove the sessions in that list.<a href="#section-6.2.1-13.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                <li class="normal" id="section-6.2.1-11.1.2.2">
-                  <p id="section-6.2.1-11.1.2.2.1">This API serves as a notification to the server, as the client may remove the sessions before sending the request to the server.<a href="#section-6.2.1-11.1.2.2.1" class="pilcrow">¶</a></p>
+                <li class="normal" id="section-6.2.1-13.1.2.2">
+                  <p id="section-6.2.1-13.1.2.2.1">This API serves as a notification to the server, as the client may remove the sessions before sending the request to the server.<a href="#section-6.2.1-13.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                <li class="normal" id="section-6.2.1-11.1.2.3">
-                  <p id="section-6.2.1-11.1.2.3.1">Server replies back with request ID and deletion status (complete, in-progress).<a href="#section-6.2.1-11.1.2.3.1" class="pilcrow">¶</a></p>
+                <li class="normal" id="section-6.2.1-13.1.2.3">
+                  <p id="section-6.2.1-13.1.2.3.1">Server replies back with request ID and deletion status (complete, in-progress).<a href="#section-6.2.1-13.1.2.3.1" class="pilcrow">¶</a></p>
 </li>
               </ul>
 </li>
@@ -1551,44 +1581,44 @@ POST: /add_sessions<a href="#section-6.2.1-2" class="pilcrow">¶</a></p>
 * LIST POTENTIAL PEERING LOCATIONS
   * List potential peering locations, both public and private.
   * Below is based on OpenAPI specification: https://github.com/bgp/autopeer/blob/main/api/openapi.yaml<a href="#section-6.2.2-1" class="pilcrow">¶</a></p>
-<p id="section-6.2.2-2">```
-GET: /list_locations<a href="#section-6.2.2-2" class="pilcrow">¶</a></p>
-<p id="section-6.2.2-3">Request parameters:
+<p id="section-6.2.2-2">```<a href="#section-6.2.2-2" class="pilcrow">¶</a></p>
+<p id="section-6.2.2-3">GET: /list_locations<a href="#section-6.2.2-3" class="pilcrow">¶</a></p>
+<p id="section-6.2.2-4">Request parameters:
   * asn (Server ASN, with which to list potential connections)
-  * location_type (Optional: Peering Location)<a href="#section-6.2.2-3" class="pilcrow">¶</a></p>
-<p id="section-6.2.2-4">Response:<a href="#section-6.2.2-4" class="pilcrow">¶</a></p>
-<p id="section-6.2.2-5">200: OK<a href="#section-6.2.2-5" class="pilcrow">¶</a></p>
-<p id="section-6.2.2-6">Contents: List of Peering Locations.<a href="#section-6.2.2-6" class="pilcrow">¶</a></p>
-<p id="section-6.2.2-7">400:<a href="#section-6.2.2-7" class="pilcrow">¶</a></p>
-<p id="section-6.2.2-8">Error
-```<a href="#section-6.2.2-8" class="pilcrow">¶</a></p>
+  * location_type (Optional: Peering Location)<a href="#section-6.2.2-4" class="pilcrow">¶</a></p>
+<p id="section-6.2.2-5">Response:<a href="#section-6.2.2-5" class="pilcrow">¶</a></p>
+<p id="section-6.2.2-6">200: OK<a href="#section-6.2.2-6" class="pilcrow">¶</a></p>
+<p id="section-6.2.2-7">Contents: List of Peering Locations.<a href="#section-6.2.2-7" class="pilcrow">¶</a></p>
+<p id="section-6.2.2-8">400:<a href="#section-6.2.2-8" class="pilcrow">¶</a></p>
+<p id="section-6.2.2-9">Error<a href="#section-6.2.2-9" class="pilcrow">¶</a></p>
+<p id="section-6.2.2-10">```<a href="#section-6.2.2-10" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-6.2.2-9.1">
-              <p id="section-6.2.2-9.1.1">QUERY for request status<a href="#section-6.2.2-9.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-6.2.2-11.1">
+              <p id="section-6.2.2-11.1.1">QUERY for request status<a href="#section-6.2.2-11.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-6.2.2-9.1.2.1">
-                  <p id="section-6.2.2-9.1.2.1.1">Given a request ID, query for the status of that request.<a href="#section-6.2.2-9.1.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-6.2.2-11.1.2.1">
+                  <p id="section-6.2.2-11.1.2.1.1">Given a request ID, query for the status of that request.<a href="#section-6.2.2-11.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                <li class="normal" id="section-6.2.2-9.1.2.2">
-                  <p id="section-6.2.2-9.1.2.2.1">Given an ASN without request ID, query for status of all connections between client and server.<a href="#section-6.2.2-9.1.2.2.1" class="pilcrow">¶</a></p>
+                <li class="normal" id="section-6.2.2-11.1.2.2">
+                  <p id="section-6.2.2-11.1.2.2.1">Given an ASN without request ID, query for status of all connections between client and server.<a href="#section-6.2.2-11.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                <li class="normal" id="section-6.2.2-9.1.2.3">
-                  <p id="section-6.2.2-9.1.2.3.1">Below is based on OpenAPI specification: https://github.com/bgp/autopeer/blob/main/api/openapi.yaml<a href="#section-6.2.2-9.1.2.3.1" class="pilcrow">¶</a></p>
+                <li class="normal" id="section-6.2.2-11.1.2.3">
+                  <p id="section-6.2.2-11.1.2.3.1">Below is based on OpenAPI specification: https://github.com/bgp/autopeer/blob/main/api/openapi.yaml<a href="#section-6.2.2-11.1.2.3.1" class="pilcrow">¶</a></p>
 </li>
               </ul>
 </li>
           </ul>
-<p id="section-6.2.2-10">```
-GET: /get_status<a href="#section-6.2.2-10" class="pilcrow">¶</a></p>
-<p id="section-6.2.2-11">Request parameters:
+<p id="section-6.2.2-12">```<a href="#section-6.2.2-12" class="pilcrow">¶</a></p>
+<p id="section-6.2.2-13">GET: /get_status<a href="#section-6.2.2-13" class="pilcrow">¶</a></p>
+<p id="section-6.2.2-14">Request parameters:
   * asn (requesting client's asn)
-  * request_id (optional, UUID of request)<a href="#section-6.2.2-11" class="pilcrow">¶</a></p>
-<p id="section-6.2.2-12">Response:<a href="#section-6.2.2-12" class="pilcrow">¶</a></p>
-<p id="section-6.2.2-13">200: OK<a href="#section-6.2.2-13" class="pilcrow">¶</a></p>
-<p id="section-6.2.2-14">Contents: Session Array of sessions in request_id, if provided.  Else, all existing and in-progress sessions between client ASN and server.<a href="#section-6.2.2-14" class="pilcrow">¶</a></p>
-<p id="section-6.2.2-15">400:<a href="#section-6.2.2-15" class="pilcrow">¶</a></p>
-<p id="section-6.2.2-16">Error (example: request_id is invalid)
-```<a href="#section-6.2.2-16" class="pilcrow">¶</a></p>
+  * request_id (optional, UUID of request)<a href="#section-6.2.2-14" class="pilcrow">¶</a></p>
+<p id="section-6.2.2-15">Response:<a href="#section-6.2.2-15" class="pilcrow">¶</a></p>
+<p id="section-6.2.2-16">200: OK<a href="#section-6.2.2-16" class="pilcrow">¶</a></p>
+<p id="section-6.2.2-17">Contents: Session Array of sessions in request_id, if provided.  Else, all existing and in-progress sessions between client ASN and server.<a href="#section-6.2.2-17" class="pilcrow">¶</a></p>
+<p id="section-6.2.2-18">400:<a href="#section-6.2.2-18" class="pilcrow">¶</a></p>
+<p id="section-6.2.2-19">Error (example: request_id is invalid)<a href="#section-6.2.2-19" class="pilcrow">¶</a></p>
+<p id="section-6.2.2-20">```<a href="#section-6.2.2-20" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="private-peering">

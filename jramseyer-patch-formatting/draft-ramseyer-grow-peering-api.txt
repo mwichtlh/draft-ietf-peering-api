@@ -261,13 +261,36 @@ Table of Contents
    client may send a "GET STATUS" request to the server, to request the
    status of the original request (by UUID) or of a session (by session
    UUID).  The client will send a dictionary along with the request, as
-   follows: * Dictionary: 1.  Local ASN (server) 2.  Local IP 3.  Peer
-   ASN (client) 4.  Peer IP 5.  Peer Type 6.  MD5 (optional) 7.  IXP ID
-   8.  Status 9: UUID 10.  Sent prefixes (0 if not Established)
-   (optional) 11.  Received prefixes (0 if not Established) (optional)
-   12.  Accepted Prefixes (optional) The server then responds with the
-   same dictionary, with the information that it understands (status,
-   etc).
+   follows:
+
+   *  Dictionary:
+
+      -  Local ASN (server)
+
+      -  Local IP
+
+      -  Peer ASN (client)
+
+      -  Peer IP
+
+      -  Peer Type
+
+      -  MD5 (optional)
+
+      -  IXP ID
+
+      -  Status
+
+      -  UUID
+
+      -  Sent prefixes (0 if not Established) (optional)
+
+      -  Received prefixes (0 if not Established) (optional)
+
+      -  Accepted Prefixes (optional)
+
+   The server then responds with the same dictionary, with the
+   information that it understands (status, etc).
 
 5.6.  COMPLETION
 
@@ -356,7 +379,9 @@ Table of Contents
    *  Below is based on OpenAPI specification:
       https://github.com/bgp/autopeer/blob/main/api/openapi.yaml
 
-   ``` POST: /add_sessions
+   ```
+
+   POST: /add_sessions
 
    Request body: Session Array
 
@@ -374,7 +399,9 @@ Table of Contents
 
    400:
 
-   Error ```
+   Error
+
+   ```
 
    *  REMOVE IX PEER
 
@@ -396,7 +423,9 @@ Table of Contents
    OpenAPI specification: https://github.com/bgp/autopeer/blob/main/api/
    openapi.yaml
 
-   ``` GET: /list_locations
+   ```
+
+   GET: /list_locations
 
    Request parameters: * asn (Server ASN, with which to list potential
    connections) * location_type (Optional: Peering Location)
@@ -409,7 +438,9 @@ Table of Contents
 
    400:
 
-   Error ```
+   Error
+
+   ```
 
    *  QUERY for request status
 
@@ -421,7 +452,9 @@ Table of Contents
       -  Below is based on OpenAPI specification:
          https://github.com/bgp/autopeer/blob/main/api/openapi.yaml
 
-   ``` GET: /get_status
+   ```
+
+   GET: /get_status
 
    Request parameters: * asn (requesting client's asn) * request_id
    (optional, UUID of request)
@@ -436,7 +469,9 @@ Table of Contents
 
    400:
 
-   Error (example: request_id is invalid) ```
+   Error (example: request_id is invalid)
+
+   ```
 
 6.2.3.  Private Peering
 
