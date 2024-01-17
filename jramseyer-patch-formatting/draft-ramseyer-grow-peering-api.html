@@ -1143,6 +1143,26 @@ We also propose future work to cover private peering, and alternative authentica
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
             <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-example-request-flow" class="internal xref">Example Request Flow</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
+                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-auth" class="internal xref">AUTH</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
+                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-request" class="internal xref">REQUEST</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3">
+                <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="auto internal xref">5.3</a>.  <a href="#name-client-configuration" class="internal xref">CLIENT CONFIGURATION</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.4">
+                <p id="section-toc.1-1.5.2.4.1"><a href="#section-5.4" class="auto internal xref">5.4</a>.  <a href="#name-server-configuration" class="internal xref">SERVER CONFIGURATION</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.5">
+                <p id="section-toc.1-1.5.2.5.1"><a href="#section-5.5" class="auto internal xref">5.5</a>.  <a href="#name-monitoring" class="internal xref">MONITORING</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.6">
+                <p id="section-toc.1-1.5.2.6.1"><a href="#section-5.6" class="auto internal xref">5.6</a>.  <a href="#name-completion" class="internal xref">COMPLETION</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
             <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-api-endpoints-and-specifica" class="internal xref">API Endpoints and Specifications</a></p>
@@ -1176,13 +1196,16 @@ We also propose future work to cover private peering, and alternative authentica
             <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-maintenance" class="internal xref">Maintenance</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
-            <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
+            <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-possible-extensions" class="internal xref">Possible Extensions</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
-            <p id="section-toc.1-1.11.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+            <p id="section-toc.1-1.11.1"><a href="#section-11" class="auto internal xref">11</a>. <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
-            <p id="section-toc.1-1.12.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-address" class="internal xref">Author's Address</a></p>
+            <p id="section-toc.1-1.12.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
+            <p id="section-toc.1-1.13.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-address" class="internal xref">Author's Address</a></p>
 </li>
         </ul>
 </nav>
@@ -1265,49 +1288,137 @@ After authentication, a client can request to add or remove peering connections,
       <h2 id="name-example-request-flow">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-example-request-flow" class="section-name selfRef">Example Request Flow</a>
       </h2>
-<p id="section-5-1">For a diagram, please see: https://github.com/bgp/autopeer/?tab=readme-ov-file#sequence-diagram
-## AUTH
-First, the client makes an authenticated request to the server.
+<p id="section-5-1">For a diagram, please see: https://github.com/bgp/autopeer/?tab=readme-ov-file#sequence-diagram<a href="#section-5-1" class="pilcrow">¶</a></p>
+<div id="auth">
+<section id="section-5.1">
+        <h3 id="name-auth">
+<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-auth" class="section-name selfRef">AUTH</a>
+        </h3>
+<p id="section-5.1-1">First, the client makes an authenticated request to the server.
 In this example, the client will use PeeringDB OAuth.
-Authentication provides the server with client's email (for potential manual discussion), along with client's entitlements, to confirm client is permitted to request on behalf of the proposed ASN.
-## REQUEST
-1. ADD SESSION (CLIENT REQUEST)
-  * Client provides:
-    * Dictionary (multiple):
-        1. Local ASN (server)
-        2. Local IP
-        3. Peer ASN (client)
-        4. Peer IP
-        5. Peer Type
-        6. MD5 (optional)
-        7. IXP ID
-        8. Status
-        9: UUID
-        10. Sent prefixes (0 if not Established) (optional)
-        11. Received prefixes (0 if not Established) (optional)
-        12. Accepted Prefixes (optional)
-  * Server actions:
-    * Server confirms requested clientASN in list of authorized ASN.
-    * Optional: checks traffic levels, prefix limit counters, other desired internal checks.
-2.  ADD SESSION (SERVER RESPONSE)
-  * APPROVAL CASE
-    * Server returns dictionary of acceptable peering sessions.  Note: this dictionary may also contain additional sessions on which to peer.  See "Public Peering Session Negotiation" for details.
-  * REJECTION CASE
-    * Server returns dictionary of acceptable and rejected sessions.
-  * Optional information:
-    * The server may also include the following details:
-      1. Prefix limit counters (optional value)
-      2. TimeWindow: Time window indicating when sessions will be configured after being notified (may be 0 if sessions are already configured on receiver side)
-      3. isInboundFiltered: optional bool that indicates whether prefixes will be filtered inbound.  If this is set to true, the time window should be set for how long the prefixes will be filtered.
-      4. isOutboundFiltered: optional bool that indicates whether prefixes will be filtered outbound.  If this is set to true, the time window should be set for how long the prefixes will be filtered.  If the outbound limit is longer than the inbound limit time, the time window should be set to the max of inbound versus outbound.
-## CLIENT CONFIGURATION
-The client then configures the chosen peering sessions.
+Authentication provides the server with client's email (for potential manual discussion), along with client's entitlements, to confirm client is permitted to request on behalf of the proposed ASN.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="request">
+<section id="section-5.2">
+        <h3 id="name-request">
+<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-request" class="section-name selfRef">REQUEST</a>
+        </h3>
+<ol start="1" type="1" class="normal type-1" id="section-5.2-1">
+<li id="section-5.2-1.1">
+            <p id="section-5.2-1.1.1">ADD SESSION (CLIENT REQUEST)
+  * Client provides:<a href="#section-5.2-1.1.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.2-1.1.2.1">
+                <p id="section-5.2-1.1.2.1.1">Dictionary (multiple):<a href="#section-5.2-1.1.2.1.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-5.2-1.1.2.1.2">
+<li id="section-5.2-1.1.2.1.2.1">
+                    <p id="section-5.2-1.1.2.1.2.1.1">Local ASN (server)<a href="#section-5.2-1.1.2.1.2.1.1" class="pilcrow">¶</a></p>
+</li>
+                  <li id="section-5.2-1.1.2.1.2.2">
+                    <p id="section-5.2-1.1.2.1.2.2.1">Local IP<a href="#section-5.2-1.1.2.1.2.2.1" class="pilcrow">¶</a></p>
+</li>
+                  <li id="section-5.2-1.1.2.1.2.3">
+                    <p id="section-5.2-1.1.2.1.2.3.1">Peer ASN (client)<a href="#section-5.2-1.1.2.1.2.3.1" class="pilcrow">¶</a></p>
+</li>
+                  <li id="section-5.2-1.1.2.1.2.4">
+                    <p id="section-5.2-1.1.2.1.2.4.1">Peer IP<a href="#section-5.2-1.1.2.1.2.4.1" class="pilcrow">¶</a></p>
+</li>
+                  <li id="section-5.2-1.1.2.1.2.5">
+                    <p id="section-5.2-1.1.2.1.2.5.1">Peer Type<a href="#section-5.2-1.1.2.1.2.5.1" class="pilcrow">¶</a></p>
+</li>
+                  <li id="section-5.2-1.1.2.1.2.6">
+                    <p id="section-5.2-1.1.2.1.2.6.1">MD5 (optional)<a href="#section-5.2-1.1.2.1.2.6.1" class="pilcrow">¶</a></p>
+</li>
+                  <li id="section-5.2-1.1.2.1.2.7">
+                    <p id="section-5.2-1.1.2.1.2.7.1">IXP ID<a href="#section-5.2-1.1.2.1.2.7.1" class="pilcrow">¶</a></p>
+</li>
+                  <li id="section-5.2-1.1.2.1.2.8">
+                    <p id="section-5.2-1.1.2.1.2.8.1">Status
+  9: UUID<a href="#section-5.2-1.1.2.1.2.8.1" class="pilcrow">¶</a></p>
+</li>
+                  <li id="section-5.2-1.1.2.1.2.9">
+                    <p id="section-5.2-1.1.2.1.2.9.1">Sent prefixes (0 if not Established) (optional)<a href="#section-5.2-1.1.2.1.2.9.1" class="pilcrow">¶</a></p>
+</li>
+                  <li id="section-5.2-1.1.2.1.2.10">
+                    <p id="section-5.2-1.1.2.1.2.10.1">Received prefixes (0 if not Established) (optional)<a href="#section-5.2-1.1.2.1.2.10.1" class="pilcrow">¶</a></p>
+</li>
+                  <li id="section-5.2-1.1.2.1.2.11">
+                    <p id="section-5.2-1.1.2.1.2.11.1">Accepted Prefixes (optional)<a href="#section-5.2-1.1.2.1.2.11.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.2-1.1.2.1.2.11.2.1">
+                        <p id="section-5.2-1.1.2.1.2.11.2.1.1">Server actions:<a href="#section-5.2-1.1.2.1.2.11.2.1.1" class="pilcrow">¶</a></p>
+</li>
+                    </ul>
+</li>
+                </ol>
+</li>
+              <li class="normal" id="section-5.2-1.1.2.2">
+                <p id="section-5.2-1.1.2.2.1">Server confirms requested clientASN in list of authorized ASN.<a href="#section-5.2-1.1.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-5.2-1.1.2.3">
+                <p id="section-5.2-1.1.2.3.1">Optional: checks traffic levels, prefix limit counters, other desired internal checks.<a href="#section-5.2-1.1.2.3.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li id="section-5.2-1.2">
+            <p id="section-5.2-1.2.1">ADD SESSION (SERVER RESPONSE)
+  * APPROVAL CASE<a href="#section-5.2-1.2.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.2-1.2.2.1">
+                <p id="section-5.2-1.2.2.1.1">Server returns dictionary of acceptable peering sessions.  Note: this dictionary may also contain additional sessions on which to peer.  See "Public Peering Session Negotiation" for details.
+        * REJECTION CASE<a href="#section-5.2-1.2.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-5.2-1.2.2.2">
+                <p id="section-5.2-1.2.2.2.1">Server returns dictionary of acceptable and rejected sessions.
+        * Optional information:<a href="#section-5.2-1.2.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-5.2-1.2.2.3">
+                <p id="section-5.2-1.2.2.3.1">The server may also include the following details:<a href="#section-5.2-1.2.2.3.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-5.2-1.2.2.3.2">
+<li id="section-5.2-1.2.2.3.2.1">
+                    <p id="section-5.2-1.2.2.3.2.1.1">Prefix limit counters (optional value)<a href="#section-5.2-1.2.2.3.2.1.1" class="pilcrow">¶</a></p>
+</li>
+                  <li id="section-5.2-1.2.2.3.2.2">
+                    <p id="section-5.2-1.2.2.3.2.2.1">TimeWindow: Time window indicating when sessions will be configured after being notified (may be 0 if sessions are already configured on receiver side)<a href="#section-5.2-1.2.2.3.2.2.1" class="pilcrow">¶</a></p>
+</li>
+                  <li id="section-5.2-1.2.2.3.2.3">
+                    <p id="section-5.2-1.2.2.3.2.3.1">isInboundFiltered: optional bool that indicates whether prefixes will be filtered inbound.  If this is set to true, the time window should be set for how long the prefixes will be filtered.<a href="#section-5.2-1.2.2.3.2.3.1" class="pilcrow">¶</a></p>
+</li>
+                  <li id="section-5.2-1.2.2.3.2.4">
+                    <p id="section-5.2-1.2.2.3.2.4.1">isOutboundFiltered: optional bool that indicates whether prefixes will be filtered outbound.  If this is set to true, the time window should be set for how long the prefixes will be filtered.  If the outbound limit is longer than the inbound limit time, the time window should be set to the max of inbound versus outbound.<a href="#section-5.2-1.2.2.3.2.4.1" class="pilcrow">¶</a></p>
+</li>
+                </ol>
+</li>
+            </ul>
+</li>
+        </ol>
+</section>
+</div>
+<div id="client-configuration">
+<section id="section-5.3">
+        <h3 id="name-client-configuration">
+<a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-client-configuration" class="section-name selfRef">CLIENT CONFIGURATION</a>
+        </h3>
+<p id="section-5.3-1">The client then configures the chosen peering sessions.
 If the server added additional approved peering sessions, the client may choose whether or not to configure those sessions.
-For every session that the server rejected, the client removes that session from the list to be configured.
-## SERVER CONFIGURATION
-The server configures all sessions that are in its list of approved peering sessions from its reply to the client.
-## MONITORING
-Both client and server wait for sessions to establish.
+For every session that the server rejected, the client removes that session from the list to be configured.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="server-configuration">
+<section id="section-5.4">
+        <h3 id="name-server-configuration">
+<a href="#section-5.4" class="section-number selfRef">5.4. </a><a href="#name-server-configuration" class="section-name selfRef">SERVER CONFIGURATION</a>
+        </h3>
+<p id="section-5.4-1">The server configures all sessions that are in its list of approved peering sessions from its reply to the client.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="monitoring">
+<section id="section-5.5">
+        <h3 id="name-monitoring">
+<a href="#section-5.5" class="section-number selfRef">5.5. </a><a href="#name-monitoring" class="section-name selfRef">MONITORING</a>
+        </h3>
+<p id="section-5.5-1">Both client and server wait for sessions to establish.
 At any point, client may send a "GET STATUS" request to the server, to request the status of the original request (by UUID) or of a session (by session UUID).
 The client will send a dictionary along with the request, as follows:
 * Dictionary:
@@ -1323,10 +1434,18 @@ The client will send a dictionary along with the request, as follows:
         10. Sent prefixes (0 if not Established) (optional)
         11. Received prefixes (0 if not Established) (optional)
         12. Accepted Prefixes (optional)
-The server then responds with the same dictionary, with the information that it understands (status, etc).
-## COMPLETION
-If both sides report that the session is established, then peering is complete.
-If one side does not configure sessions within the server's acceptable configuration window (TimeWindow), then the server is entitled to remove the configured sessions and report "Unestablished" to the client.<a href="#section-5-1" class="pilcrow">¶</a></p>
+The server then responds with the same dictionary, with the information that it understands (status, etc).<a href="#section-5.5-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="completion">
+<section id="section-5.6">
+        <h3 id="name-completion">
+<a href="#section-5.6" class="section-number selfRef">5.6. </a><a href="#name-completion" class="section-name selfRef">COMPLETION</a>
+        </h3>
+<p id="section-5.6-1">If both sides report that the session is established, then peering is complete.
+If one side does not configure sessions within the server's acceptable configuration window (TimeWindow), then the server is entitled to remove the configured sessions and report "Unestablished" to the client.<a href="#section-5.6-1" class="pilcrow">¶</a></p>
+</section>
+</div>
 </section>
 </div>
 <div id="api-endpoints-and-specifications">
@@ -1394,29 +1513,29 @@ On each call, there should be rate limits, allowed senders, and other optional r
               <p id="section-6.2.1-1.3.1">Below is based on OpenAPI specification: https://github.com/bgp/autopeer/blob/main/api/openapi.yaml<a href="#section-6.2.1-1.3.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-6.2.1-2"><code>
-POST: /add_sessions
- Request body: Session Array
-Responses:
- 200 OK:
-  Contents: Session Array (all sessions in request accepted for configuration).
- 300:
-  Contents: Modified Session Array, with rejected or additional sessions.
- 400:
-  Error
-</code><a href="#section-6.2.1-2" class="pilcrow">¶</a></p>
+<p id="section-6.2.1-2">```
+POST: /add_sessions<a href="#section-6.2.1-2" class="pilcrow">¶</a></p>
+<p id="section-6.2.1-3">Request body: Session Array<a href="#section-6.2.1-3" class="pilcrow">¶</a></p>
+<p id="section-6.2.1-4">Responses:<a href="#section-6.2.1-4" class="pilcrow">¶</a></p>
+<p id="section-6.2.1-5">200 OK:<a href="#section-6.2.1-5" class="pilcrow">¶</a></p>
+<p id="section-6.2.1-6">Contents: Session Array (all sessions in request accepted for configuration).<a href="#section-6.2.1-6" class="pilcrow">¶</a></p>
+<p id="section-6.2.1-7">300:<a href="#section-6.2.1-7" class="pilcrow">¶</a></p>
+<p id="section-6.2.1-8">Contents: Modified Session Array, with rejected or additional sessions.<a href="#section-6.2.1-8" class="pilcrow">¶</a></p>
+<p id="section-6.2.1-9">400:<a href="#section-6.2.1-9" class="pilcrow">¶</a></p>
+<p id="section-6.2.1-10">Error
+```<a href="#section-6.2.1-10" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-6.2.1-3.1">
-              <p id="section-6.2.1-3.1.1">REMOVE IX PEER<a href="#section-6.2.1-3.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-6.2.1-11.1">
+              <p id="section-6.2.1-11.1.1">REMOVE IX PEER<a href="#section-6.2.1-11.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-6.2.1-3.1.2.1">
-                  <p id="section-6.2.1-3.1.2.1.1">Given a list of Session Arrays, remove the sessions in that list.<a href="#section-6.2.1-3.1.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-6.2.1-11.1.2.1">
+                  <p id="section-6.2.1-11.1.2.1.1">Given a list of Session Arrays, remove the sessions in that list.<a href="#section-6.2.1-11.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                <li class="normal" id="section-6.2.1-3.1.2.2">
-                  <p id="section-6.2.1-3.1.2.2.1">This API serves as a notification to the server, as the client may remove the sessions before sending the request to the server.<a href="#section-6.2.1-3.1.2.2.1" class="pilcrow">¶</a></p>
+                <li class="normal" id="section-6.2.1-11.1.2.2">
+                  <p id="section-6.2.1-11.1.2.2.1">This API serves as a notification to the server, as the client may remove the sessions before sending the request to the server.<a href="#section-6.2.1-11.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                <li class="normal" id="section-6.2.1-3.1.2.3">
-                  <p id="section-6.2.1-3.1.2.3.1">Server replies back with request ID and deletion status (complete, in-progress).<a href="#section-6.2.1-3.1.2.3.1" class="pilcrow">¶</a></p>
+                <li class="normal" id="section-6.2.1-11.1.2.3">
+                  <p id="section-6.2.1-11.1.2.3.1">Server replies back with request ID and deletion status (complete, in-progress).<a href="#section-6.2.1-11.1.2.3.1" class="pilcrow">¶</a></p>
 </li>
               </ul>
 </li>
@@ -1431,49 +1550,45 @@ Responses:
 <p id="section-6.2.2-1">Endpoints which provide useful information for potential interconnections.
 * LIST POTENTIAL PEERING LOCATIONS
   * List potential peering locations, both public and private.
-  * Below is based on OpenAPI specification: https://github.com/bgp/autopeer/blob/main/api/openapi.yaml
-<code>
-GET: /list_locations
- Request parameters:
+  * Below is based on OpenAPI specification: https://github.com/bgp/autopeer/blob/main/api/openapi.yaml<a href="#section-6.2.2-1" class="pilcrow">¶</a></p>
+<p id="section-6.2.2-2">```
+GET: /list_locations<a href="#section-6.2.2-2" class="pilcrow">¶</a></p>
+<p id="section-6.2.2-3">Request parameters:
   * asn (Server ASN, with which to list potential connections)
-  * location_type (Optional: Peering Location)
- Response:
-  200: OK
-   Contents: List of Peering Locations.
-  400:
-   Error
-</code><a href="#section-6.2.2-1" class="pilcrow">¶</a></p>
+  * location_type (Optional: Peering Location)<a href="#section-6.2.2-3" class="pilcrow">¶</a></p>
+<p id="section-6.2.2-4">Response:<a href="#section-6.2.2-4" class="pilcrow">¶</a></p>
+<p id="section-6.2.2-5">200: OK<a href="#section-6.2.2-5" class="pilcrow">¶</a></p>
+<p id="section-6.2.2-6">Contents: List of Peering Locations.<a href="#section-6.2.2-6" class="pilcrow">¶</a></p>
+<p id="section-6.2.2-7">400:<a href="#section-6.2.2-7" class="pilcrow">¶</a></p>
+<p id="section-6.2.2-8">Error
+```<a href="#section-6.2.2-8" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-6.2.2-2.1">
-              <p id="section-6.2.2-2.1.1">QUERY for request status<a href="#section-6.2.2-2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-6.2.2-9.1">
+              <p id="section-6.2.2-9.1.1">QUERY for request status<a href="#section-6.2.2-9.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-6.2.2-2.1.2.1">
-                  <p id="section-6.2.2-2.1.2.1.1">Given a request ID, query for the status of that request.<a href="#section-6.2.2-2.1.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-6.2.2-9.1.2.1">
+                  <p id="section-6.2.2-9.1.2.1.1">Given a request ID, query for the status of that request.<a href="#section-6.2.2-9.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                <li class="normal" id="section-6.2.2-2.1.2.2">
-                  <p id="section-6.2.2-2.1.2.2.1">Given an ASN without request ID, query for status of all connections between client and server.<a href="#section-6.2.2-2.1.2.2.1" class="pilcrow">¶</a></p>
+                <li class="normal" id="section-6.2.2-9.1.2.2">
+                  <p id="section-6.2.2-9.1.2.2.1">Given an ASN without request ID, query for status of all connections between client and server.<a href="#section-6.2.2-9.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                <li class="normal" id="section-6.2.2-2.1.2.3">
-                  <p id="section-6.2.2-2.1.2.3.1">Below is based on OpenAPI specification: https://github.com/bgp/autopeer/blob/main/api/openapi.yaml
-```
-GET: /get_status
- Request parameters:<a href="#section-6.2.2-2.1.2.3.1" class="pilcrow">¶</a></p>
-</li>
-                <li class="normal" id="section-6.2.2-2.1.2.4">
-                  <p id="section-6.2.2-2.1.2.4.1">asn (requesting client's asn)<a href="#section-6.2.2-2.1.2.4.1" class="pilcrow">¶</a></p>
-</li>
-                <li class="normal" id="section-6.2.2-2.1.2.5">
-                  <p id="section-6.2.2-2.1.2.5.1">request_id (optional, UUID of request)
- Response:
-200: OK
- Contents: Session Array of sessions in request_id, if provided.  Else, all existing and in-progress sessions between client ASN and server.
-400:
- Error (example: request_id is invalid)
-```<a href="#section-6.2.2-2.1.2.5.1" class="pilcrow">¶</a></p>
+                <li class="normal" id="section-6.2.2-9.1.2.3">
+                  <p id="section-6.2.2-9.1.2.3.1">Below is based on OpenAPI specification: https://github.com/bgp/autopeer/blob/main/api/openapi.yaml<a href="#section-6.2.2-9.1.2.3.1" class="pilcrow">¶</a></p>
 </li>
               </ul>
 </li>
           </ul>
+<p id="section-6.2.2-10">```
+GET: /get_status<a href="#section-6.2.2-10" class="pilcrow">¶</a></p>
+<p id="section-6.2.2-11">Request parameters:
+  * asn (requesting client's asn)
+  * request_id (optional, UUID of request)<a href="#section-6.2.2-11" class="pilcrow">¶</a></p>
+<p id="section-6.2.2-12">Response:<a href="#section-6.2.2-12" class="pilcrow">¶</a></p>
+<p id="section-6.2.2-13">200: OK<a href="#section-6.2.2-13" class="pilcrow">¶</a></p>
+<p id="section-6.2.2-14">Contents: Session Array of sessions in request_id, if provided.  Else, all existing and in-progress sessions between client ASN and server.<a href="#section-6.2.2-14" class="pilcrow">¶</a></p>
+<p id="section-6.2.2-15">400:<a href="#section-6.2.2-15" class="pilcrow">¶</a></p>
+<p id="section-6.2.2-16">Error (example: request_id is invalid)
+```<a href="#section-6.2.2-16" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="private-peering">
@@ -1623,17 +1738,23 @@ If there is interest, this draft would extend to propose a maintenance endpoint,
 </li>
       </ul>
 <p id="section-9-4">The "Area" field could be a freeform string, or could be a parseable ENUM, like (BGP, PublicPeering, PrivatePeering, Configuration, Caching, DNS, etc).<a href="#section-9-4" class="pilcrow">¶</a></p>
-<p id="section-9-5">Past maintenances will not be advertised.
-# Possible Extensions
-The authors acknowledge that route-server configuration may also be of interest for this proposed API, and look forward to future discussions in this area.<a href="#section-9-5" class="pilcrow">¶</a></p>
+<p id="section-9-5">Past maintenances will not be advertised.<a href="#section-9-5" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="possible-extensions">
+<section id="section-10">
+      <h2 id="name-possible-extensions">
+<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-possible-extensions" class="section-name selfRef">Possible Extensions</a>
+      </h2>
+<p id="section-10-1">The authors acknowledge that route-server configuration may also be of interest for this proposed API, and look forward to future discussions in this area.<a href="#section-10-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
-<section id="section-10">
+<section id="section-11">
       <h2 id="name-iana-considerations">
-<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
+<a href="#section-11" class="section-number selfRef">11. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-10-1">This document has no IANA actions.<a href="#section-10-1" class="pilcrow">¶</a></p>
+<p id="section-11-1">This document has no IANA actions.<a href="#section-11-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="acknowledgments">
