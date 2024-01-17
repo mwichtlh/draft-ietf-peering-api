@@ -179,68 +179,73 @@ Table of Contents
 
 5.2.  REQUEST
 
-   1.  ADD SESSION (CLIENT REQUEST) * Client provides:
+   1.  ADD SESSION (CLIENT REQUEST)
 
-       *  Dictionary (multiple):
+   *  Client provides:
 
-          1.   Local ASN (server)
+      -  Dictionary (multiple):
 
-          2.   Local IP
+         1.   Local ASN (server)
 
-          3.   Peer ASN (client)
+         2.   Local IP
 
-          4.   Peer IP
+         3.   Peer ASN (client)
 
-          5.   Peer Type
+         4.   Peer IP
 
-          6.   MD5 (optional)
+         5.   Peer Type
 
-          7.   IXP ID
+         6.   MD5 (optional)
 
-          8.   Status 9: UUID
+         7.   IXP ID
 
-          9.   Sent prefixes (0 if not Established) (optional)
+         8.   Status 9: UUID
 
-          10.  Received prefixes (0 if not Established) (optional)
+         9.   Sent prefixes (0 if not Established) (optional)
 
-          11.  Accepted Prefixes (optional)
+         10.  Received prefixes (0 if not Established) (optional)
 
-               -  Server actions:
+         11.  Accepted Prefixes (optional)
 
-       *  Server confirms requested clientASN in list of authorized ASN.
+   *  Server actions:
 
-       *  Optional: checks traffic levels, prefix limit counters, other
-          desired internal checks.
+      -  Server confirms requested clientASN in list of authorized ASN.
 
-   2.  ADD SESSION (SERVER RESPONSE) * APPROVAL CASE
+      -  Optional: checks traffic levels, prefix limit counters, other
+         desired internal checks.  2.  ADD SESSION (SERVER RESPONSE)
 
-       *  Server returns dictionary of acceptable peering sessions.
-          Note: this dictionary may also contain additional sessions on
-          which to peer.  See "Public Peering Session Negotiation" for
-          details.  * REJECTION CASE
+   *  APPROVAL CASE
 
-       *  Server returns dictionary of acceptable and rejected sessions.
-          * Optional information:
+      -  Server returns dictionary of acceptable peering sessions.
+         Note: this dictionary may also contain additional sessions on
+         which to peer.  See "Public Peering Session Negotiation" for
+         details.
 
-       *  The server may also include the following details:
+   *  REJECTION CASE
 
-          1.  Prefix limit counters (optional value)
+      -  Server returns dictionary of acceptable and rejected sessions.
 
-          2.  TimeWindow: Time window indicating when sessions will be
-              configured after being notified (may be 0 if sessions are
-              already configured on receiver side)
+   *  Optional information:
 
-          3.  isInboundFiltered: optional bool that indicates whether
-              prefixes will be filtered inbound.  If this is set to
-              true, the time window should be set for how long the
-              prefixes will be filtered.
+      -  The server may also include the following details:
 
-          4.  isOutboundFiltered: optional bool that indicates whether
-              prefixes will be filtered outbound.  If this is set to
-              true, the time window should be set for how long the
-              prefixes will be filtered.  If the outbound limit is
-              longer than the inbound limit time, the time window should
-              be set to the max of inbound versus outbound.
+         1.  Prefix limit counters (optional value)
+
+         2.  TimeWindow: Time window indicating when sessions will be
+             configured after being notified (may be 0 if sessions are
+             already configured on receiver side)
+
+         3.  isInboundFiltered: optional bool that indicates whether
+             prefixes will be filtered inbound.  If this is set to true,
+             the time window should be set for how long the prefixes
+             will be filtered.
+
+         4.  isOutboundFiltered: optional bool that indicates whether
+             prefixes will be filtered outbound.  If this is set to
+             true, the time window should be set for how long the
+             prefixes will be filtered.  If the outbound limit is longer
+             than the inbound limit time, the time window should be set
+             to the max of inbound versus outbound.
 
 5.3.  CLIENT CONFIGURATION
 
@@ -349,13 +354,27 @@ Table of Contents
    the final definitive ID.  Request ID will not change across the
    request.
 
-   BGP Session * local_asn (ASN of requestor) * local_ip (IP of
-   requestor, v4 or v6) * peer_asn (server ASN) * peer_ip (server-side
-   IP) * peer_type (public or private) * md5 (optional string) *
-   location (Peering Location, as defined above) * status (Session
-   Status, as defined above) * UUID (of individual session.  Server must
-   provide UUID.  Client may provide initial UUID for client-side
-   tracking, but the server UUID will be the final definitive ID)
+   *  BGP Session
+
+      -  local_asn (ASN of requestor)
+
+      -  local_ip (IP of requestor, v4 or v6)
+
+      -  peer_asn (server ASN)
+
+      -  peer_ip (server-side IP)
+
+      -  peer_type (public or private)
+
+      -  md5 (optional string)
+
+      -  location (Peering Location, as defined above)
+
+      -  status (Session Status, as defined above)
+
+      -  UUID (of individual session.  Server must provide UUID.  Client
+         may provide initial UUID for client-side tracking, but the
+         server UUID will be the final definitive ID)
 
    Error
 
@@ -452,26 +471,22 @@ Table of Contents
       -  Below is based on OpenAPI specification:
          https://github.com/bgp/autopeer/blob/main/api/openapi.yaml
 
-   ```
+         GET: /get_status
 
-   GET: /get_status
+         Request parameters: * asn (requesting client's asn) *
+         request_id (optional, UUID of request)
 
-   Request parameters: * asn (requesting client's asn) * request_id
-   (optional, UUID of request)
+         Response:
 
-   Response:
+         200: OK
 
-   200: OK
+         Contents: Session Array of sessions in request_id, if provided.
+         Else, all existing and in-progress sessions between client ASN
+         and server.
 
-   Contents: Session Array of sessions in request_id, if provided.
-   Else, all existing and in-progress sessions between client ASN and
-   server.
+         400:
 
-   400:
-
-   Error (example: request_id is invalid)
-
-   ```
+         Error (example: request_id is invalid)
 
 6.2.3.  Private Peering
 
