@@ -1361,44 +1361,50 @@ Authentication provides the server with client's email (for potential manual dis
                 <p id="section-5.2-2.2.2.1.1">Server confirms requested clientASN in list of authorized ASN.<a href="#section-5.2-2.2.2.1.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-5.2-2.2.2.2">
-                <p id="section-5.2-2.2.2.2.1">Optional: checks traffic levels, prefix limit counters, other desired internal checks.
-      2.  ADD SESSION (SERVER RESPONSE)<a href="#section-5.2-2.2.2.2.1" class="pilcrow">¶</a></p>
+                <p id="section-5.2-2.2.2.2.1">Optional: checks traffic levels, prefix limit counters, other desired internal checks.<a href="#section-5.2-2.2.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="normal" id="section-5.2-2.3">
-            <p id="section-5.2-2.3.1">APPROVAL CASE<a href="#section-5.2-2.3.1" class="pilcrow">¶</a></p>
+        </ul>
+<ol start="1" type="1" class="normal type-1" id="section-5.2-3">
+<li id="section-5.2-3.1">
+            <p id="section-5.2-3.1.1">ADD SESSION (SERVER RESPONSE)<a href="#section-5.2-3.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ol>
 <ul class="normal">
-<li class="normal" id="section-5.2-2.3.2.1">
-                <p id="section-5.2-2.3.2.1.1">Server returns dictionary of acceptable peering sessions.  Note: this dictionary may also contain additional sessions on which to peer.  See "Public Peering Session Negotiation" for details.<a href="#section-5.2-2.3.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-5.2-4.1">
+            <p id="section-5.2-4.1.1">APPROVAL CASE<a href="#section-5.2-4.1.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.2-4.1.2.1">
+                <p id="section-5.2-4.1.2.1.1">Server returns dictionary of acceptable peering sessions.  Note: this dictionary may also contain additional sessions on which to peer.  See "Public Peering Session Negotiation" for details.<a href="#section-5.2-4.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="normal" id="section-5.2-2.4">
-            <p id="section-5.2-2.4.1">REJECTION CASE<a href="#section-5.2-2.4.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-5.2-4.2">
+            <p id="section-5.2-4.2.1">REJECTION CASE<a href="#section-5.2-4.2.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.2-2.4.2.1">
-                <p id="section-5.2-2.4.2.1.1">Server returns dictionary of acceptable and rejected sessions.<a href="#section-5.2-2.4.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-5.2-4.2.2.1">
+                <p id="section-5.2-4.2.2.1.1">Server returns dictionary of acceptable and rejected sessions.<a href="#section-5.2-4.2.2.1.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="normal" id="section-5.2-2.5">
-            <p id="section-5.2-2.5.1">Optional information:<a href="#section-5.2-2.5.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-5.2-4.3">
+            <p id="section-5.2-4.3.1">Optional information:<a href="#section-5.2-4.3.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.2-2.5.2.1">
-                <p id="section-5.2-2.5.2.1.1">The server may also include the following details:<a href="#section-5.2-2.5.2.1.1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-5.2-2.5.2.1.2">
-<li id="section-5.2-2.5.2.1.2.1">
-                    <p id="section-5.2-2.5.2.1.2.1.1">Prefix limit counters (optional value)<a href="#section-5.2-2.5.2.1.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-5.2-4.3.2.1">
+                <p id="section-5.2-4.3.2.1.1">The server may also include the following details:<a href="#section-5.2-4.3.2.1.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-5.2-4.3.2.1.2">
+<li id="section-5.2-4.3.2.1.2.1">
+                    <p id="section-5.2-4.3.2.1.2.1.1">Prefix limit counters (optional value)<a href="#section-5.2-4.3.2.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                  <li id="section-5.2-2.5.2.1.2.2">
-                    <p id="section-5.2-2.5.2.1.2.2.1">TimeWindow: Time window indicating when sessions will be configured after being notified (may be 0 if sessions are already configured on receiver side)<a href="#section-5.2-2.5.2.1.2.2.1" class="pilcrow">¶</a></p>
+                  <li id="section-5.2-4.3.2.1.2.2">
+                    <p id="section-5.2-4.3.2.1.2.2.1">TimeWindow: Time window indicating when sessions will be configured after being notified (may be 0 if sessions are already configured on receiver side)<a href="#section-5.2-4.3.2.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                  <li id="section-5.2-2.5.2.1.2.3">
-                    <p id="section-5.2-2.5.2.1.2.3.1">isInboundFiltered: optional bool that indicates whether prefixes will be filtered inbound.  If this is set to true, the time window should be set for how long the prefixes will be filtered.<a href="#section-5.2-2.5.2.1.2.3.1" class="pilcrow">¶</a></p>
+                  <li id="section-5.2-4.3.2.1.2.3">
+                    <p id="section-5.2-4.3.2.1.2.3.1">isInboundFiltered: optional bool that indicates whether prefixes will be filtered inbound.  If this is set to true, the time window should be set for how long the prefixes will be filtered.<a href="#section-5.2-4.3.2.1.2.3.1" class="pilcrow">¶</a></p>
 </li>
-                  <li id="section-5.2-2.5.2.1.2.4">
-                    <p id="section-5.2-2.5.2.1.2.4.1">isOutboundFiltered: optional bool that indicates whether prefixes will be filtered outbound.  If this is set to true, the time window should be set for how long the prefixes will be filtered.  If the outbound limit is longer than the inbound limit time, the time window should be set to the max of inbound versus outbound.<a href="#section-5.2-2.5.2.1.2.4.1" class="pilcrow">¶</a></p>
+                  <li id="section-5.2-4.3.2.1.2.4">
+                    <p id="section-5.2-4.3.2.1.2.4.1">isOutboundFiltered: optional bool that indicates whether prefixes will be filtered outbound.  If this is set to true, the time window should be set for how long the prefixes will be filtered.  If the outbound limit is longer than the inbound limit time, the time window should be set to the max of inbound versus outbound.<a href="#section-5.2-4.3.2.1.2.4.1" class="pilcrow">¶</a></p>
 </li>
                 </ol>
 </li>
