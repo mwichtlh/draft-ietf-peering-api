@@ -12,13 +12,13 @@ This API offers a standard way to request public (settlement-free) peering, veri
 The API is backed by PeeringDB OIDC, the industry standard for peering authentication.
 We also propose future work to cover private peering, and alternative authentication methods. 
     " name="description">
-<meta content="xml2rfc 3.19.0" name="generator">
+<meta content="xml2rfc 3.19.1" name="generator">
 <meta content="BGP" name="keyword">
 <meta content="peering" name="keyword">
 <meta content="configuration" name="keyword">
 <meta content="draft-ramseyer-grow-peering-api-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.19.0
+  xml2rfc 3.19.1
     Python 3.11.6
     ConfigArgParse 1.7
     google-i18n-address 3.1.0
@@ -31,7 +31,7 @@ We also propose future work to cover private peering, and alternative authentica
     requests 2.31.0
     setuptools 68.2.2
     six 1.16.0
-    wcwidth 0.2.12
+    wcwidth 0.2.13
 -->
 <link href="draft-ramseyer-grow-peering-api.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1034,7 +1034,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Ramseyer</td>
-<td class="center">Expires 20 July 2024</td>
+<td class="center">Expires 21 July 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1047,12 +1047,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ramseyer-grow-peering-api-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-01-17" class="published">17 January 2024</time>
+<time datetime="2024-01-18" class="published">18 January 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-07-20">20 July 2024</time></dd>
+<dd class="expires"><time datetime="2024-07-21">21 July 2024</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1100,7 +1100,7 @@ We also propose future work to cover private peering, and alternative authentica
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 20 July 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 21 July 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1180,7 +1180,7 @@ We also propose future work to cover private peering, and alternative authentica
                     <p id="section-toc.1-1.6.2.2.2.2.1"><a href="#section-6.2.2" class="auto internal xref">6.2.2</a>.  <a href="#name-utility-api-calls" class="internal xref">UTILITY API CALLS</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2.2.3">
-                    <p id="section-toc.1-1.6.2.2.2.3.1"><a href="#section-6.2.3" class="auto internal xref">6.2.3</a>.  <a href="#name-private-peering" class="internal xref">Private Peering</a></p>
+                    <p id="section-toc.1-1.6.2.2.2.3.1"><a href="#section-6.2.3" class="auto internal xref">6.2.3</a>.  <a href="#name-private-peering-draft" class="internal xref">Private Peering (DRAFT)</a></p>
 </li>
                 </ul>
 </li>
@@ -1190,7 +1190,7 @@ We also propose future work to cover private peering, and alternative authentica
             <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-public-peering-session-nego" class="internal xref">Public Peering Session Negotiation</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
-            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-private-peering-2" class="internal xref">Private Peering</a></p>
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-private-peering" class="internal xref">Private Peering</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
             <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-maintenance" class="internal xref">Maintenance</a></p>
@@ -1216,10 +1216,10 @@ We also propose future work to cover private peering, and alternative authentica
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">The Peering API is a mechanism that allows networks to automate interdomain interconnection  between two entities through global Internet Routing.
+<p id="section-1-1">The Peering API is a mechanism that allows networks to automate interdomain interconnection  between two Autonomous Systems (AS) through the Border Gateway Protocol 4 (BGP-4) (<a href="https://datatracker.ietf.org/doc/html/rfc4271">RFC4271</a>).
 Using the API, networks will be able to automatically request and accept peering interconnections between Autonomous Systems in public or private scenarios in a time faster than it would take to configure sessions manually.
 By speeding up the peering turn-up process and removing the need for manual involvement in peering, the API and automation will ensure that networks can get interconnected as fast, reliably, cost-effectively, and efficiently as possible.
-As result, this improves end-user performance for all applications using networks interconnection supporting the Peering API.<a href="#section-1-1" class="pilcrow">¶</a></p>
+As a result, this improves end-user performance for all applications using networks interconnection supporting the Peering API.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">Business Justification:<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">By using the Peering API, entities requesting and accepting peering can significantly improve the process to turn up interconnections by:<a href="#section-1-3" class="pilcrow">¶</a></p>
 <ul class="normal">
@@ -1252,7 +1252,7 @@ As result, this improves end-user performance for all applications using network
           <p id="section-2-2.3.1">Configured: peering session that is set up on one side<a href="#section-2-2.3.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-2-2.4">
-          <p id="section-2-2.4.1">Established: session is already defined as per BGP4 specification (page 71)<a href="#section-2-2.4.1" class="pilcrow">¶</a></p>
+          <p id="section-2-2.4.1">Established: session is already defined as per BGP-4 specification (<a href="https://datatracker.ietf.org/doc/html/rfc4271#page-71">page 71</a>)<a href="#section-2-2.4.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 </section>
@@ -1262,16 +1262,16 @@ As result, this improves end-user performance for all applications using network
       <h2 id="name-security-considerations">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-3-1">As peering connections exchange real internet traffic, this API requires a security component to verify that the requestor is allowed to request peering on behalf of that ASN.
-In this initial proposal, this API requires PeeringDB-based authentication as the standard.
+<p id="section-3-1">As peering connections exchange real Internet traffic, this API requires a security component to verify that the requestor is allowed to request peering on behalf of that AS.
+In this initial proposal, the API requires PeeringDB-based OAuth 2.0 (<a href="https://datatracker.ietf.org/doc/html/rfc6749">RFC6749</a>) authentication as the standard.
 After further discussion, the authors decided to offer alternate authentication options to accomodate the security concerns of different parties.
-As peers may require varying security standards, this API will support PeeringDB OIDC as the base requirement, with optional security extensions in addition (RPKI or alternate OIDCs, for example)
+As peers may require varying security standards, this API will support PeeringDB OpenID Connect (OIDC) as the base requirement, with optional security extensions in addition (RPKI (<a href="https://datatracker.ietf.org/doc/html/rfc6480">RFC6480</a>) or alternate OIDCs, for example)
 This document hopes that, through the RFC process, the Working Group can come to a consensus on a base "authentication standard," to ease adoption for peering partners.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <p id="section-3-2">Of particular interest is RPKI.
 PeeringDB OIDC allows the API to verify who the requesting party is, while RPKI-signing allows the requesting party to prove that they can configure a request.
 The combination of both authorizations provides a strong security guarantee.
 This document recognizes that not all partners have the time or engineering resources to support all authorization standards, so the API will offer an extensible security platform to meet varying security requirements.
-For RPKI-based authentication, this document refers to RFC9323.<a href="#section-3-2" class="pilcrow">¶</a></p>
+For RPKI-based authentication, this document refers to RPKI Signed Checklists (RSCs) (<a href="https://datatracker.ietf.org/doc/html/rfc9323">RFC9323</a>).<a href="#section-3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="protocol">
@@ -1288,15 +1288,15 @@ After authentication, a client can request to add or remove peering connections,
       <h2 id="name-example-request-flow">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-example-request-flow" class="section-name selfRef">Example Request Flow</a>
       </h2>
-<p id="section-5-1">For a diagram, please see: https://github.com/bgp/autopeer/?tab=readme-ov-file#sequence-diagram<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-1">For a diagram, please see: https://github.com/bgp/autopeer/blob/main/README.md#sequence-diagram<a href="#section-5-1" class="pilcrow">¶</a></p>
 <div id="auth">
 <section id="section-5.1">
         <h3 id="name-auth">
 <a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-auth" class="section-name selfRef">AUTH</a>
         </h3>
 <p id="section-5.1-1">First, the client makes an authenticated request to the server.
-In this example, the client will use PeeringDB OAuth.
-Authentication provides the server with client's email (for potential manual discussion), along with client's entitlements, to confirm client is permitted to request on behalf of the proposed ASN.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+In this example, the client will use PeeringDB OAuth 2.0.
+Authentication provides the server with the client's email (for potential manual discussion), along with the client's entitlements, to confirm the client is permitted to request on behalf of the proposed AS.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="request">
@@ -1329,13 +1329,13 @@ Authentication provides the server with client's email (for potential manual dis
                     <p id="section-5.2-2.1.2.1.2.4.1">Peer IP<a href="#section-5.2-2.1.2.1.2.4.1" class="pilcrow">¶</a></p>
 </li>
                   <li id="section-5.2-2.1.2.1.2.5">
-                    <p id="section-5.2-2.1.2.1.2.5.1">Peer Type<a href="#section-5.2-2.1.2.1.2.5.1" class="pilcrow">¶</a></p>
+                    <p id="section-5.2-2.1.2.1.2.5.1">Peer Type (public or private)<a href="#section-5.2-2.1.2.1.2.5.1" class="pilcrow">¶</a></p>
 </li>
                   <li id="section-5.2-2.1.2.1.2.6">
                     <p id="section-5.2-2.1.2.1.2.6.1">MD5 (optional)<a href="#section-5.2-2.1.2.1.2.6.1" class="pilcrow">¶</a></p>
 </li>
                   <li id="section-5.2-2.1.2.1.2.7">
-                    <p id="section-5.2-2.1.2.1.2.7.1">IXP ID<a href="#section-5.2-2.1.2.1.2.7.1" class="pilcrow">¶</a></p>
+                    <p id="section-5.2-2.1.2.1.2.7.1">IXP ID (PeeringDB Identifier)<a href="#section-5.2-2.1.2.1.2.7.1" class="pilcrow">¶</a></p>
 </li>
                   <li id="section-5.2-2.1.2.1.2.8">
                     <p id="section-5.2-2.1.2.1.2.8.1">Status
@@ -1358,7 +1358,7 @@ Authentication provides the server with client's email (for potential manual dis
             <p id="section-5.2-2.2.1">Server actions:<a href="#section-5.2-2.2.1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-5.2-2.2.2.1">
-                <p id="section-5.2-2.2.2.1.1">Server confirms requested clientASN in list of authorized ASN.<a href="#section-5.2-2.2.2.1.1" class="pilcrow">¶</a></p>
+                <p id="section-5.2-2.2.2.1.1">Server confirms requested clientASN in list of authorized ASNs.<a href="#section-5.2-2.2.2.1.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-5.2-2.2.2.2">
                 <p id="section-5.2-2.2.2.2.1">Optional: checks traffic levels, prefix limit counters, other desired internal checks.<a href="#section-5.2-2.2.2.2.1" class="pilcrow">¶</a></p>
@@ -1501,28 +1501,28 @@ If one side does not configure sessions within the server's acceptable configura
       <h2 id="name-api-endpoints-and-specifica">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-api-endpoints-and-specifica" class="section-name selfRef">API Endpoints and Specifications</a>
       </h2>
-<p id="section-6-1">Each peer needs an API endpoint that will implement the API protocol.
-This API should be publicly listed in peeringDB and also as a potential expansion of RFC 9092 which provides endpoint integration to whois.
+<p id="section-6-1">Each peer needs a public API endpoint that will implement the API protocol.
+This API should be publicly listed in peeringDB and also as a potential expansion of <a href="https://datatracker.ietf.org/doc/html/rfc9092">RFC9092</a> which could provide endpoint integration to WHOIS (<a href="https://datatracker.ietf.org/doc/html/rfc3912">RFC3912</a>).
 Each API endpoint should be fuzz-tested and protected against abuse.  Attackers should not be able to access internal systems using the API.
-Every single request should come in with a unique guid called RequestID that maps to a peering request for later reference.  This guid format should be standardized across all requests.  This guid should be provided by the receiver once it receives the request and must be embedded in all communication.  If there is no RequestID present then that should be interpreted as a new request and the process starts again.
-An email address is needed for communication if the API fails or is not implemented properly (can be obtained through peeringdb).<a href="#section-6-1" class="pilcrow">¶</a></p>
-<p id="section-6-2">For a programmatic specification of the API, please see the public Github here: https://github.com/bgp/autopeer/blob/main/api/openapi.yaml<a href="#section-6-2" class="pilcrow">¶</a></p>
+Every single request should come in with a unique GUID called RequestID that maps to a peering request for later reference.  This GUID format should be standardized across all requests.  This GUID should be provided by the receiver once it receives the request and must be embedded in all communication.  If there is no RequestID present then that should be interpreted as a new request and the process starts again.
+An email address is needed for communication if the API fails or is not implemented properly (can be obtained through PeeringDB).<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-2">For a programmatic specification of the API, please see the public Github here: <a href="https://github.com/bgp/autopeer/blob/main/api/openapi.yaml">https://github.com/bgp/autopeer/blob/main/api/openapi.yaml</a><a href="#section-6-2" class="pilcrow">¶</a></p>
 <p id="section-6-3">This initial draft fully specifies the Public Peering endpoints.  Private Peering and Maintenance are under discussion, and the authors invite collaboration and discussion from interested parties.<a href="#section-6-3" class="pilcrow">¶</a></p>
 <div id="data-types">
 <section id="section-6.1">
         <h3 id="name-data-types">
 <a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-data-types" class="section-name selfRef">DATA TYPES</a>
         </h3>
-<p id="section-6.1-1">As defined in https://github.com/bgp/autopeer/blob/main/api/openapi.yaml.
+<p id="section-6.1-1">As defined in <a href="https://github.com/bgp/autopeer/blob/main/api/openapi.yaml">https://github.com/bgp/autopeer/blob/main/api/openapi.yaml</a>.
 Please see specification for OpenAPI format.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
 <p id="section-6.1-2">Peering Location<a href="#section-6.1-2" class="pilcrow">¶</a></p>
 <p id="section-6.1-3">Contains string field listing the desired peering location in format <code>pdb:ix:$IX_ID</code>, and an enum specifying peering type (public or private).<a href="#section-6.1-3" class="pilcrow">¶</a></p>
 <p id="section-6.1-4">Session Status<a href="#section-6.1-4" class="pilcrow">¶</a></p>
-<p id="section-6.1-5">Status of BGP Session, both as connection status and approval status (Established, Pending, Approved, Rejected, Down, etc)<a href="#section-6.1-5" class="pilcrow">¶</a></p>
+<p id="section-6.1-5">Status of BGP Session, both as connection status and approval status (Established, Pending, Approved, Rejected, Down, Unestablished, etc)<a href="#section-6.1-5" class="pilcrow">¶</a></p>
 <p id="section-6.1-6">Session Array<a href="#section-6.1-6" class="pilcrow">¶</a></p>
 <p id="section-6.1-7">Array of potential BGP sessions, with request UUID.
  Request UUID is optional for client, and required for server.
- Client may provide initial UUID for client-side tracking, but the server UUID will be the final definitive ID.  Request ID will not change across the request.<a href="#section-6.1-7" class="pilcrow">¶</a></p>
+ Client may provide initial UUID for client-side tracking, but the server UUID will be the final definitive ID.  RequestID will not change across the request.<a href="#section-6.1-7" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6.1-8.1">
             <p id="section-6.1-8.1.1">BGP Session<a href="#section-6.1-8.1.1" class="pilcrow">¶</a></p>
@@ -1567,7 +1567,7 @@ Please see specification for OpenAPI format.<a href="#section-6.1-1" class="pilc
         <h3 id="name-endpoints">
 <a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-endpoints" class="section-name selfRef">Endpoints:</a>
         </h3>
-<p id="section-6.2-1">(As defined in https://github.com/bgp/autopeer/blob/main/api/openapi.yaml)
+<p id="section-6.2-1">(As defined in <a href="https://github.com/bgp/autopeer/blob/main/api/openapi.yaml">https://github.com/bgp/autopeer/blob/main/api/openapi.yaml</a>)
 On each call, there should be rate limits, allowed senders, and other optional restrictions.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
 <div id="public-peering-over-an-internet-exchange-ix">
 <section id="section-6.2.1">
@@ -1582,7 +1582,7 @@ On each call, there should be rate limits, allowed senders, and other optional r
                   <p id="section-6.2.1-1.1.2.1.1">Establish new BGP sessions between peers, at the desired exchange.<a href="#section-6.2.1-1.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
                 <li class="normal" id="section-6.2.1-1.1.2.2">
-                  <p id="section-6.2.1-1.1.2.2.1">Below is based on OpenAPI specification: https://github.com/bgp/autopeer/blob/main/api/openapi.yaml<a href="#section-6.2.1-1.1.2.2.1" class="pilcrow">¶</a></p>
+                  <p id="section-6.2.1-1.1.2.2.1">Below is based on OpenAPI specification: <a href="https://github.com/bgp/autopeer/blob/main/api/openapi.yaml">https://github.com/bgp/autopeer/blob/main/api/openapi.yaml</a><a href="#section-6.2.1-1.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
                 <li class="normal" id="section-6.2.1-1.1.2.3">
                   <p id="section-6.2.1-1.1.2.3.1">POST: /add_sessions<a href="#section-6.2.1-1.1.2.3.1" class="pilcrow">¶</a></p>
@@ -1705,7 +1705,7 @@ On each call, there should be rate limits, allowed senders, and other optional r
                   <p id="section-6.2.2-2.2.2.2.1">Given an ASN without request ID, query for status of all connections between client and server.<a href="#section-6.2.2-2.2.2.2.1" class="pilcrow">¶</a></p>
 </li>
                 <li class="normal" id="section-6.2.2-2.2.2.3">
-                  <p id="section-6.2.2-2.2.2.3.1">Below is based on OpenAPI specification: https://github.com/bgp/autopeer/blob/main/api/openapi.yaml<a href="#section-6.2.2-2.2.2.3.1" class="pilcrow">¶</a></p>
+                  <p id="section-6.2.2-2.2.2.3.1">Below is based on OpenAPI specification: <a href="https://github.com/bgp/autopeer/blob/main/api/openapi.yaml">https://github.com/bgp/autopeer/blob/main/api/openapi.yaml</a><a href="#section-6.2.2-2.2.2.3.1" class="pilcrow">¶</a></p>
 </li>
                 <li class="normal" id="section-6.2.2-2.2.2.4">
                   <p id="section-6.2.2-2.2.2.4.1">GET: /get_status<a href="#section-6.2.2-2.2.2.4.1" class="pilcrow">¶</a></p>
@@ -1749,10 +1749,10 @@ On each call, there should be rate limits, allowed senders, and other optional r
           </ul>
 </section>
 </div>
-<div id="private-peering">
+<div id="private-peering-draft">
 <section id="section-6.2.3">
-          <h4 id="name-private-peering">
-<a href="#section-6.2.3" class="section-number selfRef">6.2.3. </a><a href="#name-private-peering" class="section-name selfRef">Private Peering</a>
+          <h4 id="name-private-peering-draft">
+<a href="#section-6.2.3" class="section-number selfRef">6.2.3. </a><a href="#name-private-peering-draft" class="section-name selfRef">Private Peering (DRAFT)</a>
           </h4>
 <ul class="normal">
 <li class="normal" id="section-6.2.3-1.1">
@@ -1826,7 +1826,7 @@ On each call, there should be rate limits, allowed senders, and other optional r
               <p id="section-6.2.3-1.4.1">REMOVE PNI<a href="#section-6.2.3-1.4.1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6.2.3-1.4.2.1">
-                  <p id="section-6.2.3-1.4.2.1.1">As ADD/AUGMENT in parameters.  Responses will include a request ID and status.<a href="#section-6.2.3-1.4.2.1.1" class="pilcrow">¶</a></p>
+                  <p id="section-6.2.3-1.4.2.1.1">As ADD/AUGMENT in parameters.  Responses will include a requestID and status.<a href="#section-6.2.3-1.4.2.1.1" class="pilcrow">¶</a></p>
 </li>
               </ul>
 </li>
@@ -1850,7 +1850,7 @@ However, the server may choose to rejest session B.
 At that point, the server will reply back with A and C marked as "Accepted," and B as "Rejected."
 The server will then configure A and C, and wait for the client to configure A and C.
 If the client configured B as well, it will not come up.<a href="#section-7-1" class="pilcrow">¶</a></p>
-<p id="section-7-2">This draft encourages peers to set up garbage collection for unconfigured or down peering sessions, to remove stale configs and maintain good router hygiene.<a href="#section-7-2" class="pilcrow">¶</a></p>
+<p id="section-7-2">This draft encourages peers to set up garbage collection for unconfigured or down peering sessions, to remove stale configuration and maintain good router hygiene.<a href="#section-7-2" class="pilcrow">¶</a></p>
 <p id="section-7-3">Related to rejection, if the server would like to configure additional sessions with the client, the server may reply back with additional peering sessions D and E.
 The server will configure D and E on their side, and D and E will become part of the sessions requested in the UUID.
 The client may choose whether or not to accept those additional sessions.
@@ -1860,10 +1860,10 @@ If they do not, the client will not configure D and E, and the server should gar
 Perhaps this information could be conveyed over a preferences vector.<a href="#section-7-4" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="private-peering-1">
+<div id="private-peering">
 <section id="section-8">
-      <h2 id="name-private-peering-2">
-<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-private-peering-2" class="section-name selfRef">Private Peering</a>
+      <h2 id="name-private-peering">
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-private-peering" class="section-name selfRef">Private Peering</a>
       </h2>
 <p id="section-8-1">Through future discussion with the IETF, the specification for private peering will be solidified.
 Of interest for discussion includes Letter of Authorization (LOA) negotiation, and how to coordinate unfiltering and configuration checks.<a href="#section-8-1" class="pilcrow">¶</a></p>
