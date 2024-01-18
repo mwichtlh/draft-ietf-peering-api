@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-01-16T01:22:47.752807+00:00",
+  "timestamp": "2024-01-18T01:22:31.093645+00:00",
   "repo": "bgp/draft-ietf-peering-api",
   "labels": [
     {
@@ -273,24 +273,26 @@
       "id": "PR_kwDOKwWQEM5jvB3o",
       "title": "Update draft-ramseyer-grow-peering-api.md (Abstract)",
       "url": "https://github.com/bgp/draft-ietf-peering-api/pull/7",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "jramseyer",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Adding an abstract to the doc",
       "createdAt": "2024-01-10T22:15:44Z",
-      "updatedAt": "2024-01-15T13:01:54Z",
+      "updatedAt": "2024-01-16T19:56:20Z",
       "baseRepository": "bgp/draft-ietf-peering-api",
       "baseRefName": "main",
-      "baseRefOid": "e38d8a01def9c25cc3b5d12ba6ce7c6e41681a47",
+      "baseRefOid": "c13eb5f55f64ddaa140bc17af764f94b2b44421e",
       "headRepository": "bgp/draft-ietf-peering-api",
       "headRefName": "jramseyer-patch-abstract",
-      "headRefOid": "8cc612a21400318580ab0fe45c3a47ec5e1f91ca",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "c57c5bd8308c966899a8d3f5f97fa72711bebf20",
+      "closedAt": "2024-01-16T19:56:17Z",
+      "mergedAt": "2024-01-16T19:56:17Z",
+      "mergedBy": "jramseyer",
+      "mergeCommit": {
+        "oid": "10c22732681f470a4b8b4c609f24c8b332731500"
+      },
       "comments": [
         {
           "author": "grizz",
@@ -318,6 +320,26 @@
               "body": "--> 'Private (paid) peering'\r\n\r\nI think that private peering and paid peering are regularly two separated things.\r\n\r\nPrivate peering is done on private interfaces (mostly link to link,) and paid peering could be private peering or public peering but you pay to your peer to connect .\r\n\r\n",
               "createdAt": "2024-01-15T13:01:54Z",
               "updatedAt": "2024-01-15T13:01:54Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKwWQEM5svxh3",
+          "commit": {
+            "abbreviatedOid": "8cc612a"
+          },
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-01-16T17:58:16Z",
+          "updatedAt": "2024-01-16T17:58:16Z",
+          "comments": [
+            {
+              "originalPosition": 1,
+              "body": "Good catch.  I will fix.",
+              "createdAt": "2024-01-16T17:58:16Z",
+              "updatedAt": "2024-01-16T17:58:16Z"
             }
           ]
         }
@@ -378,25 +400,120 @@
       "id": "PR_kwDOKwWQEM5j21Gt",
       "title": "Sample request flow",
       "url": "https://github.com/bgp/draft-ietf-peering-api/pull/9",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "jramseyer",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Adding a section with sample request flow.\r\n\r\nNot sure if we need this section in addition to the endpoints section.  We can reorder or remove it as necessary.\r\n\r\nTried to follow the spec as we (Meta) understand it, but I will update if I notice any discrepancies between it and the ENDPOINTS section.",
       "createdAt": "2024-01-11T20:50:34Z",
-      "updatedAt": "2024-01-11T21:08:38Z",
+      "updatedAt": "2024-01-16T20:00:52Z",
       "baseRepository": "bgp/draft-ietf-peering-api",
       "baseRefName": "main",
-      "baseRefOid": "e38d8a01def9c25cc3b5d12ba6ce7c6e41681a47",
+      "baseRefOid": "10c22732681f470a4b8b4c609f24c8b332731500",
       "headRepository": "bgp/draft-ietf-peering-api",
       "headRefName": "jramseyer-patch-example-request",
-      "headRefOid": "29af1773a321d0f41de0bf3d6bb1cf5d6406b322",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "ce8d28cc7cfbf657caa631ecfa36a12914069864",
+      "closedAt": "2024-01-16T20:00:48Z",
+      "mergedAt": "2024-01-16T20:00:48Z",
+      "mergedBy": "jramseyer",
+      "mergeCommit": {
+        "oid": "7035f3b3e681e9279486f5c59d4234d0d8a008c9"
+      },
       "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 10,
+      "id": "PR_kwDOKwWQEM5kP_UZ",
+      "title": "Add endpoints, finish draft.",
+      "url": "https://github.com/bgp/draft-ietf-peering-api/pull/10",
+      "state": "MERGED",
+      "author": "jramseyer",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Finish draft!\r\n* endpoints\r\n* endpoint details\r\n* future work\r\nI will merge this tomorrow, so we can submit something to the area directors and request to present at dispatch.\r\n",
+      "createdAt": "2024-01-16T21:31:43Z",
+      "updatedAt": "2024-01-17T19:10:02Z",
+      "baseRepository": "bgp/draft-ietf-peering-api",
+      "baseRefName": "main",
+      "baseRefOid": "7035f3b3e681e9279486f5c59d4234d0d8a008c9",
+      "headRepository": "bgp/draft-ietf-peering-api",
+      "headRefName": "ramseyer-patch-endpoints",
+      "headRefOid": "f98c15e9bb5b31412b7241b70dbff0f7ff8ed972",
+      "closedAt": "2024-01-17T19:09:58Z",
+      "mergedAt": "2024-01-17T19:09:58Z",
+      "mergedBy": "jramseyer",
+      "mergeCommit": {
+        "oid": "f15ee58ffe9d9e8ab9a36818d44562d0dfdf76c5"
+      },
+      "comments": [
+        {
+          "author": "job",
+          "authorAssociation": "NONE",
+          "body": "You can also immediately bring it to the GROW chairs :-)",
+          "createdAt": "2024-01-16T21:33:25Z",
+          "updatedAt": "2024-01-16T21:33:25Z"
+        },
+        {
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> You can also immediately bring it to the GROW chairs :-)\r\n\r\nThanks, sounds good :) I will email you and the other GROW chair.\r\nShould I submit formally to the IETF site, or is a draft attached sufficient?",
+          "createdAt": "2024-01-16T21:36:43Z",
+          "updatedAt": "2024-01-16T21:36:43Z"
+        },
+        {
+          "author": "job",
+          "authorAssociation": "NONE",
+          "body": "If you upload this draft via https://datatracker.ietf.org/submit/ - please\r\n\r\nyou can then bring this draft to the attention of working group via grow@ietf.org by sending a cover letter \r\n\r\nIn the same email you can request a talking slot in the upcoming GROW session at IETF 119",
+          "createdAt": "2024-01-16T21:37:20Z",
+          "updatedAt": "2024-01-16T21:37:20Z"
+        },
+        {
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thanks, I will do so this week!  ",
+          "createdAt": "2024-01-16T21:46:39Z",
+          "updatedAt": "2024-01-16T21:46:39Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 11,
+      "id": "PR_kwDOKwWQEM5kWUdV",
+      "title": "Fix formatting",
+      "url": "https://github.com/bgp/draft-ietf-peering-api/pull/11",
+      "state": "MERGED",
+      "author": "jramseyer",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Generated submission didn't match markdown spec, should have checked.\r\n\r\nLet's see if this fixes (will check compiled files, my mistake)",
+      "createdAt": "2024-01-17T19:43:55Z",
+      "updatedAt": "2024-01-17T20:15:44Z",
+      "baseRepository": "bgp/draft-ietf-peering-api",
+      "baseRefName": "main",
+      "baseRefOid": "f15ee58ffe9d9e8ab9a36818d44562d0dfdf76c5",
+      "headRepository": "bgp/draft-ietf-peering-api",
+      "headRefName": "jramseyer-patch-formatting",
+      "headRefOid": "fddcaf1f89426b20e0bc3c82bfa545b342e52167",
+      "closedAt": "2024-01-17T20:15:43Z",
+      "mergedAt": "2024-01-17T20:15:43Z",
+      "mergedBy": "jramseyer",
+      "mergeCommit": {
+        "oid": "7ef5865d3728d33711e81de158b2a6d8b846a233"
+      },
+      "comments": [
+        {
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Ok, the generated files look good.  I will resubmit.",
+          "createdAt": "2024-01-17T20:15:30Z",
+          "updatedAt": "2024-01-17T20:15:30Z"
+        }
+      ],
       "reviews": []
     }
   ]
