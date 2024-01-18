@@ -141,7 +141,7 @@ Table of Contents
    the API requires PeeringDB-based OAuth 2.0 (RFC6749
    (https://datatracker.ietf.org/doc/html/rfc6749)) authentication as
    the standard.  After further discussion, the authors decided to offer
-   alternate authentication options to accomodate the security concerns
+   alternate authentication options to accommodate the security concerns
    of different parties.  As peers may require varying security
    standards, this API will support PeeringDB OpenID Connect (OIDC) as
    the base requirement, with optional security extensions in addition
@@ -536,7 +536,7 @@ Table of Contents
 
          o  LAG struct, with server data populated
 
-         o  LOA or way to recieve it
+         o  LOA or way to receive it
 
          o  Request ID
 
@@ -559,7 +559,7 @@ Table of Contents
    peering.  At first, a client will request sessions A, B, and C.  The
    server may choose to accept all sessions A, B, and C.  At this point,
    configuration proceeds as normal.  However, the server may choose to
-   rejest session B.  At that point, the server will reply back with A
+   reject session B.  At that point, the server will reply back with A
    and C marked as "Accepted," and B as "Rejected."  The server will
    then configure A and C, and wait for the client to configure A and C.
    If the client configured B as well, it will not come up.

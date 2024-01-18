@@ -1264,7 +1264,7 @@ As a result, this improves end-user performance for all applications using netwo
       </h2>
 <p id="section-3-1">As peering connections exchange real Internet traffic, this API requires a security component to verify that the requestor is allowed to request peering on behalf of that AS.
 In this initial proposal, the API requires PeeringDB-based OAuth 2.0 (<a href="https://datatracker.ietf.org/doc/html/rfc6749">RFC6749</a>) authentication as the standard.
-After further discussion, the authors decided to offer alternate authentication options to accomodate the security concerns of different parties.
+After further discussion, the authors decided to offer alternate authentication options to accommodate the security concerns of different parties.
 As peers may require varying security standards, this API will support PeeringDB OpenID Connect (OIDC) as the base requirement, with optional security extensions in addition (RPKI (<a href="https://datatracker.ietf.org/doc/html/rfc6480">RFC6480</a>) or alternate OIDCs, for example)
 This document hopes that, through the RFC process, the Working Group can come to a consensus on a base "authentication standard," to ease adoption for peering partners.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <p id="section-3-2">Of particular interest is RPKI.
@@ -1802,7 +1802,7 @@ On each call, there should be rate limits, allowed senders, and other optional r
                       <p id="section-6.2.3-1.3.2.1.2.1.1">LAG struct, with server data populated<a href="#section-6.2.3-1.3.2.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
                     <li class="normal" id="section-6.2.3-1.3.2.1.2.2">
-                      <p id="section-6.2.3-1.3.2.1.2.2.1">LOA or way to recieve it<a href="#section-6.2.3-1.3.2.1.2.2.1" class="pilcrow">¶</a></p>
+                      <p id="section-6.2.3-1.3.2.1.2.2.1">LOA or way to receive it<a href="#section-6.2.3-1.3.2.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
                     <li class="normal" id="section-6.2.3-1.3.2.1.2.3">
                       <p id="section-6.2.3-1.3.2.1.2.3.1">Request ID<a href="#section-6.2.3-1.3.2.1.2.3.1" class="pilcrow">¶</a></p>
@@ -1846,7 +1846,7 @@ On each call, there should be rate limits, allowed senders, and other optional r
 At first, a client will request sessions A, B, and C.
 The server may choose to accept all sessions A, B, and C.
 At this point, configuration proceeds as normal.
-However, the server may choose to rejest session B.
+However, the server may choose to reject session B.
 At that point, the server will reply back with A and C marked as "Accepted," and B as "Rejected."
 The server will then configure A and C, and wait for the client to configure A and C.
 If the client configured B as well, it will not come up.<a href="#section-7-1" class="pilcrow">¶</a></p>
