@@ -1034,7 +1034,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Ramseyer</td>
-<td class="center">Expires 21 July 2024</td>
+<td class="center">Expires 22 July 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1047,12 +1047,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ramseyer-grow-peering-api-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-01-18" class="published">18 January 2024</time>
+<time datetime="2024-01-19" class="published">19 January 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-07-21">21 July 2024</time></dd>
+<dd class="expires"><time datetime="2024-07-22">22 July 2024</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1100,7 +1100,7 @@ We also propose future work to cover private peering, and alternative authentica
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 21 July 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 22 July 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1262,15 +1262,15 @@ As a result, this improves end-user performance for all applications using netwo
       <h2 id="name-security-considerations">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-3-1">As peering connections exchange real Internet traffic, this API requires a security component to verify that the requestor is allowed to request peering on behalf of that AS.
-In this initial proposal, the API requires PeeringDB-based OAuth 2.0 (<a href="https://datatracker.ietf.org/doc/html/rfc6749">RFC6749</a>) authentication as the standard.
+<p id="section-3-1">As peering connections exchange real Internet traffic, this API requires a security component to verify that the requestor is authorized to operate the interconnection on behalf of such AS.
+In this initial proposal, the API follows an authorization model based on OpenID Connect (OIDC) (<a href="https://openid.net/specs/openid-connect-core-1_0.html">OpenID.Core</a>) and OAuth 2.0 (<a href="https://datatracker.ietf.org/doc/html/rfc6749">RFC6749</a>) where the Authorization Server is PeeringDB. The choice of OpenID Connect is to use the standardized token exchange format based on JSON Web Tokens (<a href="https://www.rfc-editor.org/rfc/rfc7519.html">RFC7519</a>) which allows interoperation with existing web-based application flows. JWT tokens also supply sufficient claims to implement receiver-side authorization decisions when used as bearer access tokens (<a href="https://datatracker.ietf.org/doc/html/rfc9068">RFC9068</a>) and for which best common practices also exist (<a href="https://www.rfc-editor.org/rfc/rfc8725.html">RFC8725</a>).
 After further discussion, the authors decided to offer alternate authentication options to accommodate the security concerns of different parties.
-As peers may require varying security standards, this API will support PeeringDB OpenID Connect (OIDC) as the base requirement, with optional security extensions in addition (RPKI (<a href="https://datatracker.ietf.org/doc/html/rfc6480">RFC6480</a>) or alternate OIDCs, for example)
-This document hopes that, through the RFC process, the Working Group can come to a consensus on a base "authentication standard," to ease adoption for peering partners.<a href="#section-3-1" class="pilcrow">¶</a></p>
+As peers may require varying security standards, this document proposes to support PeeringDB OIDC as the base requirement, with optional security extensions in addition (RPKI (<a href="https://datatracker.ietf.org/doc/html/rfc6480">RFC6480</a>) or alternative OIDC Authorization Servers, for example).
+This document hopes that, through the RFC process, the Working Group can come to a consensus on a base "authorization standard," to ease adoption for peering participants.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <p id="section-3-2">Of particular interest is RPKI.
-PeeringDB OIDC allows the API to verify who the requesting party is, while RPKI-signing allows the requesting party to prove that they can configure a request.
-The combination of both authorizations provides a strong security guarantee.
-This document recognizes that not all partners have the time or engineering resources to support all authorization standards, so the API will offer an extensible security platform to meet varying security requirements.
+PeeringDB OIDC allows the API to identify who the requesting party is, while RPKI-signing allows such requesting party to prove that they own some of the Internet-assigned resources referenced in the request.
+This combination provides a low entry barrier to create an identity federation across the participating ASs' API with a stronger guarantee of resource ownership against potential for misattribution and repudiation.
+The authors recognize that not all partners have the time or engineering resources to support all authorization standards, so the API reference implementations will offer an extensible security mechanism to meet varying identity and security requirements.
 For RPKI-based authentication, this document refers to RPKI Signed Checklists (RSCs) (<a href="https://datatracker.ietf.org/doc/html/rfc9323">RFC9323</a>).<a href="#section-3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1279,8 +1279,8 @@ For RPKI-based authentication, this document refers to RPKI Signed Checklists (R
       <h2 id="name-protocol">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-protocol" class="section-name selfRef">Protocol</a>
       </h2>
-<p id="section-4-1">The Peering API follows the RESTful API mode.
-After authentication, a client can request to add or remove peering connections, list potential interconnection locations, and query for upcoming maintenance events.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-1">The Peering API follows the Representational State Transfer (<a href="http://roy.gbiv.com/pubs/dissertation/top.htm">REST</a>) architecture where sessions, locations, and maintenance events are the resources the API represents and is modeled after the OpenAPI standard <a href="https://swagger.io/specification/">OpenAPI-v3.1.0</a>.
+Using the token bearer model (<a href="https://datatracker.ietf.org/doc/html/rfc6750">RFC6750</a>), a client application can request to add or remove peering sessions, list potential interconnection locations, and query for upcoming maintenance events on behalf of the AS resource owner.<a href="#section-4-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="example-request-flow">
@@ -1294,9 +1294,9 @@ After authentication, a client can request to add or remove peering connections,
         <h3 id="name-auth">
 <a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-auth" class="section-name selfRef">AUTH</a>
         </h3>
-<p id="section-5.1-1">First, the client makes an authenticated request to the server.
-In this example, the client will use PeeringDB OAuth 2.0.
-Authentication provides the server with the client's email (for potential manual discussion), along with the client's entitlements, to confirm the client is permitted to request on behalf of the proposed AS.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.1-1">First, the initiating OAuth2 Client is also the Resource Owner (RO) so it can follow the OAuth2 client credentials grant <a href="https://datatracker.ietf.org/doc/html/rfc6749#section-4.4">RFC6749-section-4.4</a>.
+In this example, the client will use PeeringDB OIDC credentials to acquire a JWT access token that is scoped for use with the receiving API.
+On successful authentication, PeeringDB provides the Resource Server (RS) with the client's email (for potential manual discussion), along with the client's usage entitlements (known as OAuth2 scopes), to confirm the client is permitted to make API request on behalf of the initiating AS.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="request">
