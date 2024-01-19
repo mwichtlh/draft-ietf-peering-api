@@ -164,8 +164,8 @@ Table of Contents
    Of particular interest is RPKI.  PeeringDB OIDC allows the API to
    identify who the requesting party is, while RPKI-signing allows such
    requesting party to prove that they own some of the Internet-assigned
-   resources that referenced in the request.  This combination provides
-   a low entry barrier to create an identity federation across the
+   resources referenced in the request.  This combination provides a low
+   entry barrier to create an identity federation across the
    participating ASs' API with a stronger guarantee of resource
    ownership against potential for misattribution and repudiation.  The
    authors recognize that not all partners have the time or engineering
@@ -180,7 +180,7 @@ Table of Contents
    The Peering API follows the Representational State Transfer (REST
    (http://roy.gbiv.com/pubs/dissertation/top.htm)) architecture where
    sessions, locations, and maintenance events are the resources the API
-   operates on and is modeled after the OpenAPI standard OpenAPI-v3.1.0
+   represents and is modeled after the OpenAPI standard OpenAPI-v3.1.0
    (https://swagger.io/specification/).  Using the token bearer model
    (RFC6750 (https://datatracker.ietf.org/doc/html/rfc6750)), a client
    application can request to add or remove peering sessions, list

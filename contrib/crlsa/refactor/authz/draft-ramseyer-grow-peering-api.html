@@ -1268,7 +1268,7 @@ After further discussion, the authors decided to offer alternate authentication 
 As peers may require varying security standards, this document proposes to support PeeringDB OIDC as the base requirement, with optional security extensions in addition (RPKI (<a href="https://datatracker.ietf.org/doc/html/rfc6480">RFC6480</a>) or alternative OIDC Authorization Servers, for example).
 This document hopes that, through the RFC process, the Working Group can come to a consensus on a base "authorization standard," to ease adoption for peering participants.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <p id="section-3-2">Of particular interest is RPKI.
-PeeringDB OIDC allows the API to identify who the requesting party is, while RPKI-signing allows such requesting party to prove that they own some of the Internet-assigned resources that referenced in the request.
+PeeringDB OIDC allows the API to identify who the requesting party is, while RPKI-signing allows such requesting party to prove that they own some of the Internet-assigned resources referenced in the request.
 This combination provides a low entry barrier to create an identity federation across the participating ASs' API with a stronger guarantee of resource ownership against potential for misattribution and repudiation.
 The authors recognize that not all partners have the time or engineering resources to support all authorization standards, so the API reference implementations will offer an extensible security mechanism to meet varying identity and security requirements.
 For RPKI-based authentication, this document refers to RPKI Signed Checklists (RSCs) (<a href="https://datatracker.ietf.org/doc/html/rfc9323">RFC9323</a>).<a href="#section-3-2" class="pilcrow">¶</a></p>
@@ -1279,7 +1279,7 @@ For RPKI-based authentication, this document refers to RPKI Signed Checklists (R
       <h2 id="name-protocol">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-protocol" class="section-name selfRef">Protocol</a>
       </h2>
-<p id="section-4-1">The Peering API follows the Representational State Transfer (<a href="http://roy.gbiv.com/pubs/dissertation/top.htm">REST</a>) architecture where sessions, locations, and maintenance events are the resources the API operates on and is modeled after the OpenAPI standard <a href="https://swagger.io/specification/">OpenAPI-v3.1.0</a>.
+<p id="section-4-1">The Peering API follows the Representational State Transfer (<a href="http://roy.gbiv.com/pubs/dissertation/top.htm">REST</a>) architecture where sessions, locations, and maintenance events are the resources the API represents and is modeled after the OpenAPI standard <a href="https://swagger.io/specification/">OpenAPI-v3.1.0</a>.
 Using the token bearer model (<a href="https://datatracker.ietf.org/doc/html/rfc6750">RFC6750</a>), a client application can request to add or remove peering sessions, list potential interconnection locations, and query for upcoming maintenance events on behalf of the AS resource owner.<a href="#section-4-1" class="pilcrow">¶</a></p>
 </section>
 </div>
