@@ -203,7 +203,7 @@ Table of Contents
    Server (RS) with the client's email (for potential manual
    discussion), along with the client's usage entitlements (known as
    OAuth2 scopes), to confirm the client is permitted to make API
-   request on behalf of the initiating AS.
+   requests on behalf of the initiating AS.
 
 5.2.  REQUEST
 
