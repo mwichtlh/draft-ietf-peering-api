@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-01-18T01:22:31.093645+00:00",
+  "timestamp": "2024-01-21T01:34:26.156363+00:00",
   "repo": "bgp/draft-ietf-peering-api",
   "labels": [
     {
@@ -435,7 +435,7 @@
       "labels": [],
       "body": "Finish draft!\r\n* endpoints\r\n* endpoint details\r\n* future work\r\nI will merge this tomorrow, so we can submit something to the area directors and request to present at dispatch.\r\n",
       "createdAt": "2024-01-16T21:31:43Z",
-      "updatedAt": "2024-01-17T19:10:02Z",
+      "updatedAt": "2024-01-18T18:50:00Z",
       "baseRepository": "bgp/draft-ietf-peering-api",
       "baseRefName": "main",
       "baseRefOid": "7035f3b3e681e9279486f5c59d4234d0d8a008c9",
@@ -476,6 +476,27 @@
           "body": "Thanks, I will do so this week!  ",
           "createdAt": "2024-01-16T21:46:39Z",
           "updatedAt": "2024-01-16T21:46:39Z"
+        },
+        {
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@job Thanks for your help!\r\nWe have submitted here: https://datatracker.ietf.org/doc/draft-ramseyer-grow-peering-api/\r\n\r\nI sent an email to grow@ietf.org, but I think it may still be awaiting moderator approval.  Please let me know if it didn't go through.\r\nThanks again!  ",
+          "createdAt": "2024-01-18T16:17:14Z",
+          "updatedAt": "2024-01-18T16:17:14Z"
+        },
+        {
+          "author": "job",
+          "authorAssociation": "NONE",
+          "body": "first you have to subscribe to the mailing list https://www.ietf.org/mailman/listinfo/grow and then you can send emails",
+          "createdAt": "2024-01-18T16:19:18Z",
+          "updatedAt": "2024-01-18T16:19:18Z"
+        },
+        {
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thanks!  I subscribed and see it went through now.  ",
+          "createdAt": "2024-01-18T18:50:00Z",
+          "updatedAt": "2024-01-18T18:50:00Z"
         }
       ],
       "reviews": []
@@ -512,6 +533,78 @@
           "body": "Ok, the generated files look good.  I will resubmit.",
           "createdAt": "2024-01-17T20:15:30Z",
           "updatedAt": "2024-01-17T20:15:30Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 12,
+      "id": "PR_kwDOKwWQEM5kbagI",
+      "title": "Update formatting and minor nits",
+      "url": "https://github.com/bgp/draft-ietf-peering-api/pull/12",
+      "state": "MERGED",
+      "author": "Ichabond",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Added markdown formatting where required, as well as adding references to the RFCs where needed. Further updated some of the wording.",
+      "createdAt": "2024-01-18T14:00:32Z",
+      "updatedAt": "2024-01-18T15:37:21Z",
+      "baseRepository": "bgp/draft-ietf-peering-api",
+      "baseRefName": "main",
+      "baseRefOid": "ada68382ee6f2abfb2744217550c315a3f3e9052",
+      "headRepository": "bgp/draft-ietf-peering-api",
+      "headRefName": "tstrickx-nits",
+      "headRefOid": "1d2224bc79ce9615d692122905d2f5d09a2d54c3",
+      "closedAt": "2024-01-18T15:37:21Z",
+      "mergedAt": "2024-01-18T15:37:21Z",
+      "mergedBy": "jramseyer",
+      "mergeCommit": {
+        "oid": "416d1afbbe2b539722a70a28a9ff6acb1f06ecd3"
+      },
+      "comments": [
+        {
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thanks for the citations and review!  Looks good to me.  I checked the generated files, and they look correct.",
+          "createdAt": "2024-01-18T15:37:17Z",
+          "updatedAt": "2024-01-18T15:37:17Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 13,
+      "id": "PR_kwDOKwWQEM5kiUIG",
+      "title": "Clarify goals and use of authorization flows",
+      "url": "https://github.com/bgp/draft-ietf-peering-api/pull/13",
+      "state": "MERGED",
+      "author": "caguado",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Add more context on why and how OIDC/OAuth2 flows are expected to cover the authorization needs of all participating entities using the technical jargon from OIDC/OAuth2 and link the relevant RFCs.",
+      "createdAt": "2024-01-19T11:33:48Z",
+      "updatedAt": "2024-01-19T17:00:55Z",
+      "baseRepository": "bgp/draft-ietf-peering-api",
+      "baseRefName": "main",
+      "baseRefOid": "a8ee209e94b4427e51ee77be82b423b8ce3d9547",
+      "headRepository": "bgp/draft-ietf-peering-api",
+      "headRefName": "contrib/crlsa/refactor/authz",
+      "headRefOid": "9f7a66293fb1a9816e1fdf81c66fe6da1d65602d",
+      "closedAt": "2024-01-19T17:00:53Z",
+      "mergedAt": "2024-01-19T17:00:53Z",
+      "mergedBy": "jramseyer",
+      "mergeCommit": {
+        "oid": "16a420f1afd7aef319003a6c6a6159b98dd82935"
+      },
+      "comments": [
+        {
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thanks for carefully referencing everything!  I think this makes sense, and is technically clearer as to what we are proposing.  Thanks for the changes!",
+          "createdAt": "2024-01-19T17:00:54Z",
+          "updatedAt": "2024-01-19T17:00:54Z"
         }
       ],
       "reviews": []
