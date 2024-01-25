@@ -2,10 +2,11 @@
 
 
 
-Network Working Group                                        J. Ramseyer
-Internet-Draft                                                      Meta
-Intended status: Informational                           25 January 2024
-Expires: 28 July 2024
+Network Working Group                                          C. Aguado
+Internet-Draft                                                       AWS
+Intended status: Informational                               J. Ramseyer
+Expires: 28 July 2024                                               Meta
+                                                         25 January 2024
 
 
                               Peering API
@@ -90,7 +91,7 @@ Table of Contents
    10. Possible Extensions
    11. IANA Considerations
    Appendix A.  Acknowledgments
-   Author's Address
+   Authors' Addresses
 
 1.  Introduction
 
@@ -655,7 +656,12 @@ Appendix A.  Acknowledgments
    Blaustein (Meta) * Stefan Prattner (20c) * Ben Ryall (Meta) * Erica
    Salvaneschi (Cloudflare)
 
-Author's Address
+Authors' Addresses
+
+   Carlos Aguado
+   AWS
+   Email: crlsa@amazon.com
+
 
    Jenny Ramseyer
    Meta
