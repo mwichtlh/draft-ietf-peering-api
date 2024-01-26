@@ -285,23 +285,23 @@ Table of Contents
 
    *  structure:
 
-      1.  Session ID
+      -  Session ID
 
-      2.  Local ASN (server)
+      -  Local ASN (server)
 
-      3.  Local IP
+      -  Local IP
 
-      4.  Peer ASN (client)
+      -  Peer ASN (client)
 
-      5.  Peer IP
+      -  Peer IP
 
-      6.  Peer Type
+      -  Peer Type
 
-      7.  MD5 (optional, as defined above)
+      -  MD5 (optional, as defined above)
 
-      8.  Location
+      -  Location
 
-      9.  Status
+      -  Status
 
    The server then responds with the same structure, with the
    information that it understands (status, etc).
