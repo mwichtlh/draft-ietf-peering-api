@@ -2,10 +2,17 @@
 
 
 
-Network Working Group                                        J. Ramseyer
-Internet-Draft                                                      Meta
-Intended status: Informational                           19 January 2024
-Expires: 22 July 2024
+Network Working Group                                          C. Aguado
+Internet-Draft                                                       AWS
+Intended status: Informational                               M. Griswold
+Expires: 29 July 2024                                            FullCtl
+                                                             J. Ramseyer
+                                                                    Meta
+                                                               A. Servin
+                                                                  Google
+                                                              T. Strickx
+                                                              Cloudflare
+                                                         26 January 2024
 
 
                               Peering API
@@ -49,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 July 2024.
+   This Internet-Draft will expire on 29 July 2024.
 
 Copyright Notice
 
@@ -90,7 +97,7 @@ Table of Contents
    10. Possible Extensions
    11. IANA Considerations
    Appendix A.  Acknowledgments
-   Author's Address
+   Authors' Addresses
 
 1.  Introduction
 
@@ -650,13 +657,34 @@ Table of Contents
 
 Appendix A.  Acknowledgments
 
-   This project is joint work between Meta, AWS, Cloudflare, FullCtl,
-   and Google.  Many thanks to my collaborators: Carlos Aguado (AWS),
-   Ben Blaustein (Meta), Matt Griswold (FullCtl), Ben Ryall (Meta),
-   Arturo Servin (Google), and Tom Strickx (Cloudflare).
+   The authors would like to thank their collaborators, who implemented
+   API versions and provided valuable feedback on the design. * Ben
+   Blaustein (Meta) * Jakub Heichman (Meta) * Stefan Prattner (20c) *
+   Ben Ryall (Meta) * Erica Salvaneschi (Cloudflare) * Job Snijders
+   (Fastly) * David Tuber (Cloudflare)
 
-Author's Address
+Authors' Addresses
+
+   Carlos Aguado
+   AWS
+   Email: crlsa@amazon.com
+
+
+   Matt Griswold
+   FullCtl
+   Email: grizz@20c.com
+
 
    Jenny Ramseyer
    Meta
    Email: ramseyer@meta.com
+
+
+   Arturo Servin
+   Google
+   Email: arturolev@google.com
+
+
+   Tom Strickx
+   Cloudflare
+   Email: tstrickx@cloudflare.com
