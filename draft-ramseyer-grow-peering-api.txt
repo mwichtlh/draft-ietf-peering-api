@@ -5,14 +5,14 @@
 Network Working Group                                          C. Aguado
 Internet-Draft                                                       AWS
 Intended status: Informational                               M. Griswold
-Expires: 29 July 2024                                            FullCtl
+Expires: 30 July 2024                                            FullCtl
                                                              J. Ramseyer
                                                                     Meta
                                                                A. Servin
                                                                   Google
                                                               T. Strickx
                                                               Cloudflare
-                                                         26 January 2024
+                                                         27 January 2024
 
 
                               Peering API
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 29 July 2024.
+   This Internet-Draft will expire on 30 July 2024.
 
 Copyright Notice
 
@@ -658,10 +658,21 @@ Table of Contents
 Appendix A.  Acknowledgments
 
    The authors would like to thank their collaborators, who implemented
-   API versions and provided valuable feedback on the design. * Ben
-   Blaustein (Meta) * Jakub Heichman (Meta) * Stefan Prattner (20c) *
-   Ben Ryall (Meta) * Erica Salvaneschi (Cloudflare) * Job Snijders
-   (Fastly) * David Tuber (Cloudflare)
+   API versions and provided valuable feedback on the design.
+
+   *  Ben Blaustein (Meta)
+
+   *  Jakub Heichman (Meta)
+
+   *  Stefan Prattner (20c)
+
+   *  Ben Ryall (Meta)
+
+   *  Erica Salvaneschi (Cloudflare)
+
+   *  Job Snijders (Fastly)
+
+   *  David Tuber (Cloudflare)
 
 Authors' Addresses
 
