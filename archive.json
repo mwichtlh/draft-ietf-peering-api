@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-01-25T01:24:31.720634+00:00",
+  "timestamp": "2024-01-28T01:21:42.264901+00:00",
   "repo": "bgp/draft-ietf-peering-api",
   "labels": [
     {
@@ -513,7 +513,7 @@
       "labels": [],
       "body": "Generated submission didn't match markdown spec, should have checked.\r\n\r\nLet's see if this fixes (will check compiled files, my mistake)",
       "createdAt": "2024-01-17T19:43:55Z",
-      "updatedAt": "2024-01-17T20:15:44Z",
+      "updatedAt": "2024-01-25T18:03:36Z",
       "baseRepository": "bgp/draft-ietf-peering-api",
       "baseRefName": "main",
       "baseRefOid": "f15ee58ffe9d9e8ab9a36818d44562d0dfdf76c5",
@@ -605,6 +605,582 @@
           "body": "Thanks for carefully referencing everything!  I think this makes sense, and is technically clearer as to what we are proposing.  Thanks for the changes!",
           "createdAt": "2024-01-19T17:00:54Z",
           "updatedAt": "2024-01-19T17:00:54Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 14,
+      "id": "PR_kwDOKwWQEM5lENWh",
+      "title": "Refactor messages as per modified API",
+      "url": "https://github.com/bgp/draft-ietf-peering-api/pull/14",
+      "state": "MERGED",
+      "author": "caguado",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This commit adapts the structures and wording around the changes made to the reference OpenAPI spec from [1].\r\n\r\n[1] https://github.com/bgp/autopeer/issues/17",
+      "createdAt": "2024-01-25T13:24:07Z",
+      "updatedAt": "2024-01-27T09:47:26Z",
+      "baseRepository": "bgp/draft-ietf-peering-api",
+      "baseRefName": "main",
+      "baseRefOid": "a6f9ae565fb9fef8338988cefd0257d5e124e41c",
+      "headRepository": "bgp/draft-ietf-peering-api",
+      "headRefName": "contrib/crlsa/refactor/restful",
+      "headRefOid": "d4273e1ecefb6b41603a3c0eb6b8affc254a1037",
+      "closedAt": "2024-01-27T09:47:00Z",
+      "mergedAt": "2024-01-27T09:47:00Z",
+      "mergedBy": "caguado",
+      "mergeCommit": {
+        "oid": "8bb6b31174f36bb73586ce621097167546277f34"
+      },
+      "comments": [
+        {
+          "author": "caguado",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Ack thanks. I did check the job output to verify I don't add regressions. Merging then.",
+          "createdAt": "2024-01-27T09:46:45Z",
+          "updatedAt": "2024-01-27T09:46:45Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKwWQEM5t7WQc",
+          "commit": {
+            "abbreviatedOid": "85c7bc6"
+          },
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "Thanks for the additions!  \r\n\r\nLet me know what you think of the \"delete sessions\" addition and the session handshaking.   Thanks for the clarifications on the spec!\r\n",
+          "createdAt": "2024-01-25T17:19:56Z",
+          "updatedAt": "2024-01-25T17:49:04Z",
+          "comments": [
+            {
+              "originalPosition": 87,
+              "body": "nit: and -> an",
+              "createdAt": "2024-01-25T17:19:57Z",
+              "updatedAt": "2024-01-25T17:49:04Z"
+            },
+            {
+              "originalPosition": 224,
+              "body": "Since REMOVE IX peer is deleted, shall we add /DELETE here as well?  \r\nLine 240 was the only place we mentioned delete as an option for PX sessions, so let's mention it here as well.\r\n\r\nSomething like:\r\n'''\r\n * Batch delete existing session resources\r\n    * Delete BGP sessions between peers, at the desired exchange.\r\n    * Below is based on OpenAPI specification: [https://github.com/bgp/autopeer/blob/main/api/openapi.yaml](https://github.com/bgp/autopeer/blob/main/api/openapi.yaml)\r\n    * DELETE: /sessions\r\n      * Request body: Session Array\r\n      * Responses:\r\n        * 200 OK:\r\n          * Contents: Session Array (all sessions in request accepted for deletion).\r\n        * 300:\r\n          * Contents: Modified Session Array, with rejected or additional sessions.\r\n        * 400:\r\n          * Error\r\n        * 403:\r\n          * Unauthorized to perform the operation\r\n         '''",
+              "createdAt": "2024-01-25T17:28:24Z",
+              "updatedAt": "2024-01-25T17:49:04Z"
+            },
+            {
+              "originalPosition": 334,
+              "body": "Why split into a separate request?\r\n\r\nI suppose it makes the handshaking simpler, in that, if the server doesn't agree, it just rejects, but I worry it causes a few problems:\r\n1) splitting up more config requests results in additional config pushes to routers (maybe this doesn't matter)\r\n2) client and server end up in a weird looping state of \"client requests ABC\". Server would accept ABC, but not D.  Server rejects all sessions and submits request to client for ABCD.  Client rejects ABC, and sends another request for ABC.  This loops forever, and ABC never gets configured.  I suppose that ties in to \"how do we escalate to a human.\"\r\n\r\nWe will have to develop some notion of handshaking for LOAs, unfiltering, etc, later, so it seems OK to handshake here as well on the list of sessions.\r\n\r\nBut, I think this way is OK as well, and I'm happy to go with it--if this is the REST-API standard way to do it, that's fine by me.  \r\n\r\nIn that case, I propose one clarification:\r\n\" issue a separate request to the client's server requesting those additional peering sessions D and E.\" -> \"approve the client's request and issue a separate request to the client's server requesting those additional peering sessions D and E.\"",
+              "createdAt": "2024-01-25T17:42:05Z",
+              "updatedAt": "2024-01-25T17:49:04Z"
+            },
+            {
+              "originalPosition": 178,
+              "body": "Please keep this space, it is required for formatting the built files",
+              "createdAt": "2024-01-25T17:43:59Z",
+              "updatedAt": "2024-01-25T17:49:04Z"
+            },
+            {
+              "originalPosition": 178,
+              "body": "You can check the built files here: https://github.com/bgp/draft-ietf-peering-api/actions/runs/7655174182",
+              "createdAt": "2024-01-25T17:44:19Z",
+              "updatedAt": "2024-01-25T17:49:04Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKwWQEM5t7-J-",
+          "commit": {
+            "abbreviatedOid": "85c7bc6"
+          },
+          "author": "caguado",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-01-25T19:00:31Z",
+          "updatedAt": "2024-01-25T19:00:32Z",
+          "comments": [
+            {
+              "originalPosition": 224,
+              "body": "Sure, I thought was a gap from the doc to the OpenAPI spec and cleared the ref. Idem for the `TimeWindow` et al. attributes that did not appear in the spec.\r\n\r\nI can add this back with the DELETE as you describe so that folks comment on its expected batch behaviour dual to the batched creation.",
+              "createdAt": "2024-01-25T19:00:32Z",
+              "updatedAt": "2024-01-25T19:00:32Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKwWQEM5t7-wQ",
+          "commit": {
+            "abbreviatedOid": "85c7bc6"
+          },
+          "author": "caguado",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-01-25T19:02:12Z",
+          "updatedAt": "2024-01-25T19:02:12Z",
+          "comments": [
+            {
+              "originalPosition": 178,
+              "body": "Sorry, will do.",
+              "createdAt": "2024-01-25T19:02:12Z",
+              "updatedAt": "2024-01-25T19:02:12Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKwWQEM5t8nXx",
+          "commit": {
+            "abbreviatedOid": "85c7bc6"
+          },
+          "author": "grizz",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-01-25T20:16:38Z",
+          "updatedAt": "2024-01-25T20:16:38Z",
+          "comments": [
+            {
+              "originalPosition": 224,
+              "body": "Good catch, we need to be able to depeer. :)",
+              "createdAt": "2024-01-25T20:16:38Z",
+              "updatedAt": "2024-01-25T20:16:39Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKwWQEM5t_pnr",
+          "commit": {
+            "abbreviatedOid": "85c7bc6"
+          },
+          "author": "caguado",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-01-26T09:56:25Z",
+          "updatedAt": "2024-01-26T09:56:25Z",
+          "comments": [
+            {
+              "originalPosition": 334,
+              "body": "> Why split into a separate request?\r\n> \r\n> I suppose it makes the handshaking simpler, in that, if the server doesn't agree, it just rejects, but I worry it causes a few problems:\r\n> \r\n> 1. splitting up more config requests results in additional config pushes to routers (maybe this doesn't matter)\r\n\r\nCertainly config pushes and overall turnup velocity may be affected, although this is an implementation detail of how each peer may implement their deployment system. IMO the API should reduce ambiguity between what is proposed and what is accepted without implying additional API calls to be made to finish the handover over the same API method.\r\n\r\nIf we aim to create a two-phase-commit-kind semantics, what if we create an additional resource (e.g. `/proposals/{proposal_id}` which tracks a changeable set of sessions and has a state machine attached to reflect the negotiation status such that when the proposal is accepted by both parties, this triggers the creation of the `/sessions/{session_id}` on the receiver and possibly on the initiator via a back channel mechanism?\r\n\r\n> 2. client and server end up in a weird looping state of \"client requests ABC\". Server would accept ABC, but not D.  Server rejects all sessions and submits request to client for ABCD.  Client rejects ABC, and sends another request for ABC.  This loops forever, and ABC never gets configured.  I suppose that ties in to \"how do we escalate to a human.\"\r\n\r\nExactly why IMO this API is meant to be atomic and model the underlying resources such that initiators will get a clear yes/no response from the receiver. If we intend to track negotiation over time, I think we should model explicitly with a dedicated resource.\r\n\r\n> We will have to develop some notion of handshaking for LOAs, unfiltering, etc, later, so it seems OK to handshake here as well on the list of sessions.\r\n\r\nIMO, this is separate from the sessions over an IX because in those situations the fabric over which the BGP speakers interconnect is already set by both parties so all pertaining to physical layer, LOAs, LAGs and their shape, capacity, IP allocations, etc. would be modelled separately in a `/ports/{port_id}` or `/speaker/{speaker_id}` resource when modelling new IXs or PNIs.\r\n\r\nSo I would actually leave all that ambiguity of the physical layer on the side right now and focus the message only creating the API scaffold for BGP sessions, and somewhat negotiating their cardinality, and the identity federation part.\r\n\r\n> But, I think this way is OK as well, and I'm happy to go with it--if this is the REST-API standard way to do it, that's fine by me.\r\n> \r\n> In that case, I propose one clarification: \" issue a separate request to the client's server requesting those additional peering sessions D and E.\" -> \"approve the client's request and issue a separate request to the client's server requesting those additional peering sessions D and E.\"\r\n\r\nAck, let me edit it as proposed. In light of our concern on work required on smaller peers, I wasn't sure either if AS1 exposing an Autopeer endpoint implies that AS2 must also expose Autopeer endpoint for this backchannel to exist prior to any handshake being possible, hence being a bit ambiguous about it.\r\n\r\n",
+              "createdAt": "2024-01-26T09:56:25Z",
+              "updatedAt": "2024-01-26T09:56:26Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKwWQEM5uAW4f",
+          "commit": {
+            "abbreviatedOid": "85c7bc6"
+          },
+          "author": "caguado",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-01-26T11:24:31Z",
+          "updatedAt": "2024-01-26T11:24:31Z",
+          "comments": [
+            {
+              "originalPosition": 224,
+              "body": "When reading through the proposal, I realized I missed the soft-delete semantics implied where the status of the session deletion is reported back so to make the deletion idempotent, I'm adding all this back to the API changes in https://github.com/bgp/autopeer/pull/20",
+              "createdAt": "2024-01-26T11:24:31Z",
+              "updatedAt": "2024-01-26T11:24:31Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKwWQEM5uEFSt",
+          "commit": {
+            "abbreviatedOid": "85c7bc6"
+          },
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-01-26T21:17:18Z",
+          "updatedAt": "2024-01-26T21:17:18Z",
+          "comments": [
+            {
+              "originalPosition": 334,
+              "body": "OK, reading your comments, this makes sense to me, and I'm convinced :). I am happy going ahead with your more atomic suggestion--don't think we need to add a proposal object just yet, if this keeps it simpler overall.   \r\n\r\nYou raise an interesting point about the /ports and /speaker endpoints for new PNIs.  Seems sensible to focus on BGP for now, let's leave those for later (maybe we should discuss in a separate issue?)\r\n\r\nI don't think we require both sides necessarily to have autopeer endpoints?  Although I think we can strongly encourage it.  You're right that the server wouldn't be able to send a request back to the client for additional sessions then, but I think we can leave it as an edge case.",
+              "createdAt": "2024-01-26T21:17:18Z",
+              "updatedAt": "2024-01-26T21:17:18Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKwWQEM5uEFxU",
+          "commit": {
+            "abbreviatedOid": "d4273e1"
+          },
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-01-26T21:19:05Z",
+          "updatedAt": "2024-01-26T21:19:05Z",
+          "comments": [
+            {
+              "originalPosition": 76,
+              "body": "nice, the session list operation would cover the case where it was configured outside the API.",
+              "createdAt": "2024-01-26T21:19:05Z",
+              "updatedAt": "2024-01-26T21:19:05Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKwWQEM5uEF7c",
+          "commit": {
+            "abbreviatedOid": "d4273e1"
+          },
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Looks good to me.    Assuming the built artifacts look good, I am happy if you merge!\r\n\r\n@caguado ",
+          "createdAt": "2024-01-26T21:19:41Z",
+          "updatedAt": "2024-01-26T21:20:40Z",
+          "comments": [
+            {
+              "originalPosition": 88,
+              "body": "an -> a, I think\r\n(sorry for the nit)",
+              "createdAt": "2024-01-26T21:19:41Z",
+              "updatedAt": "2024-01-26T21:20:40Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "id": "PR_kwDOKwWQEM5lGSD3",
+      "title": "Add Authors",
+      "url": "https://github.com/bgp/draft-ietf-peering-api/pull/15",
+      "state": "MERGED",
+      "author": "jramseyer",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Add authors and collaborators.\r\nI listed us all alphabetically.\r\n\r\n@caguado did you want to be listed as \"AWS\" or as \"Amazon\"?\r\n@grizz did you want \"FullCtl\" or \"20c\"?  I put you as FullCtl and Stefan as 20c, but maybe you want them to match?\r\n",
+      "createdAt": "2024-01-25T19:14:47Z",
+      "updatedAt": "2024-01-26T20:57:03Z",
+      "baseRepository": "bgp/draft-ietf-peering-api",
+      "baseRefName": "main",
+      "baseRefOid": "a6f9ae565fb9fef8338988cefd0257d5e124e41c",
+      "headRepository": "bgp/draft-ietf-peering-api",
+      "headRefName": "jramseyer-nits",
+      "headRefOid": "e0c5c8276508e6ef2f1a6b999e964b1b07f28a79",
+      "closedAt": "2024-01-26T20:57:03Z",
+      "mergedAt": "2024-01-26T20:57:03Z",
+      "mergedBy": "jramseyer",
+      "mergeCommit": {
+        "oid": "311ff448dde30f11b5ecf5298efb7ec2e1e2c1fa"
+      },
+      "comments": [
+        {
+          "author": "grizz",
+          "authorAssociation": "NONE",
+          "body": "@jramseyer that's perfect as is, thanks.",
+          "createdAt": "2024-01-25T19:16:31Z",
+          "updatedAt": "2024-01-25T19:16:31Z"
+        },
+        {
+          "author": "caguado",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@jramseyer Sorry is a good point and don't have an answer. I think `Amazon Inc.` would be the company name, but let's leave it as is for now and will reach back after I hear internally if anything else.",
+          "createdAt": "2024-01-26T12:56:22Z",
+          "updatedAt": "2024-01-26T12:56:22Z"
+        },
+        {
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Everything seems resolved, so I will close this one.  Carlos, feel free to change the name as you hear internally if needed!\r\n\r\n",
+          "createdAt": "2024-01-26T20:56:57Z",
+          "updatedAt": "2024-01-26T20:56:57Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKwWQEM5t8iyC",
+          "commit": {
+            "abbreviatedOid": "a793da3"
+          },
+          "author": "job",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-01-25T20:03:37Z",
+          "updatedAt": "2024-01-25T20:03:38Z",
+          "comments": [
+            {
+              "originalPosition": 39,
+              "body": "Could you consider adding my name too? :-)",
+              "createdAt": "2024-01-25T20:03:38Z",
+              "updatedAt": "2024-01-25T20:03:38Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKwWQEM5t8wQg",
+          "commit": {
+            "abbreviatedOid": "a793da3"
+          },
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-01-25T20:41:26Z",
+          "updatedAt": "2024-01-25T20:41:26Z",
+          "comments": [
+            {
+              "originalPosition": 39,
+              "body": "Of course!  We'd be delighted.  I will add you shortly.",
+              "createdAt": "2024-01-25T20:41:26Z",
+              "updatedAt": "2024-01-25T20:41:26Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKwWQEM5t8yCM",
+          "commit": {
+            "abbreviatedOid": "a793da3"
+          },
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-01-25T20:46:11Z",
+          "updatedAt": "2024-01-25T20:46:11Z",
+          "comments": [
+            {
+              "originalPosition": 39,
+              "body": "done :) ",
+              "createdAt": "2024-01-25T20:46:11Z",
+              "updatedAt": "2024-01-25T20:46:11Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKwWQEM5uA2UY",
+          "commit": {
+            "abbreviatedOid": "fc90aa4"
+          },
+          "author": "Ichabond",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-01-26T13:04:05Z",
+          "updatedAt": "2024-01-26T13:04:05Z",
+          "comments": [
+            {
+              "originalPosition": 40,
+              "body": "Can we add David Tuber (Cloudflare) as well, given he helped out a lot with v0 of the initial spec?",
+              "createdAt": "2024-01-26T13:04:05Z",
+              "updatedAt": "2024-01-26T13:04:05Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKwWQEM5uD2On",
+          "commit": {
+            "abbreviatedOid": "fc90aa4"
+          },
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-01-26T20:28:50Z",
+          "updatedAt": "2024-01-26T20:28:51Z",
+          "comments": [
+            {
+              "originalPosition": 40,
+              "body": "can do!",
+              "createdAt": "2024-01-26T20:28:51Z",
+              "updatedAt": "2024-01-26T20:28:51Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "id": "PR_kwDOKwWQEM5lGkGL",
+      "title": "add ascii art",
+      "url": "https://github.com/bgp/draft-ietf-peering-api/pull/16",
+      "state": "OPEN",
+      "author": "grizz",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Add ascii representations of the mermaid docs. They are hand made and I'm not sure it makes sense to diagram more than the Auth loop part.\r\n\r\nIt does look like we can have the svg rendered for the html views [0], using our github actions template [1]. Should we look at adding both or leave it as is for the first version?\r\n\r\n[0] https://authors.ietf.org/diagrams\r\n[1] https://github.com/cabo/kramdown-rfc/wiki/SVG\r\n\r\n\r\n\r\n",
+      "createdAt": "2024-01-25T20:10:16Z",
+      "updatedAt": "2024-01-26T21:02:36Z",
+      "baseRepository": "bgp/draft-ietf-peering-api",
+      "baseRefName": "main",
+      "baseRefOid": "a6f9ae565fb9fef8338988cefd0257d5e124e41c",
+      "headRepository": "bgp/draft-ietf-peering-api",
+      "headRefName": "grizz-ascii-diagrams",
+      "headRefOid": "53b010f4c19b27d7724371a1ac71b97c52719e9c",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Looks nice to me!  Thanks for putting it together.   Fine by me to merge once it renders correctly in the artifact.\r\n\r\n",
+          "createdAt": "2024-01-26T21:02:18Z",
+          "updatedAt": "2024-01-26T21:02:18Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKwWQEM5uBfyS",
+          "commit": {
+            "abbreviatedOid": "53b010f"
+          },
+          "author": "Ichabond",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-01-26T14:42:18Z",
+          "updatedAt": "2024-01-26T14:42:19Z",
+          "comments": [
+            {
+              "originalPosition": 3,
+              "body": "As per \r\nhttps://github.com/cabo/kramdown-rfc/blob/master/examples/stupid-s.mkd\r\nYou should \"box\" this diagram with\r\n```\r\n~~~~~~~~~~\r\n```\r\n",
+              "createdAt": "2024-01-26T14:42:18Z",
+              "updatedAt": "2024-01-26T14:42:19Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKwWQEM5uB3e1",
+          "commit": {
+            "abbreviatedOid": "53b010f"
+          },
+          "author": "grizz",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-01-26T15:28:15Z",
+          "updatedAt": "2024-01-26T15:28:15Z",
+          "comments": [
+            {
+              "originalPosition": 3,
+              "body": "@Ichabond oh, good catch, thanks. I guess I should do a local install and check how the rendering works.",
+              "createdAt": "2024-01-26T15:28:15Z",
+              "updatedAt": "2024-01-26T15:28:15Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKwWQEM5uEAQH",
+          "commit": {
+            "abbreviatedOid": "53b010f"
+          },
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-01-26T21:01:39Z",
+          "updatedAt": "2024-01-26T21:01:39Z",
+          "comments": [
+            {
+              "originalPosition": 3,
+              "body": "You can check the build artifacts here, too: https://github.com/bgp/draft-ietf-peering-api/actions/runs/7659907136 \r\n\r\nLet's see if it works with the ~~~?",
+              "createdAt": "2024-01-26T21:01:39Z",
+              "updatedAt": "2024-01-26T21:01:39Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKwWQEM5uEAhf",
+          "commit": {
+            "abbreviatedOid": "53b010f"
+          },
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-01-26T21:02:36Z",
+          "updatedAt": "2024-01-26T21:02:36Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "id": "PR_kwDOKwWQEM5lKbLS",
+      "title": "Update references using inline-style + other formatting changes",
+      "url": "https://github.com/bgp/draft-ietf-peering-api/pull/17",
+      "state": "OPEN",
+      "author": "Ichabond",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "I've added the references using the defined style in https://github.com/cabo/kramdown-rfc/tree/master\r\n\r\nFurthermore, added anchors to the individual sections to make cross-referencing easier",
+      "createdAt": "2024-01-26T14:12:07Z",
+      "updatedAt": "2024-01-27T01:06:18Z",
+      "baseRepository": "bgp/draft-ietf-peering-api",
+      "baseRefName": "main",
+      "baseRefOid": "311ff448dde30f11b5ecf5298efb7ec2e1e2c1fa",
+      "headRepository": "bgp/draft-ietf-peering-api",
+      "headRefName": "tstrickx/update_references",
+      "headRefOid": "6e19b87c7c2cb15580c977f34f0e494016bffa3d",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKwWQEM5uE3yT",
+          "commit": {
+            "abbreviatedOid": "6e19b87"
+          },
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Oh wow, now the draft looks elegant indeed.  Nice, thanks for adding these.",
+          "createdAt": "2024-01-27T01:06:18Z",
+          "updatedAt": "2024-01-27T01:06:18Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "id": "PR_kwDOKwWQEM5lNPgP",
+      "title": "Quick fix on formatting",
+      "url": "https://github.com/bgp/draft-ietf-peering-api/pull/18",
+      "state": "MERGED",
+      "author": "jramseyer",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "quick formatting fix.",
+      "createdAt": "2024-01-27T01:07:12Z",
+      "updatedAt": "2024-01-27T01:11:31Z",
+      "baseRepository": "bgp/draft-ietf-peering-api",
+      "baseRefName": "main",
+      "baseRefOid": "311ff448dde30f11b5ecf5298efb7ec2e1e2c1fa",
+      "headRepository": "bgp/draft-ietf-peering-api",
+      "headRefName": "jramseyer-patch-1",
+      "headRefOid": "3a85270fd2f1bed3010737ce6e5c466c2b992554",
+      "closedAt": "2024-01-27T01:11:28Z",
+      "mergedAt": "2024-01-27T01:11:28Z",
+      "mergedBy": "jramseyer",
+      "mergeCommit": {
+        "oid": "6040d571c8c96a3dceee2fafe3847e4170ea9ddd"
+      },
+      "comments": [
+        {
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Built file looks correct now, will ship\r\n(bulleted list was not bulleted correctly)",
+          "createdAt": "2024-01-27T01:11:30Z",
+          "updatedAt": "2024-01-27T01:11:30Z"
         }
       ],
       "reviews": []
