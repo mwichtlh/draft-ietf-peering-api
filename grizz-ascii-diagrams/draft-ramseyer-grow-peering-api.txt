@@ -195,37 +195,60 @@ Table of Contents
    For a diagram, please see: https://github.com/bgp/autopeer/blob/main/
    README.md#sequence-diagram
 
-   OIDC Authentication
+OIDC Authentication
 
-   +-----------+ +-------+ +-----------+ | Initiator | | Peer | |
-   PeeringDB | +-----------+ +-------+ +-----------+ | | | | OIDC Authen
-   tication | | |-------------------------------------------------------
-   -->| | | | | Provide auth code | |<----------------------------------
-   -----------------------| | | | | Send auth code to Peer | | |--------
-   ------------------------------------------------->| | | | | |
-   Exchange auth code for
-   token | | |----------------------------->| | | | | | Return
-   token | | |<-----------------------------| | | | Peer determines
-   permissions based on token | | | Send OK back to
-   Initiator | |<--------------------------|
++-----------+                 +-------+                    +-----------+
+| Initiator |                 | Peer  |                    | PeeringDB |
++-----------+                 +-------+                    +-----------+
+      |                           |                              |
+      | OIDC Authentication       |                              |
+      |--------------------------------------------------------->|
+      |                           |                              |
+      |                                        Provide auth code |
+      |<---------------------------------------------------------|
+      |                           |                              |
+      | Send auth code to Peer    |                              |
+      |--------------------------------------------------------->|
+      |                           |                              |
+      |                           | Exchange auth code for token |
+      |                           |----------------------------->|
+      |                           |                              |
+      |                           |                 Return token |
+      |                           |<-----------------------------|
+      |                           |
+      | Peer determines permissions based on token
+      |                           |
+      | Send OK back to Initiator |
+      |<--------------------------|
 
-   Operations, loop until peering is complete.
+Operations, loop until peering is complete.
 
-   List Locations
+List Locations
 
-   +-----------+ +-------+ | Initiator | | Peer | +-----------+
-   +-------+ | | | QUERY peering locations (peer type, ASN, auth code) |
-    |----------------------------------------------------------->| | | |
-   Reply with peering locations | | or errors (401, 406, 451, etc.) | |<
-   -----------------------------------------------------------|
++-----------+                                                  +-------+
+| Initiator |                                                  | Peer  |
++-----------+                                                  +-------+
+      |                                                            |
+      | QUERY peering locations (peer type, ASN, auth code)        |
+      |----------------------------------------------------------->|
+      |                                                            |
+      |                               Reply with peering locations |
+      |                            or errors (401, 406, 451, etc.) |
+      |<-----------------------------------------------------------|
 
-   Request session status
 
-   +-----------+ +-------+ | Initiator | | Peer | +-----------+
-   +-------+ | | | QUERY request status using request ID & auth code | |
-   ----------------------------------------------------------->| | | |
-   Reply with session status | | (200, 404, 202, etc.) | |<-------------
-   ----------------------------------------------|
+Request session status
+
++-----------+                                                  +-------+
+| Initiator |                                                  | Peer  |
++-----------+                                                  +-------+
+      |                                                            |
+      | QUERY request status using request ID & auth code          |
+      |----------------------------------------------------------->|
+      |                                                            |
+      |                                  Reply with session status |
+      |                                      (200, 404, 202, etc.) |
+      |<-----------------------------------------------------------|
 
 4.2.  AUTH
 
