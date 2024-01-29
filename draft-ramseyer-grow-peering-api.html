@@ -1329,6 +1329,64 @@ Using the token bearer model (<span>[<a href="#RFC6750" class="cite xref">RFC675
 <a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-example-request-flow" class="section-name selfRef">Example Request Flow</a>
         </h3>
 <p id="section-4.1-1">For a diagram, please see: https://github.com/bgp/autopeer/blob/main/README.md#sequence-diagram<a href="#section-4.1-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-4.1-2">
+<pre>
+OIDC Authentication
+
++-----------+                 +-------+                    +-----------+
+| Initiator |                 | Peer  |                    | PeeringDB |
++-----------+                 +-------+                    +-----------+
+      |                           |                              |
+      | OIDC Authentication       |                              |
+      |---------------------------------------------------------&gt;|
+      |                           |                              |
+      |                                        Provide auth code |
+      |&lt;---------------------------------------------------------|
+      |                           |                              |
+      | Send auth code to Peer    |                              |
+      |---------------------------------------------------------&gt;|
+      |                           |                              |
+      |                           | Exchange auth code for token |
+      |                           |-----------------------------&gt;|
+      |                           |                              |
+      |                           |                 Return token |
+      |                           |&lt;-----------------------------|
+      |                           |
+      | Peer determines permissions based on token
+      |                           |
+      | Send OK back to Initiator |
+      |&lt;--------------------------|
+
+Operations, loop until peering is complete.
+
+List Locations
+
++-----------+                                                  +-------+
+| Initiator |                                                  | Peer  |
++-----------+                                                  +-------+
+      |                                                            |
+      | QUERY peering locations (peer type, ASN, auth code)        |
+      |-----------------------------------------------------------&gt;|
+      |                                                            |
+      |                               Reply with peering locations |
+      |                            or errors (401, 406, 451, etc.) |
+      |&lt;-----------------------------------------------------------|
+
+
+Request session status
+
++-----------+                                                  +-------+
+| Initiator |                                                  | Peer  |
++-----------+                                                  +-------+
+      |                                                            |
+      | QUERY request status using request ID &amp; auth code          |
+      |-----------------------------------------------------------&gt;|
+      |                                                            |
+      |                                  Reply with session status |
+      |                                      (200, 404, 202, etc.) |
+      |&lt;-----------------------------------------------------------|
+</pre><a href="#section-4.1-2" class="pilcrow">¶</a>
+</div>
 </section>
 </div>
 <div id="auth">
