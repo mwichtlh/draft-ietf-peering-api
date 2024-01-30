@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-01-28T01:21:42.264901+00:00",
+  "timestamp": "2024-01-30T01:16:46.041418+00:00",
   "repo": "bgp/draft-ietf-peering-api",
   "labels": [
     {
@@ -167,14 +167,14 @@
         },
         {
           "author": "grizz",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "> Anyway, it doesn't look like you can take actions on PeeringDB with only the access token (at least from a quick look, I didn't poke too hard), but maybe @grizz would have a better idea (looking at [peeringdb/peeringdb#131](https://github.com/peeringdb/peeringdb/issues/131))\r\n\r\nRight, I don't think there is risk in using the access token, as this is exactly what OAuth2 was designed for, as Carlos said, we need to make sure we're using it correctly. It's been a while, and we should definitely verify that, but that is what the review is for. :)\r\n\r\nRegarding RPKI, @job we are definitely planning on supporting it in a future iteration, like Jenny says, it would need a thread just for it. Our idea is that PDB, or other OAuth2 providers can say who the party is that is doing the request (and with PeeringDB scopes, it can give some authorization for if that party is allowed to do it), while RPKI signing would prove that they're allowed to make requests. Having both would be ideal, and it would be up to the server to decide what level of authentication and authorization they require.",
           "createdAt": "2024-01-12T03:59:46Z",
           "updatedAt": "2024-01-12T03:59:46Z"
         },
         {
           "author": "grizz",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "Err, posted too quickly and missed a paragraph.\r\n\r\n> Isn't this token only for the identity? Could the API could issue GET/DELETE requests to PeeringDB, based on the permissions of the token?\r\n\r\nThat's correct.\r\n\r\n> I had thought that the token was only the ID token, and therefore, could only be used to get the identity and permissions of the user, as described in the OpenID spec here: https://openid.net/specs/openid-connect-core-1_0.html\r\n\r\nYes, I think we discussed this last NANOG and realized we were technically using OIDC and not OAuth. I can double check in our implementation later, but to reiterate, as long as we're following the standards how it's supposed to be done, we should be fine.",
           "createdAt": "2024-01-12T04:09:22Z",
           "updatedAt": "2024-01-12T04:09:22Z"
@@ -296,7 +296,7 @@
       "comments": [
         {
           "author": "grizz",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "@jramseyer probably want to `s/OAuth/OIDC` or similar?",
           "createdAt": "2024-01-12T19:16:59Z",
           "updatedAt": "2024-01-12T19:16:59Z"
@@ -373,7 +373,7 @@
       "comments": [
         {
           "author": "grizz",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "@jramseyer looks good to me, thanks for writing it up!",
           "createdAt": "2024-01-12T19:13:52Z",
           "updatedAt": "2024-01-12T19:13:52Z"
@@ -386,7 +386,7 @@
             "abbreviatedOid": "970df35"
           },
           "author": "grizz",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "APPROVED",
           "body": "",
           "createdAt": "2024-01-12T19:13:09Z",
@@ -734,7 +734,7 @@
             "abbreviatedOid": "85c7bc6"
           },
           "author": "grizz",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2024-01-25T20:16:38Z",
@@ -878,7 +878,7 @@
       "comments": [
         {
           "author": "grizz",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "@jramseyer that's perfect as is, thanks.",
           "createdAt": "2024-01-25T19:16:31Z",
           "updatedAt": "2024-01-25T19:16:31Z"
@@ -1006,24 +1006,26 @@
       "id": "PR_kwDOKwWQEM5lGkGL",
       "title": "add ascii art",
       "url": "https://github.com/bgp/draft-ietf-peering-api/pull/16",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "grizz",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Add ascii representations of the mermaid docs. They are hand made and I'm not sure it makes sense to diagram more than the Auth loop part.\r\n\r\nIt does look like we can have the svg rendered for the html views [0], using our github actions template [1]. Should we look at adding both or leave it as is for the first version?\r\n\r\n[0] https://authors.ietf.org/diagrams\r\n[1] https://github.com/cabo/kramdown-rfc/wiki/SVG\r\n\r\n\r\n\r\n",
       "createdAt": "2024-01-25T20:10:16Z",
-      "updatedAt": "2024-01-26T21:02:36Z",
+      "updatedAt": "2024-01-29T21:20:44Z",
       "baseRepository": "bgp/draft-ietf-peering-api",
       "baseRefName": "main",
-      "baseRefOid": "a6f9ae565fb9fef8338988cefd0257d5e124e41c",
+      "baseRefOid": "30f157288dd60d8b0a887b0c04b20d8ea1aa918b",
       "headRepository": "bgp/draft-ietf-peering-api",
       "headRefName": "grizz-ascii-diagrams",
-      "headRefOid": "53b010f4c19b27d7724371a1ac71b97c52719e9c",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "302cba5ad9ff2f681e2bd858b1ce858d7044d104",
+      "closedAt": "2024-01-29T21:20:44Z",
+      "mergedAt": "2024-01-29T21:20:44Z",
+      "mergedBy": "jramseyer",
+      "mergeCommit": {
+        "oid": "9ffff4dd9dad315a708dbe79e787619179826103"
+      },
       "comments": [
         {
           "author": "jramseyer",
@@ -1031,6 +1033,13 @@
           "body": "Looks nice to me!  Thanks for putting it together.   Fine by me to merge once it renders correctly in the artifact.\r\n\r\n",
           "createdAt": "2024-01-26T21:02:18Z",
           "updatedAt": "2024-01-26T21:02:18Z"
+        },
+        {
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "body": "resolved merge conflicts",
+          "createdAt": "2024-01-29T16:22:59Z",
+          "updatedAt": "2024-01-29T16:22:59Z"
         }
       ],
       "reviews": [
@@ -1060,7 +1069,7 @@
             "abbreviatedOid": "53b010f"
           },
           "author": "grizz",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2024-01-26T15:28:15Z",
@@ -1114,25 +1123,35 @@
       "id": "PR_kwDOKwWQEM5lKbLS",
       "title": "Update references using inline-style + other formatting changes",
       "url": "https://github.com/bgp/draft-ietf-peering-api/pull/17",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "Ichabond",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "I've added the references using the defined style in https://github.com/cabo/kramdown-rfc/tree/master\r\n\r\nFurthermore, added anchors to the individual sections to make cross-referencing easier",
       "createdAt": "2024-01-26T14:12:07Z",
-      "updatedAt": "2024-01-27T01:06:18Z",
+      "updatedAt": "2024-01-29T16:20:25Z",
       "baseRepository": "bgp/draft-ietf-peering-api",
       "baseRefName": "main",
-      "baseRefOid": "311ff448dde30f11b5ecf5298efb7ec2e1e2c1fa",
+      "baseRefOid": "8bb6b31174f36bb73586ce621097167546277f34",
       "headRepository": "bgp/draft-ietf-peering-api",
       "headRefName": "tstrickx/update_references",
-      "headRefOid": "6e19b87c7c2cb15580c977f34f0e494016bffa3d",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
-      "comments": [],
+      "headRefOid": "10b261596fb48e10c8102daedff2b9a4844bf1ff",
+      "closedAt": "2024-01-29T16:20:25Z",
+      "mergedAt": "2024-01-29T16:20:25Z",
+      "mergedBy": "jramseyer",
+      "mergeCommit": {
+        "oid": "30f157288dd60d8b0a887b0c04b20d8ea1aa918b"
+      },
+      "comments": [
+        {
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thanks for adding!  I think I fixed merge commits--if the build looks good, will merge this PR.",
+          "createdAt": "2024-01-29T16:16:55Z",
+          "updatedAt": "2024-01-29T16:16:55Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOKwWQEM5uE3yT",
@@ -1183,6 +1202,70 @@
           "updatedAt": "2024-01-27T01:11:30Z"
         }
       ],
+      "reviews": []
+    },
+    {
+      "number": 19,
+      "id": "PR_kwDOKwWQEM5lWLTy",
+      "title": "Format diagram for draft",
+      "url": "https://github.com/bgp/draft-ietf-peering-api/pull/19",
+      "state": "MERGED",
+      "author": "jramseyer",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "I think this fixes the formatting?  Just based on the example in https://github.com/cabo/kramdown-rfc/blob/master/examples/stupid-s.mkd?plain=1",
+      "createdAt": "2024-01-29T16:26:51Z",
+      "updatedAt": "2024-01-29T21:06:19Z",
+      "baseRepository": "bgp/draft-ietf-peering-api",
+      "baseRefName": "grizz-ascii-diagrams",
+      "baseRefOid": "623f480c1162718da67e34d1a593a1f6d9173f44",
+      "headRepository": "bgp/draft-ietf-peering-api",
+      "headRefName": "jramseyer-patch-2",
+      "headRefOid": "46038df45c368668dd9b5812cd730154b8e368c4",
+      "closedAt": "2024-01-29T21:06:13Z",
+      "mergedAt": "2024-01-29T21:06:13Z",
+      "mergedBy": "jramseyer",
+      "mergeCommit": {
+        "oid": "302cba5ad9ff2f681e2bd858b1ce858d7044d104"
+      },
+      "comments": [
+        {
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Yeah, checking the build files here: https://github.com/bgp/draft-ietf-peering-api/actions/runs/7699242254, it looks ok.",
+          "createdAt": "2024-01-29T16:28:46Z",
+          "updatedAt": "2024-01-29T16:28:46Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 20,
+      "id": "PR_kwDOKwWQEM5lWPI6",
+      "title": "Small formatting change",
+      "url": "https://github.com/bgp/draft-ietf-peering-api/pull/20",
+      "state": "MERGED",
+      "author": "jramseyer",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "I went back and forth on whether it should be \"interdomain interconnection\" or \"inter-domain interconnection.\"\r\n\r\nThe web seems to use both, so I just picked \"interdomain.\"",
+      "createdAt": "2024-01-29T16:35:56Z",
+      "updatedAt": "2024-01-29T21:26:57Z",
+      "baseRepository": "bgp/draft-ietf-peering-api",
+      "baseRefName": "main",
+      "baseRefOid": "30f157288dd60d8b0a887b0c04b20d8ea1aa918b",
+      "headRepository": "bgp/draft-ietf-peering-api",
+      "headRefName": "jramseyer-patch-3",
+      "headRefOid": "aa99a9eb9cfbced45a6ce13f27af2ea5e7745658",
+      "closedAt": "2024-01-29T21:24:20Z",
+      "mergedAt": "2024-01-29T21:24:20Z",
+      "mergedBy": "jramseyer",
+      "mergeCommit": {
+        "oid": "9e7e59a5eaa3fa2b1cd78e171bd1c62674fca69d"
+      },
+      "comments": [],
       "reviews": []
     }
   ]
