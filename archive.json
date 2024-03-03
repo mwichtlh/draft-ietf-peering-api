@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-02-29T01:15:39.205819+00:00",
+  "timestamp": "2024-03-03T01:19:46.100635+00:00",
   "repo": "bgp/draft-ietf-peering-api",
   "labels": [
     {
@@ -1267,6 +1267,53 @@
       },
       "comments": [],
       "reviews": []
+    },
+    {
+      "number": 21,
+      "id": "PR_kwDOKwWQEM5ocQFv",
+      "title": "Add security policy, audience sections to Peering API",
+      "url": "https://github.com/bgp/draft-ietf-peering-api/pull/21",
+      "state": "OPEN",
+      "author": "jramseyer",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Add \"Audience\" section to indicate to readers who the suggested users of this API might be.\r\n\r\nAlso, add a note regarding peering policy being left to the peer.",
+      "createdAt": "2024-03-01T18:54:28Z",
+      "updatedAt": "2024-03-01T19:06:09Z",
+      "baseRepository": "bgp/draft-ietf-peering-api",
+      "baseRefName": "main",
+      "baseRefOid": "8dbdbee8a36f714f78f5092c73c1e88c581b40aa",
+      "headRepository": "bgp/draft-ietf-peering-api",
+      "headRefName": "jramseyer-users-disclaimers",
+      "headRefOid": "485efa30bc708f4da54a54c531b995ae97286d95",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKwWQEM5x9FeG",
+          "commit": {
+            "abbreviatedOid": "485efa3"
+          },
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-03-01T19:06:09Z",
+          "updatedAt": "2024-03-01T19:06:09Z",
+          "comments": [
+            {
+              "originalPosition": 9,
+              "body": "I thought about putting this at the bottom of the paper instead--let me know if anyone prefers it moved.",
+              "createdAt": "2024-03-01T19:06:09Z",
+              "updatedAt": "2024-03-01T19:06:09Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
