@@ -5,14 +5,14 @@
 Network Working Group                                          C. Aguado
 Internet-Draft                                                       AWS
 Intended status: Informational                               M. Griswold
-Expires: 1 August 2024                                           FullCtl
+Expires: 7 September 2024                                        FullCtl
                                                              J. Ramseyer
                                                                     Meta
                                                                A. Servin
                                                                   Google
                                                               T. Strickx
                                                               Cloudflare
-                                                         29 January 2024
+                                                            6 March 2024
 
 
                               Peering API
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 August 2024.
+   This Internet-Draft will expire on 7 September 2024.
 
 Copyright Notice
 
@@ -78,28 +78,29 @@ Table of Contents
      1.1.  Business Justification
    2.  Conventions and Definitions
    3.  Security Considerations
-   4.  Protocol
-     4.1.  Example Request Flow
-     4.2.  AUTH
-     4.3.  REQUEST
-     4.4.  CLIENT CONFIGURATION
-     4.5.  SERVER CONFIGURATION
-     4.6.  MONITORING
-     4.7.  COMPLETION
-   5.  API Endpoints and Specifications
-     5.1.  DATA TYPES
-     5.2.  Endpoints
-       5.2.1.  Public Peering over an Internet Exchange (IX)
-       5.2.2.  UTILITY API CALLS
-       5.2.3.  Private Peering (DRAFT)
-   6.  Public Peering Session Negotiation
-   7.  Private Peering
-   8.  Maintenance
-   9.  Possible Extensions
-   10. IANA Considerations
-   11. References
-     11.1.  Normative References
-     11.2.  Informative References
+   4.  Audience
+   5.  Protocol
+     5.1.  Example Request Flow
+     5.2.  AUTH
+     5.3.  REQUEST
+     5.4.  CLIENT CONFIGURATION
+     5.5.  SERVER CONFIGURATION
+     5.6.  MONITORING
+     5.7.  COMPLETION
+   6.  API Endpoints and Specifications
+     6.1.  DATA TYPES
+     6.2.  Endpoints
+       6.2.1.  Public Peering over an Internet Exchange (IX)
+       6.2.2.  UTILITY API CALLS
+       6.2.3.  Private Peering (DRAFT)
+   7.  Public Peering Session Negotiation
+   8.  Private Peering
+   9.  Maintenance
+   10. Possible Extensions
+   11. IANA Considerations
+   12. References
+     12.1.  Normative References
+     12.2.  Informative References
    Appendix A.  Acknowledgments
    Authors' Addresses
 
@@ -180,7 +181,30 @@ Table of Contents
    authentication, this document refers to RPKI Signed Checklists (RSCs)
    ([RFC9323]).
 
-4.  Protocol
+   The Peering API does not enforce any kind of peering policy on the
+   incoming requests.  It is left to the server implementation to
+   enforce the AS-specific peering policy.  The authors encourage each
+   peer to consider the needs of their peering policy and implement
+   request validation as desired.
+
+4.  Audience
+
+   The Peering API aims to simplify peering interconnection
+   configuration.  To that end, the API can be called by either a human
+   or some automation.  A network engineer can submit API requests
+   through a client-side tool, and configure sessions by hand or through
+   existing tooling.  Alternately, an automated service can request BGP
+   sessions through some trigger or regularly scheduled request (for
+   example, upon joining a new peering location, or through regular
+   polling of potential peers).  That automated client can then
+   configure the client sessions through its own tooling.  For ease of
+   exchanging peering requests, the authors suggest peers to maintain
+   both a client and a server for the API.  Toward the goal of
+   streamlining peering configuration, the authors encourage peers to
+   automate their network configuration wherever possible, but do not
+   require full automation to use this API.
+
+5.  Protocol
 
    The Peering API follows the Representational State Transfer ([rest])
    architecture where sessions, locations, and maintenance events are
@@ -190,7 +214,7 @@ Table of Contents
    list potential interconnection locations, and query for upcoming
    maintenance events on behalf of the AS resource owner.
 
-4.1.  Example Request Flow
+5.1.  Example Request Flow
 
    The diagram below outlines the proposed API flow.
 
@@ -249,7 +273,7 @@ Request session status
       |                                      (200, 404, 202, etc.) |
       |<-----------------------------------------------------------|
 
-4.2.  AUTH
+5.2.  AUTH
 
    First, the initiating OAuth2 Client is also the Resource Owner (RO)
    so it can follow the OAuth2 client credentials grant Section 4.4 of
@@ -261,7 +285,7 @@ Request session status
    as OAuth2 scopes), to confirm the client is permitted to make API
    requests on behalf of the initiating AS.
 
-4.3.  REQUEST
+5.3.  REQUEST
 
    1.  ADD SESSION (CLIENT BATCHED REQUEST)
 
@@ -320,19 +344,19 @@ Request session status
       -  Server returns an error message which indicates that all of the
          sessions requested have been rejected and the reason for it.
 
-4.4.  CLIENT CONFIGURATION
+5.4.  CLIENT CONFIGURATION
 
    The client then configures the chosen peering sessions asynchronously
    using their internal mechanisms.  For every session that the server
    rejected, the client removes that session from the list to be
    configured.
 
-4.5.  SERVER CONFIGURATION
+5.5.  SERVER CONFIGURATION
 
    The server configures all sessions that are in its list of approved
    peering sessions from its reply to the client.
 
-4.6.  MONITORING
+5.6.  MONITORING
 
    Both client and server wait for sessions to establish.  At any point,
    client may send a "GET STATUS" request to the server, to request the
@@ -362,7 +386,7 @@ Request session status
    The server then responds with the same structure, with the
    information that it understands (status, etc).
 
-4.7.  COMPLETION
+5.7.  COMPLETION
 
    If both sides report that the session is established, then peering is
    complete.  If one side does not configure sessions within the
@@ -370,7 +394,7 @@ Request session status
    server is entitled to remove the configured sessions and report
    "Unestablished" to the client.
 
-5.  API Endpoints and Specifications
+6.  API Endpoints and Specifications
 
    Each peer needs a public API endpoint that will implement the API
    protocol.  This API should be publicly listed in peeringDB and also
@@ -396,7 +420,7 @@ Request session status
    Private Peering and Maintenance are under discussion, and the authors
    invite collaboration and discussion from interested parties.
 
-5.1.  DATA TYPES
+6.1.  DATA TYPES
 
    As defined in https://github.com/bgp/autopeer/blob/main/api/
    openapi.yaml (https://github.com/bgp/autopeer/blob/main/api/
@@ -453,14 +477,14 @@ Request session status
 
    The above is sourced largely from the linked OpenAPI specification.
 
-5.2.  Endpoints
+6.2.  Endpoints
 
    (As defined in https://github.com/bgp/autopeer/blob/main/api/
    openapi.yaml (https://github.com/bgp/autopeer/blob/main/api/
    openapi.yaml)) On each call, there should be rate limits, allowed
    senders, and other optional restrictions.
 
-5.2.1.  Public Peering over an Internet Exchange (IX)
+6.2.1.  Public Peering over an Internet Exchange (IX)
 
    *  /sessions: ADD/RETRIEVE sessions visible to the calling PEER
 
@@ -611,7 +635,7 @@ Request session status
                   -  The session referred by the specified session_id
                      does not exist or is not visible to the caller
 
-5.2.2.  UTILITY API CALLS
+6.2.2.  UTILITY API CALLS
 
    Endpoints which provide useful information for potential
    interconnections.
@@ -656,7 +680,7 @@ Request session status
 
                   -  Unauthorized to perform the operation
 
-5.2.3.  Private Peering (DRAFT)
+6.2.3.  Private Peering (DRAFT)
 
    *  ADD/AUGMENT PNI
 
@@ -702,7 +726,7 @@ Request session status
       -  As ADD/AUGMENT in parameters.  Responses will include a
          requestID and status.
 
-6.  Public Peering Session Negotiation
+7.  Public Peering Session Negotiation
 
    As part of public peering configuration, this draft must consider how
    the client and server should handshake at which sessions to configure
@@ -734,14 +758,14 @@ Request session status
    to coordinate which side unfilters first.  Perhaps this information
    could be conveyed over a preferences vector.
 
-7.  Private Peering
+8.  Private Peering
 
    Through future discussion with the IETF, the specification for
    private peering will be solidified.  Of interest for discussion
    includes Letter of Authorization (LOA) negotiation, and how to
    coordinate unfiltering and configuration checks.
 
-8.  Maintenance
+9.  Maintenance
 
    This draft does not want to invent a new ticketing system.  However,
    there is an opportunity in this API to provide maintenance
@@ -767,19 +791,19 @@ Request session status
 
    Past maintenances will not be advertised.
 
-9.  Possible Extensions
+10.  Possible Extensions
 
    The authors acknowledge that route-server configuration may also be
    of interest for this proposed API, and look forward to future
    discussions in this area.
 
-10.  IANA Considerations
+11.  IANA Considerations
 
    This document has no IANA actions.
 
-11.  References
+12.  References
 
-11.1.  Normative References
+12.1.  Normative References
 
    [autopeer] "Github respository with the API specification and
               diagrams", n.d., <https://github.com/bgp/autopeer/>.
@@ -816,7 +840,7 @@ Request session status
               Access Tokens", RFC 9068, DOI 10.17487/RFC9068, October
               2021, <https://www.rfc-editor.org/rfc/rfc9068>.
 
-11.2.  Informative References
+12.2.  Informative References
 
    [RFC3912]  Daigle, L., "WHOIS Protocol Specification", RFC 3912,
               DOI 10.17487/RFC3912, September 2004,
