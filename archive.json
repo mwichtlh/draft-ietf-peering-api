@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-03-05T01:15:44.395742+00:00",
+  "timestamp": "2024-03-07T01:03:09.145396+00:00",
   "repo": "bgp/draft-ietf-peering-api",
   "labels": [
     {
@@ -1273,25 +1273,35 @@
       "id": "PR_kwDOKwWQEM5ocQFv",
       "title": "Add security policy, audience sections to Peering API",
       "url": "https://github.com/bgp/draft-ietf-peering-api/pull/21",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "jramseyer",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Add \"Audience\" section to indicate to readers who the suggested users of this API might be.\r\n\r\nAlso, add a note regarding peering policy being left to the peer.",
       "createdAt": "2024-03-01T18:54:28Z",
-      "updatedAt": "2024-03-01T19:06:09Z",
+      "updatedAt": "2024-03-06T21:31:39Z",
       "baseRepository": "bgp/draft-ietf-peering-api",
       "baseRefName": "main",
       "baseRefOid": "8dbdbee8a36f714f78f5092c73c1e88c581b40aa",
       "headRepository": "bgp/draft-ietf-peering-api",
       "headRefName": "jramseyer-users-disclaimers",
       "headRefOid": "485efa30bc708f4da54a54c531b995ae97286d95",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
-      "comments": [],
+      "closedAt": "2024-03-06T21:31:33Z",
+      "mergedAt": "2024-03-06T21:31:33Z",
+      "mergedBy": "jramseyer",
+      "mergeCommit": {
+        "oid": "b050ceaf03c68ec0b3610e4a62ba2f6573b902c6"
+      },
+      "comments": [
+        {
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thanks!",
+          "createdAt": "2024-03-06T21:31:36Z",
+          "updatedAt": "2024-03-06T21:31:36Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOKwWQEM5x9FeG",
@@ -1312,6 +1322,19 @@
               "updatedAt": "2024-03-01T19:06:09Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOKwWQEM5yfSZo",
+          "commit": {
+            "abbreviatedOid": "485efa3"
+          },
+          "author": "grizz",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-03-06T20:58:37Z",
+          "updatedAt": "2024-03-06T20:58:37Z",
+          "comments": []
         }
       ]
     }
