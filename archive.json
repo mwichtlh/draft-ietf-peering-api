@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-03-07T01:03:09.145396+00:00",
+  "timestamp": "2024-03-10T01:20:37.914037+00:00",
   "repo": "bgp/draft-ietf-peering-api",
   "labels": [
     {
@@ -1337,6 +1337,72 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 22,
+      "id": "PR_kwDOKwWQEM5pHT6M",
+      "title": "Add acknowledgement to early contributors",
+      "url": "https://github.com/bgp/draft-ietf-peering-api/pull/22",
+      "state": "OPEN",
+      "author": "caguado",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Adding folks in my team that contributed in the early beginning of the google doc and back channel discussions.",
+      "createdAt": "2024-03-08T19:21:24Z",
+      "updatedAt": "2024-03-08T22:00:31Z",
+      "baseRepository": "bgp/draft-ietf-peering-api",
+      "baseRefName": "main",
+      "baseRefOid": "b050ceaf03c68ec0b3610e4a62ba2f6573b902c6",
+      "headRepository": "bgp/draft-ietf-peering-api",
+      "headRefName": "contrib/crlsa/acknowledgements",
+      "headRefOid": "a4700f788c9fb6f400f0b03130acfe9a446ad3d3",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKwWQEM5yy0p9",
+          "commit": {
+            "abbreviatedOid": "a4700f7"
+          },
+          "author": "grizz",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-03-08T22:00:31Z",
+          "updatedAt": "2024-03-08T22:00:31Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 23,
+      "id": "PR_kwDOKwWQEM5pHUNb",
+      "title": "Cleanup references to agreed changes in API",
+      "url": "https://github.com/bgp/draft-ietf-peering-api/pull/23",
+      "state": "OPEN",
+      "author": "caguado",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This commit cleans up the references to the item_id and clarifies the HTTP return code for partial results.",
+      "createdAt": "2024-03-08T19:22:31Z",
+      "updatedAt": "2024-03-08T19:22:31Z",
+      "baseRepository": "bgp/draft-ietf-peering-api",
+      "baseRefName": "main",
+      "baseRefOid": "b050ceaf03c68ec0b3610e4a62ba2f6573b902c6",
+      "headRepository": "bgp/draft-ietf-peering-api",
+      "headRefName": "contrib/crlsa/fixup-item-errors",
+      "headRefOid": "52f9877b96933dc0ad6ec2b9ff909a2d737e5606",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
