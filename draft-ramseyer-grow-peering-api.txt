@@ -3,16 +3,16 @@
 
 
 Network Working Group                                          C. Aguado
-Internet-Draft                                                       AWS
+Internet-Draft                                                    Amazon
 Intended status: Informational                               M. Griswold
-Expires: 7 September 2024                                        FullCtl
+Expires: 12 September 2024                                       FullCtl
                                                              J. Ramseyer
                                                                     Meta
                                                                A. Servin
                                                                   Google
                                                               T. Strickx
                                                               Cloudflare
-                                                            6 March 2024
+                                                           11 March 2024
 
 
                               Peering API
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 7 September 2024.
+   This Internet-Draft will expire on 12 September 2024.
 
 Copyright Notice
 
@@ -884,10 +884,14 @@ Appendix A.  Acknowledgments
 
    *  David Tuber (Cloudflare)
 
+   *  Aaron Rose (Amazon)
+
+   *  Prithvi Nath Manikonda (Amazon)
+
 Authors' Addresses
 
    Carlos Aguado
-   AWS
+   Amazon
    Email: crlsa@amazon.com
 
 
