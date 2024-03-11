@@ -5,14 +5,14 @@
 Network Working Group                                          C. Aguado
 Internet-Draft                                                    Amazon
 Intended status: Informational                               M. Griswold
-Expires: 9 September 2024                                        FullCtl
+Expires: 12 September 2024                                       FullCtl
                                                              J. Ramseyer
                                                                     Meta
                                                                A. Servin
                                                                   Google
                                                               T. Strickx
                                                               Cloudflare
-                                                            8 March 2024
+                                                           11 March 2024
 
 
                               Peering API
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 September 2024.
+   This Internet-Draft will expire on 12 September 2024.
 
 Copyright Notice
 
@@ -547,7 +547,7 @@ Request session status
                      sessions between client ASN and server.
 
                      o  next_token (opaque string for clients to use
-                        when retrieving a new page and which missing
+                        when retrieving a new page and when missing
                         indicates no more pages to retrieve)
 
                *  400:
@@ -664,7 +664,7 @@ Request session status
                   -  Contents: List of Peering Locations.
 
                      o  next_token (opaque string for clients to use
-                        when retrieving a new page and which missing
+                        when retrieving a new page and when missing
                         indicates no more pages to retrieve)
 
                *  400:
