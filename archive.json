@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-03-10T01:20:37.914037+00:00",
+  "timestamp": "2024-03-12T01:15:34.016699+00:00",
   "repo": "bgp/draft-ietf-peering-api",
   "labels": [
     {
@@ -1343,24 +1343,26 @@
       "id": "PR_kwDOKwWQEM5pHT6M",
       "title": "Add acknowledgement to early contributors",
       "url": "https://github.com/bgp/draft-ietf-peering-api/pull/22",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "caguado",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Adding folks in my team that contributed in the early beginning of the google doc and back channel discussions.",
       "createdAt": "2024-03-08T19:21:24Z",
-      "updatedAt": "2024-03-08T22:00:31Z",
+      "updatedAt": "2024-03-11T19:22:12Z",
       "baseRepository": "bgp/draft-ietf-peering-api",
       "baseRefName": "main",
       "baseRefOid": "b050ceaf03c68ec0b3610e4a62ba2f6573b902c6",
       "headRepository": "bgp/draft-ietf-peering-api",
       "headRefName": "contrib/crlsa/acknowledgements",
       "headRefOid": "a4700f788c9fb6f400f0b03130acfe9a446ad3d3",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-03-11T19:22:12Z",
+      "mergedAt": "2024-03-11T19:22:12Z",
+      "mergedBy": "jramseyer",
+      "mergeCommit": {
+        "oid": "da101a13276da1d6a6f16c7370b84ffb5ce5ebeb"
+      },
       "comments": [],
       "reviews": [
         {
@@ -1374,6 +1376,19 @@
           "body": "",
           "createdAt": "2024-03-08T22:00:31Z",
           "updatedAt": "2024-03-08T22:00:31Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOKwWQEM5y-R7-",
+          "commit": {
+            "abbreviatedOid": "a4700f7"
+          },
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Looks good, thanks!",
+          "createdAt": "2024-03-11T19:22:07Z",
+          "updatedAt": "2024-03-11T19:22:07Z",
           "comments": []
         }
       ]
@@ -1390,19 +1405,112 @@
       "labels": [],
       "body": "This commit cleans up the references to the item_id and clarifies the HTTP return code for partial results.",
       "createdAt": "2024-03-08T19:22:31Z",
-      "updatedAt": "2024-03-08T19:22:31Z",
+      "updatedAt": "2024-03-11T21:58:53Z",
       "baseRepository": "bgp/draft-ietf-peering-api",
       "baseRefName": "main",
-      "baseRefOid": "b050ceaf03c68ec0b3610e4a62ba2f6573b902c6",
+      "baseRefOid": "da101a13276da1d6a6f16c7370b84ffb5ce5ebeb",
       "headRepository": "bgp/draft-ietf-peering-api",
       "headRefName": "contrib/crlsa/fixup-item-errors",
-      "headRefOid": "52f9877b96933dc0ad6ec2b9ff909a2d737e5606",
+      "headRefOid": "c4279bd7a42d17c84833106c17f0c4a4d6bc0286",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOKwWQEM5y-Pgx",
+          "commit": {
+            "abbreviatedOid": "52f9877"
+          },
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Looks good, just a few questions",
+          "createdAt": "2024-03-11T19:19:11Z",
+          "updatedAt": "2024-03-11T19:20:39Z",
+          "comments": [
+            {
+              "originalPosition": 33,
+              "body": "(not blocking the merge) Is this a separate list, or will the rejected sessions be listed with status: \"rejected\"?\r\nThe second case makes sense to me, just confirming we are in alignment.",
+              "createdAt": "2024-03-11T19:19:11Z",
+              "updatedAt": "2024-03-11T19:20:39Z"
+            },
+            {
+              "originalPosition": 42,
+              "body": "Doesn't next_token indicate the next page that we should fetch?\r\nIt comes from the previous page, but it links the next page, right?",
+              "createdAt": "2024-03-11T19:19:54Z",
+              "updatedAt": "2024-03-11T19:20:39Z"
+            },
+            {
+              "originalPosition": 47,
+              "body": "nit: which -> when",
+              "createdAt": "2024-03-11T19:20:15Z",
+              "updatedAt": "2024-03-11T19:20:39Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKwWQEM5zAO7K",
+          "commit": {
+            "abbreviatedOid": "52f9877"
+          },
+          "author": "caguado",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-03-11T21:50:25Z",
+          "updatedAt": "2024-03-11T21:50:26Z",
+          "comments": [
+            {
+              "originalPosition": 33,
+              "body": "The response contains 2 lists, the list of sessions and a list of errors. Either can be full-empty, partial-partial, empty-full to signify what happened to the collection of requested resources. The sum of both should match that of the request.\r\n\r\nThe error code was under question and I haven't found a conclusive source on what 2xx matches a partial accepted request (206 implies content ranges and 207 caldav) so opted to not overload existing 2xx with additional semantics. In the same way we expect initiators to match by some property each item of the response to each item of the request, the absence of one successful can be matched against the errors in the error list.",
+              "createdAt": "2024-03-11T21:50:26Z",
+              "updatedAt": "2024-03-11T21:50:26Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKwWQEM5zAPEs",
+          "commit": {
+            "abbreviatedOid": "52f9877"
+          },
+          "author": "caguado",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-03-11T21:50:38Z",
+          "updatedAt": "2024-03-11T21:50:38Z",
+          "comments": [
+            {
+              "originalPosition": 42,
+              "body": "It does, the attribute itself is described as a token to convey that is abstract and opaque hence the explicit suffix.",
+              "createdAt": "2024-03-11T21:50:38Z",
+              "updatedAt": "2024-03-11T21:50:38Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKwWQEM5zAVKT",
+          "commit": {
+            "abbreviatedOid": "c4279bd"
+          },
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-03-11T21:58:42Z",
+          "updatedAt": "2024-03-11T21:58:53Z",
+          "comments": [
+            {
+              "originalPosition": 42,
+              "body": "But doesn't the next token hint you to the next page, not the previous page?\r\nOr is the intent here \"give me the next page as directed from the 'next token' from the previous page\"?\r\n\r\nMaybe \"opaque and optional string to hint the query and last result returned when fetching the following page\" would be clearer?\r\n\r\n",
+              "createdAt": "2024-03-11T21:58:42Z",
+              "updatedAt": "2024-03-11T21:58:53Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
