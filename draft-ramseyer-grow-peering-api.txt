@@ -408,9 +408,7 @@ Request session status
    implemented properly (can be obtained through PeeringDB).
 
    For a programmatic specification of the API, please see the public
-   Github here: https://github.com/bgp/autopeer/blob/main/api/
-   openapi.yaml (https://github.com/bgp/autopeer/blob/main/api/
-   openapi.yaml)
+   Github ([autopeer]).
 
    This initial draft fully specifies the Public Peering endpoints.
    Private Peering and Maintenance are under discussion, and the authors
@@ -418,9 +416,7 @@ Request session status
 
 6.1.  DATA TYPES
 
-   As defined in https://github.com/bgp/autopeer/blob/main/api/
-   openapi.yaml (https://github.com/bgp/autopeer/blob/main/api/
-   openapi.yaml).  Please see specification for OpenAPI format.
+   Please see specification ([autopeer]) for OpenAPI format.
 
    Peering Location
 
@@ -475,10 +471,8 @@ Request session status
 
 6.2.  Endpoints
 
-   (As defined in https://github.com/bgp/autopeer/blob/main/api/
-   openapi.yaml (https://github.com/bgp/autopeer/blob/main/api/
-   openapi.yaml)) On each call, there should be rate limits, allowed
-   senders, and other optional restrictions.
+   (As defined in [autopeer]) On each call, there should be rate limits,
+   allowed senders, and other optional restrictions.
 
 6.2.1.  Public Peering over an Internet Exchange (IX)
 
@@ -489,9 +483,7 @@ Request session status
          o  Establish new BGP sessions between peers, at the desired
             exchange.
 
-         o  Below is based on OpenAPI specification:
-            https://github.com/bgp/autopeer/blob/main/api/openapi.yaml
-            (https://github.com/bgp/autopeer/blob/main/api/openapi.yaml)
+         o  Below is based on OpenAPI specification: [autopeer].
 
          o  POST /sessions
 
@@ -521,9 +513,7 @@ Request session status
          o  Given an ASN without request ID, query for status of all
             connections between client and server.
 
-         o  Below is based on OpenAPI specification:
-            https://github.com/bgp/autopeer/blob/main/api/openapi.yaml
-            (https://github.com/bgp/autopeer/blob/main/api/openapi.yaml)
+         o  Below is based on OpenAPI specification: [autopeer].
 
          o  GET /sessions
 
@@ -567,9 +557,7 @@ Request session status
 
       -  Retrieve an existing session resource
 
-         o  Below is based on OpenAPI specification:
-            https://github.com/bgp/autopeer/blob/main/api/openapi.yaml
-            (https://github.com/bgp/autopeer/blob/main/api/openapi.yaml)
+         o  Below is based on OpenAPI specification: [autopeer]
 
          o  GET /sessions/{session_id}
 
@@ -602,9 +590,7 @@ Request session status
          o  Given a session ID, delete it which effectively triggers an
             depeering from the initiator.
 
-         o  Below is based on OpenAPI specification:
-            https://github.com/bgp/autopeer/blob/main/api/openapi.yaml
-            (https://github.com/bgp/autopeer/blob/main/api/openapi.yaml)
+         o  Below is based on OpenAPI specification: [autopeer]
 
          o  DELETE /sessions/{session_id}
 
@@ -643,8 +629,7 @@ Request session status
       -  List potential peering locations, both public and private.  The
          response is paginated.
 
-         o  Below is based on OpenAPI specification:
-            https://github.com/bgp/autopeer/blob/main/api/openapi.yaml
+         o  Below is based on OpenAPI specification: [autopeer]
 
          o  GET /locations
 
@@ -803,7 +788,7 @@ Request session status
 
 12.1.  Normative References
 
-   [autopeer] "Github respository with the API specification and
+   [autopeer] "Github repository with the API specification and
               diagrams", n.d., <https://github.com/bgp/autopeer/>.
 
    [oidc]     "OpenID.Core", n.d.,
