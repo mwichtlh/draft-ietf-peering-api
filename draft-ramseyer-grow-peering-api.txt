@@ -471,8 +471,8 @@ Request session status
 
 6.2.  Endpoints
 
-   (As defined in [autopeer]) On each call, there should be rate limits,
-   allowed senders, and other optional restrictions.
+   (As defined in [autopeer]).  On each call, there should be rate
+   limits, allowed senders, and other optional restrictions.
 
 6.2.1.  Public Peering over an Internet Exchange (IX)
 
@@ -557,7 +557,7 @@ Request session status
 
       -  Retrieve an existing session resource
 
-         o  Below is based on OpenAPI specification: [autopeer]
+         o  Below is based on OpenAPI specification: [autopeer].
 
          o  GET /sessions/{session_id}
 
@@ -590,7 +590,7 @@ Request session status
          o  Given a session ID, delete it which effectively triggers an
             depeering from the initiator.
 
-         o  Below is based on OpenAPI specification: [autopeer]
+         o  Below is based on OpenAPI specification: [autopeer].
 
          o  DELETE /sessions/{session_id}
 
@@ -629,7 +629,7 @@ Request session status
       -  List potential peering locations, both public and private.  The
          response is paginated.
 
-         o  Below is based on OpenAPI specification: [autopeer]
+         o  Below is based on OpenAPI specification: [autopeer].
 
          o  GET /locations
 
