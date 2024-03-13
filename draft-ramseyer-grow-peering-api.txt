@@ -436,10 +436,12 @@ Request session status
    Session Array
 
    Array of potential BGP sessions, with request UUID.  Request UUID is
-   optional for client, and required for server.  Client may provide
-   initial UUID for client-side tracking, but the server UUID will be
-   the final definitive ID.  RequestID will not change across the
-   request.
+   optional for client, and required for server.  Return URL is
+   optional, and indicates the client's Peering API endpoint.  The
+   client's return URL is used by the server to request additional
+   sessions.  Client may provide initial UUID for client-side tracking,
+   but the server UUID will be the final definitive ID.  RequestID will
+   not change across the request.
 
    BGP Session
 

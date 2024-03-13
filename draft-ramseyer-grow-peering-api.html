@@ -1593,7 +1593,8 @@ This GUID should be provided by the receiver once it receives the request and mu
 If there is no RequestID present then that should be interpreted as a new request and the process starts again.
 An email address is needed for communication if the API fails or is not implemented properly (can be obtained through PeeringDB).<a href="#section-6-1" class="pilcrow">¶</a></p>
 <p id="section-6-2">For a programmatic specification of the API, please see the public Github here: <a href="https://github.com/bgp/autopeer/blob/main/api/openapi.yaml">https://github.com/bgp/autopeer/blob/main/api/openapi.yaml</a><a href="#section-6-2" class="pilcrow">¶</a></p>
-<p id="section-6-3">This initial draft fully specifies the Public Peering endpoints. Private Peering and Maintenance are under discussion, and the authors invite collaboration and discussion from interested parties.<a href="#section-6-3" class="pilcrow">¶</a></p>
+<p id="section-6-3">This initial draft fully specifies the Public Peering endpoints.
+Private Peering and Maintenance are under discussion, and the authors invite collaboration and discussion from interested parties.<a href="#section-6-3" class="pilcrow">¶</a></p>
 <div id="datatypes">
 <section id="section-6.1">
         <h3 id="name-data-types">
@@ -1608,7 +1609,10 @@ Please see specification for OpenAPI format.<a href="#section-6.1-1" class="pilc
 <p id="section-6.1-6">Session Array<a href="#section-6.1-6" class="pilcrow">¶</a></p>
 <p id="section-6.1-7">Array of potential BGP sessions, with request UUID.
   Request UUID is optional for client, and required for server.
-  Client may provide initial UUID for client-side tracking, but the server UUID will be the final definitive ID.  RequestID will not change across the request.<a href="#section-6.1-7" class="pilcrow">¶</a></p>
+  Return URL is optional, and indicates the client's Peering API endpoint.
+  The client's return URL is used by the server to request additional sessions.
+  Client may provide initial UUID for client-side tracking, but the server UUID will be the final definitive ID.
+  RequestID will not change across the request.<a href="#section-6.1-7" class="pilcrow">¶</a></p>
 <p id="section-6.1-8">BGP Session<a href="#section-6.1-8" class="pilcrow">¶</a></p>
 <p id="section-6.1-9">A structure that describes a BGP session and contains the following elements:<a href="#section-6.1-9" class="pilcrow">¶</a></p>
 <ul class="normal">
