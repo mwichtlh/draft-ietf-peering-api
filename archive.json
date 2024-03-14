@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-03-12T01:15:34.016699+00:00",
+  "timestamp": "2024-03-14T01:16:07.732660+00:00",
   "repo": "bgp/draft-ietf-peering-api",
   "labels": [
     {
@@ -585,7 +585,7 @@
       "labels": [],
       "body": "Add more context on why and how OIDC/OAuth2 flows are expected to cover the authorization needs of all participating entities using the technical jargon from OIDC/OAuth2 and link the relevant RFCs.",
       "createdAt": "2024-01-19T11:33:48Z",
-      "updatedAt": "2024-01-19T17:00:55Z",
+      "updatedAt": "2024-03-13T18:32:28Z",
       "baseRepository": "bgp/draft-ietf-peering-api",
       "baseRefName": "main",
       "baseRefOid": "a8ee209e94b4427e51ee77be82b423b8ce3d9547",
@@ -1350,7 +1350,7 @@
       "labels": [],
       "body": "Adding folks in my team that contributed in the early beginning of the google doc and back channel discussions.",
       "createdAt": "2024-03-08T19:21:24Z",
-      "updatedAt": "2024-03-11T19:22:12Z",
+      "updatedAt": "2024-03-13T18:32:15Z",
       "baseRepository": "bgp/draft-ietf-peering-api",
       "baseRefName": "main",
       "baseRefOid": "b050ceaf03c68ec0b3610e4a62ba2f6573b902c6",
@@ -1398,24 +1398,26 @@
       "id": "PR_kwDOKwWQEM5pHUNb",
       "title": "Cleanup references to agreed changes in API",
       "url": "https://github.com/bgp/draft-ietf-peering-api/pull/23",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "caguado",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "This commit cleans up the references to the item_id and clarifies the HTTP return code for partial results.",
       "createdAt": "2024-03-08T19:22:31Z",
-      "updatedAt": "2024-03-11T21:58:53Z",
+      "updatedAt": "2024-03-13T18:32:31Z",
       "baseRepository": "bgp/draft-ietf-peering-api",
       "baseRefName": "main",
       "baseRefOid": "da101a13276da1d6a6f16c7370b84ffb5ce5ebeb",
       "headRepository": "bgp/draft-ietf-peering-api",
       "headRefName": "contrib/crlsa/fixup-item-errors",
-      "headRefOid": "c4279bd7a42d17c84833106c17f0c4a4d6bc0286",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "5d95efc54f94daa1b2776059765dd80041703d0d",
+      "closedAt": "2024-03-13T15:37:40Z",
+      "mergedAt": "2024-03-13T15:37:40Z",
+      "mergedBy": "jramseyer",
+      "mergeCommit": {
+        "oid": "f43f10766badb0c906a99ba484995f63b7328024"
+      },
       "comments": [],
       "reviews": [
         {
@@ -1509,6 +1511,131 @@
               "updatedAt": "2024-03-11T21:58:53Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOKwWQEM5zHI4q",
+          "commit": {
+            "abbreviatedOid": "52f9877"
+          },
+          "author": "caguado",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-03-12T14:33:11Z",
+          "updatedAt": "2024-03-12T14:33:11Z",
+          "comments": [
+            {
+              "originalPosition": 42,
+              "body": "I see, let me be more verbose in the explanation to clarify it.",
+              "createdAt": "2024-03-12T14:33:11Z",
+              "updatedAt": "2024-03-12T14:33:11Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKwWQEM5zLU2A",
+          "commit": {
+            "abbreviatedOid": "5d95efc"
+          },
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Looks great!  Thank you!",
+          "createdAt": "2024-03-12T20:09:58Z",
+          "updatedAt": "2024-03-12T20:09:58Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 24,
+      "id": "PR_kwDOKwWQEM5phnj7",
+      "title": "Return_URL spec, Area->OPS",
+      "url": "https://github.com/bgp/draft-ietf-peering-api/pull/24",
+      "state": "MERGED",
+      "author": "jramseyer",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Return URL from https://github.com/bgp/autopeer/pull/21\r\n\r\nAlso change area to OPS, since GROW is in OPS: https://datatracker.ietf.org/wg/grow/about/",
+      "createdAt": "2024-03-13T15:55:38Z",
+      "updatedAt": "2024-03-13T17:49:05Z",
+      "baseRepository": "bgp/draft-ietf-peering-api",
+      "baseRefName": "main",
+      "baseRefOid": "f43f10766badb0c906a99ba484995f63b7328024",
+      "headRepository": "bgp/draft-ietf-peering-api",
+      "headRefName": "jramseyer-patch-return-url",
+      "headRefOid": "2ebbb5bd8ebec81eaf15dcb0e6dfc870ab67105c",
+      "closedAt": "2024-03-13T17:48:57Z",
+      "mergedAt": "2024-03-13T17:48:57Z",
+      "mergedBy": "caguado",
+      "mergeCommit": {
+        "oid": "eee1c7809edb2a108399df66971fdb2613a3cdec"
+      },
+      "comments": [
+        {
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "body": "(looks like I can only add one reviewer, but happy for anyone to stamp)",
+          "createdAt": "2024-03-13T17:09:12Z",
+          "updatedAt": "2024-03-13T17:09:12Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKwWQEM5zU0Ru",
+          "commit": {
+            "abbreviatedOid": "2ebbb5b"
+          },
+          "author": "caguado",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-03-13T17:47:11Z",
+          "updatedAt": "2024-03-13T17:47:11Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 25,
+      "id": "PR_kwDOKwWQEM5piax-",
+      "title": "Change github link to proper reference",
+      "url": "https://github.com/bgp/draft-ietf-peering-api/pull/25",
+      "state": "MERGED",
+      "author": "jramseyer",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "We added a reference to the github, but never updated the links.  Let's change the links over.",
+      "createdAt": "2024-03-13T18:01:49Z",
+      "updatedAt": "2024-03-13T18:35:07Z",
+      "baseRepository": "bgp/draft-ietf-peering-api",
+      "baseRefName": "main",
+      "baseRefOid": "eee1c7809edb2a108399df66971fdb2613a3cdec",
+      "headRepository": "bgp/draft-ietf-peering-api",
+      "headRefName": "jramseyer-patch-2",
+      "headRefOid": "bd7b7b4a95749abccf6086eb861f9b84800a85b0",
+      "closedAt": "2024-03-13T18:35:07Z",
+      "mergedAt": "2024-03-13T18:35:07Z",
+      "mergedBy": "jramseyer",
+      "mergeCommit": {
+        "oid": "33f645794517f071a23dc59a6b4d0f3a4e2e1cd7"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKwWQEM5zVKNi",
+          "commit": {
+            "abbreviatedOid": "bd7b7b4"
+          },
+          "author": "caguado",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-03-13T18:30:02Z",
+          "updatedAt": "2024-03-13T18:30:02Z",
+          "comments": []
         }
       ]
     }
