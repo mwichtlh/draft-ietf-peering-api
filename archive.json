@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-04-16T01:17:55.353086+00:00",
+  "timestamp": "2024-04-18T01:18:04.069291+00:00",
   "repo": "bgp/draft-ietf-peering-api",
   "labels": [
     {
@@ -1638,6 +1638,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 26,
+      "id": "PR_kwDOKwWQEM5s9j1H",
+      "title": "fix typo",
+      "url": "https://github.com/bgp/draft-ietf-peering-api/pull/26",
+      "state": "OPEN",
+      "author": "grizz",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-04-17T18:52:18Z",
+      "updatedAt": "2024-04-17T18:52:18Z",
+      "baseRepository": "bgp/draft-ietf-peering-api",
+      "baseRefName": "main",
+      "baseRefOid": "17009b7a67de164c4f73ba66f8eb9acc88752af0",
+      "headRepository": "bgp/draft-ietf-peering-api",
+      "headRefName": "fix-pratter",
+      "headRefOid": "6dc83096b15dd123ce5949642a01f210dd0b468e",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
