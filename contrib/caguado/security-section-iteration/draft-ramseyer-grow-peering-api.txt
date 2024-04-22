@@ -1041,7 +1041,7 @@ Appendix A.  Acknowledgments
 
    *  Jakub Heichman (Meta)
 
-   *  Stefan Prattner (20c)
+   *  Stefan Pratter (20C)
 
    *  Ben Ryall (Meta)
 
