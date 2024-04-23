@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-04-21T01:24:19.868707+00:00",
+  "timestamp": "2024-04-23T01:19:54.891675+00:00",
   "repo": "bgp/draft-ietf-peering-api",
   "labels": [
     {
@@ -1644,26 +1644,87 @@
       "id": "PR_kwDOKwWQEM5s9j1H",
       "title": "fix typo",
       "url": "https://github.com/bgp/draft-ietf-peering-api/pull/26",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "grizz",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2024-04-17T18:52:18Z",
-      "updatedAt": "2024-04-17T18:52:18Z",
+      "updatedAt": "2024-04-22T19:48:09Z",
       "baseRepository": "bgp/draft-ietf-peering-api",
       "baseRefName": "main",
       "baseRefOid": "17009b7a67de164c4f73ba66f8eb9acc88752af0",
       "headRepository": "bgp/draft-ietf-peering-api",
       "headRefName": "fix-pratter",
       "headRefOid": "6dc83096b15dd123ce5949642a01f210dd0b468e",
+      "closedAt": "2024-04-22T19:48:08Z",
+      "mergedAt": "2024-04-22T19:48:08Z",
+      "mergedBy": "caguado",
+      "mergeCommit": {
+        "oid": "41f188910faa1e5b9bf1aa9a6ea9c7c727cf722f"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 27,
+      "id": "PR_kwDOKwWQEM5tZN0v",
+      "title": "Rework security considerations section",
+      "url": "https://github.com/bgp/draft-ietf-peering-api/pull/27",
+      "state": "OPEN",
+      "author": "caguado",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This commit delves more into the security considerations to operate the peering API and introduces a baseline threat model that supports the addition of authorization, proof of resource holdership and request integrity to address them.\r\n\r\nThis commit also moves the security considerations sections to the end of the document to align with other RFCs.",
+      "createdAt": "2024-04-22T19:49:06Z",
+      "updatedAt": "2024-04-22T19:57:00Z",
+      "baseRepository": "bgp/draft-ietf-peering-api",
+      "baseRefName": "main",
+      "baseRefOid": "41f188910faa1e5b9bf1aa9a6ea9c7c727cf722f",
+      "headRepository": "bgp/draft-ietf-peering-api",
+      "headRefName": "contrib/caguado/security-section-iteration",
+      "headRefOid": "1e5697b1fda3b6a71fdd8a3549605451e5d2f6a3",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOKwWQEM54JOuQ",
+          "commit": {
+            "abbreviatedOid": "1e5697b"
+          },
+          "author": "caguado",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "There is still behavioural ambiguity to be cleared.",
+          "createdAt": "2024-04-22T19:52:06Z",
+          "updatedAt": "2024-04-22T19:57:00Z",
+          "comments": [
+            {
+              "originalPosition": 89,
+              "body": "Directional feedback wanted. This section does not include yet any reference to what parts of the API payload should be signed.",
+              "createdAt": "2024-04-22T19:52:06Z",
+              "updatedAt": "2024-04-22T19:57:00Z"
+            },
+            {
+              "originalPosition": 63,
+              "body": "Directional feedback wanted. This section does not include minimum expected claims should any OAuth2 authorization server be used.",
+              "createdAt": "2024-04-22T19:53:13Z",
+              "updatedAt": "2024-04-22T19:57:00Z"
+            },
+            {
+              "originalPosition": 73,
+              "body": "Pending validation with identity specialist. This section includes RSCs that are meant to be versatile in the security content they track whilst being too specific about what other content may also track.\r\n\r\nAdditionally, as it is, brokerage federation models where resource servers trust an intermediate OAuth2 authorization server will not work because the RSC will sign properties they don't have immediate access to.",
+              "createdAt": "2024-04-22T19:56:11Z",
+              "updatedAt": "2024-04-22T19:57:00Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
