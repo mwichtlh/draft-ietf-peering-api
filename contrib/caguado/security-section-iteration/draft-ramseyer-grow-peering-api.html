@@ -1038,7 +1038,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Aguado, et al.</td>
-<td class="center">Expires 24 October 2024</td>
+<td class="center">Expires 25 October 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1051,12 +1051,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ramseyer-grow-peering-api-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-04-22" class="published">22 April 2024</time>
+<time datetime="2024-04-23" class="published">23 April 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-10-24">24 October 2024</time></dd>
+<dd class="expires"><time datetime="2024-10-25">25 October 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1120,7 +1120,7 @@ We also propose future work to cover private peering, and alternative authentica
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 24 October 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 25 October 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -2136,22 +2136,22 @@ If there is interest, this draft would extend to propose a maintenance endpoint,
       <h2 id="name-security-considerations">
 <a href="#section-9" class="section-number selfRef">9. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-9-1">This document describes a mechanism to standardize the discovery, creation and maintenance of peering relationships across autonomous systems (AS) using an out-of-band application programming interface (API). With it, AS operators take a step to operationalize their peering policy with new and existing peers in ways that improve or completely replace manual business validations ultimately leading to the automation of the interconnection. However, this improvement can only be fully materialized when operators are certain that such API follows the operational trust and threat models they are comfortable with and some of which are documented in BGP operations and security best practices (<span>[<a href="#RFC7454" class="cite xref">RFC7454</a>]</span>). To that extent, this document assumes the peering API will be deployed following a strategy of defense in-depth and proposes the following common baseline threat model below.<a href="#section-9-1" class="pilcrow">¶</a></p>
+<p id="section-9-1">This document describes a mechanism to standardize the discovery, creation and maintenance of peering relationships across autonomous systems (AS) using an out-of-band application programming interface (API). With it, AS operators take a step to operationalize their peering policy with new and existing peers in ways that improve or completely replace manual business validations, ultimately leading to the automation of the interconnection. However, this improvement can only be fully materialized when operators are certain that such API follows the operational trust and threat models they are comfortable with, some of which are documented in BGP operations and security best practices (<span>[<a href="#RFC7454" class="cite xref">RFC7454</a>]</span>). To that extent, this document assumes the peering API will be deployed following a strategy of defense in-depth and proposes the following common baseline threat model below.<a href="#section-9-1" class="pilcrow">¶</a></p>
 <div id="threats">
 <section id="section-9.1">
         <h3 id="name-threats">
 <a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-threats" class="section-name selfRef">Threats</a>
         </h3>
-<p id="section-9.1-1">Each of the following threats assume a scenario where an arbitrary actor is capable of reaching the peering API instance of a given operator, the operator and client follow their own endpoint security and maintenance practices, and where the trust anchors in use are already established with guidelines outside of this document.<a href="#section-9.1-1" class="pilcrow">¶</a></p>
+<p id="section-9.1-1">Each of the following threats assume a scenario where an arbitrary actor is capable of reaching the peering API instance of a given operator, the client and the operator follow their own endpoint security and maintenance practices, and the trust anchors in use are already established following guidelines outside of the scope of this document.<a href="#section-9.1-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-9.1-2.1">
-            <p id="section-9.1-2.1.1">T1: A malicious actor with physical access to the same IX fabric and peering API of the receiver can use ASN or IP address information to impersonate a different IX member to discover, create, update or delete peering information which leads to loss of authenticity, confidentiality, and authorization of the spoofed IX member.<a href="#section-9.1-2.1.1" class="pilcrow">¶</a></p>
+            <p id="section-9.1-2.1.1">T1: A malicious actor with physical access to the IX fabric and peering API of the receiver can use ASN or IP address information to impersonate a different IX member to discover, create, update or delete peering information which leads to loss of authenticity, confidentiality, and authorization of the spoofed IX member.<a href="#section-9.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-9.1-2.2">
-            <p id="section-9.1-2.2.1">T2: A malicious actor with physical access to the same IX fabric can expose a peering API for an IX member different of its own to accept requests on behalf of such third party and supplant it (MITM), leading to a loss of authenticity, integrity, non-repudiability, and confidentiality between IX members.<a href="#section-9.1-2.2.1" class="pilcrow">¶</a></p>
+            <p id="section-9.1-2.2.1">T2: A malicious actor with physical access to the IX fabric can expose a peering API for an IX member different of its own to accept requests on behalf of such third party and supplant it, leading to a loss of authenticity, integrity, non-repudiability, and confidentiality between IX members.<a href="#section-9.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-9.1-2.3">
-            <p id="section-9.1-2.3.1">T3: A malicious actor without physical access to the same IX fabric but with access the the peering API can use any ASN to impersonate any autonomous system and overload the receiver's peering API internal validations leading to a denial of service.<a href="#section-9.1-2.3.1" class="pilcrow">¶</a></p>
+            <p id="section-9.1-2.3.1">T3: A malicious actor without physical access to the IX fabric but with access the the peering API can use any ASN to impersonate any autonomous system and overload the receiver's peering API internal validations leading to a denial of service.<a href="#section-9.1-2.3.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <div id="mitigations">
@@ -2159,19 +2159,19 @@ If there is interest, this draft would extend to propose a maintenance endpoint,
           <h4 id="name-mitigations">
 <a href="#section-9.1.1" class="section-number selfRef">9.1.1. </a><a href="#name-mitigations" class="section-name selfRef">Mitigations</a>
           </h4>
-<p id="section-9.1.1-1">The following list of mitigations address some of the threats identified above:<a href="#section-9.1.1-1" class="pilcrow">¶</a></p>
+<p id="section-9.1.1-1">The following list of mitigations address different parts of the threats identified above:<a href="#section-9.1.1-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-9.1.1-2.1">
-              <p id="section-9.1.1-2.1.1">M1: Authorization controls - A initiator using a client application is authorized from the claims presented in the request prior to any interaction with the peering API (T1, T2).<a href="#section-9.1.1-2.1.1" class="pilcrow">¶</a></p>
+              <p id="section-9.1.1-2.1.1">M1: Authorization controls - A initiator using a client application is authorized using the claims presented in the request prior to any interaction with the peering API (addresses T1, T2).<a href="#section-9.1.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-9.1.1-2.2">
-              <p id="section-9.1.1-2.2.1">M2: Proof of holdership - The initiator of a request through a client and prove their holdership of an Internet-assigned resource (T1, T3).<a href="#section-9.1.1-2.2.1" class="pilcrow">¶</a></p>
+              <p id="section-9.1.1-2.2.1">M2: Proof of holdership - The initiator of a request through a client can prove their holdership of an Internet Number Resource (addresses T1, T3).<a href="#section-9.1.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-9.1.1-2.3">
-              <p id="section-9.1.1-2.3.1">M3: Request integrity and proof of possession - The client application can cryptographically sign HTTP requests with a key that is bound to the authorized initiator (T1, T2).<a href="#section-9.1.1-2.3.1" class="pilcrow">¶</a></p>
+              <p id="section-9.1.1-2.3.1">M3: Request integrity and proof of possession - The peering API can verify HTTP requests signed with a key that is cryptographically bound to the authorized initiator (addresses T1, T2).<a href="#section-9.1.1-2.3.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-9.1.1-3">The Peering API does not enforce any kind of peering policy on the incoming requests. It is left to the server implementation to enforce the AS-specific peering policy. This document encourages each peer to consider the needs of their peering policy and implement request validation as desired.<a href="#section-9.1.1-3" class="pilcrow">¶</a></p>
+<p id="section-9.1.1-3">The Peering API does not enforce any kind of peering policy on the incoming requests. It is left to the peering API instance implementation to enforce the AS-specific peering policy. This document encourages each peer to consider the needs of their peering policy and implement request validation as desired.<a href="#section-9.1.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2181,7 +2181,7 @@ If there is interest, this draft would extend to propose a maintenance endpoint,
         <h3 id="name-authorization-controls">
 <a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-authorization-controls" class="section-name selfRef">Authorization controls</a>
         </h3>
-<p id="section-9.2-1">The peering API receives HTTP requests from a client application from a peering initiator. Those requests must be authorized using the authorization model based on OAuth 2.0 (<span>[<a href="#RFC6749" class="cite xref">RFC6749</a>]</span>) with the OpenID Connect <span>[<a href="#oidc" class="cite xref">oidc</a>]</span> core attribute set. The choice of OpenID Connect is to use a standardized and widely adopted authorization exchange format based on JSON Web Tokens (<span>[<a href="#RFC7519" class="cite xref">RFC7519</a>]</span>) which allows interoperation with existing web-based application flows. JWT tokens also supply sufficient claims to implement receiver-side authorization decisions by third parties when used as bearer access tokens (<span>[<a href="#RFC9068" class="cite xref">RFC9068</a>]</span>) and for which best common practices also exist (<span>[<a href="#RFC8725" class="cite xref">RFC8725</a>]</span>). To this extent, implementations should follow the bearer token usage (<span>[<a href="#RFC6750" class="cite xref">RFC6750</a>]</span>) that describes an access token obtained from the Oauth 2.0 Authorization Server and whose audience must be constrained to the resource server the peering API implements. Upon successful validation, the peering API should decide whether to proceed with the request based on the presence of matching claims in the access token or reject it altogether. The core identity and authorization claims present in the access token may be augmented with specific claims vended by the Authorization Service, this document proposes to use PeeringDB's JWT access token claims as the baseline, however the specific matching of those that conform the authorization business decision are specific to each operator and outside of this specification. The use of access tokens vended through OAuth2 flows for every peering API resource also allows operators to use those to preserve the callers' identity for auditing purposes.<a href="#section-9.2-1" class="pilcrow">¶</a></p>
+<p id="section-9.2-1">The peering API instance receives HTTP requests from a client application from a peering initiator. Those requests can be authorized using the authorization model based on OAuth 2.0 (<span>[<a href="#RFC6749" class="cite xref">RFC6749</a>]</span>) with the OpenID Connect <span>[<a href="#oidc" class="cite xref">oidc</a>]</span> core attribute set. The choice of OpenID Connect is to use a standardized and widely adopted authorization exchange format based on JSON Web Tokens (<span>[<a href="#RFC7519" class="cite xref">RFC7519</a>]</span>) which allows interoperation with existing web-based application flows. JWT tokens also supply sufficient claims to implement receiver-side authorization decisions by third parties when used as bearer access tokens (<span>[<a href="#RFC9068" class="cite xref">RFC9068</a>]</span>). The peering API instance (a resource server in OAuth2 terms) should follow the bearer token usage (<span>[<a href="#RFC6750" class="cite xref">RFC6750</a>]</span>) which describes the format and validation of an access token obtained from the Oauth 2.0 Authorization Server. The resource server should follow the best practices for JWT access validation (<span>[<a href="#RFC8725" class="cite xref">RFC8725</a>]</span>) and in particular verify that the access token is constrained to the resource server via the audience claim. Upon successful access token validation, the resource server should decide whether to proceed with the request based on the presence of expected and matching claims in the access token or reject it altogether. The core identity and authorization claims present in the access token may be augmented with specific claims vended by the Authorization Service. This document proposes to use PeeringDB's access token claims as a baseline to use for authorization, however the specific matching of those claims to an authorization business decision is specific to each operator and outside of this specification. Resource servers may also use the claims in the access token to present the callers' identity to the application and for auditing purposes.<a href="#section-9.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="resource-holdership">
@@ -2189,10 +2189,10 @@ If there is interest, this draft would extend to propose a maintenance endpoint,
         <h3 id="name-proof-of-holdership">
 <a href="#section-9.3" class="section-number selfRef">9.3. </a><a href="#name-proof-of-holdership" class="section-name selfRef">Proof of holdership</a>
         </h3>
-<p id="section-9.3-1">The peering API defined in this document uses ASNs as primary identifiers to identify each party on a peering session besides other properties like IP addresses. ASNs will be explicit expected in some API payloads but are also implicitly expected when making authorization business decisions such as listing resources that belong to an AS operator. Given that ASNs are Internet Number Resources assigned by RIRs and that the Authorization Server may not be operated by one of those RIRs, as it is the case of PeeringDB or any other commercial OAuth2 service, JWT claims containing an ASN cannot be proved to be legitimately bound to the initiator. For that purpose, this document proposes an additional mechanism based on RPKI (<span>[<a href="#RFC6480" class="cite xref">RFC6480</a>]</span>) to attest ASN resource holdership based on RPKI Signed Checklists (RSCs) (<span>[<a href="#RFC9323" class="cite xref">RFC9323</a>]</span>).<a href="#section-9.3-1" class="pilcrow">¶</a></p>
+<p id="section-9.3-1">The peering API defined in this document uses ASNs as primary identifiers to identify each party on a peering session besides other resources such as IP addresses. ASNs are explicitly expected in some API payloads but are also implicitly expected when making authorization business decisions such as listing resources that belong to an operator. Given that ASNs are Internet Number Resources assigned by RIRs and that the OAuth2 Authorization Server in use may not be operated by any of those RIRs, as it is the case of PeeringDB or any other commercial OAuth2 service, JWT claims that contain an ASN need be proved to be legitimately used by the initiator. This document proposes to attest ASN resource holdership using a mechanism based on RPKI (<span>[<a href="#RFC6480" class="cite xref">RFC6480</a>]</span>) and in particular with the use of RPKI Signed Checklists (RSCs) (<span>[<a href="#RFC9323" class="cite xref">RFC9323</a>]</span>).<a href="#section-9.3-1" class="pilcrow">¶</a></p>
 <p id="section-9.3-2">JWT access tokens can be of two kinds, identifier-based tokens or self-contained tokens (<span><a href="https://rfc-editor.org/rfc/rfc6749#section-1.4" class="relref">Section 1.4</a> of [<a href="#RFC6749" class="cite xref">RFC6749</a>]</span>). Resource servers must validate them for every request. AS operators can hint other operators to validate whether a caller holds ownership of the ASN their request represent by issuing a signed checklist that is specific to the different validation methods as described below.<a href="#section-9.3-2" class="pilcrow">¶</a></p>
-<p id="section-9.3-3">For Identifier-based access tokens, if the Authorization Server supports metadata, ASN holders must create an RSC that contains the well-known Authorization Server Metadata URI and a digest of the JSON document contained (Section 3 of <span>[<a href="#RFC8414" class="cite xref">RFC8414</a>]</span>). If the authorization server does not support metadata, the RSC contains the token introspection URI and its digest.<a href="#section-9.3-3" class="pilcrow">¶</a></p>
-<p id="section-9.3-4">Self-contained access tokens are cryptographically signed by the token issuer using a JSON Web Signature (JWS) (<span>[<a href="#RFC7515" class="cite xref">RFC7515</a>]</span>). The cryptographic keys used for signature validation is exposed as a JSON Web Key (JWK) (<span>[<a href="#RFC7517" class="cite xref">RFC7517</a>]</span>). ASN holders must create a RSC for the "jwks_uri" field of the Authorization Server Metadata URI and a digest of the JSON document contained (<span><a href="https://rfc-editor.org/rfc/rfc8414#section-3.2" class="relref">Section 3.2</a> of [<a href="#RFC8414" class="cite xref">RFC8414</a>]</span>).<a href="#section-9.3-4" class="pilcrow">¶</a></p>
+<p id="section-9.3-3">For Identifier-based access tokens, if the Authorization Server supports metadata, ASN holders must create a signed checklist that contains the well-known Authorization Server Metadata URI and a digest of the JSON document contained (Section 3 of <span>[<a href="#RFC8414" class="cite xref">RFC8414</a>]</span>). If the authorization server does not support metadata, the signed checklist contains the token introspection URI and its digest.<a href="#section-9.3-3" class="pilcrow">¶</a></p>
+<p id="section-9.3-4">Self-contained access tokens are cryptographically signed by the token issuer using a JSON Web Signature (JWS) (<span>[<a href="#RFC7515" class="cite xref">RFC7515</a>]</span>). The cryptographic keys used for signature validation is exposed as a JSON Web Key (JWK) (<span>[<a href="#RFC7517" class="cite xref">RFC7517</a>]</span>). ASN holders must create a signed checklist for the "jwks_uri" field of the Authorization Server Metadata URI and a digest of the JSON document contained (<span><a href="https://rfc-editor.org/rfc/rfc8414#section-3.2" class="relref">Section 3.2</a> of [<a href="#RFC8414" class="cite xref">RFC8414</a>]</span>).<a href="#section-9.3-4" class="pilcrow">¶</a></p>
 <p id="section-9.3-5">Resource servers must validate the JWT access token in the following manner:<a href="#section-9.3-5" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-9.3-6.1">
@@ -2205,7 +2205,7 @@ If there is interest, this draft would extend to propose a maintenance endpoint,
                 <p id="section-9.3-6.1.2.2.1">If the Authorization Server does not support metadata, the resource server must validate the introspection endpoint URI matches exactly the URI contained in a signed checklist issued by the ASN contained in the access token claims.<a href="#section-9.3-6.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-9.3-6.1.2.3">
-                <p id="section-9.3-6.1.2.3.1">Upon successful RSC validation, resource servers must use the introspection endpoint for regular access token validation process (<span>[<a href="#RFC7662" class="cite xref">RFC7662</a>]</span>).<a href="#section-9.3-6.1.2.3.1" class="pilcrow">¶</a></p>
+                <p id="section-9.3-6.1.2.3.1">Upon successful signed checklist validation, resource servers must use the introspection endpoint for regular access token validation process (<span>[<a href="#RFC7662" class="cite xref">RFC7662</a>]</span>).<a href="#section-9.3-6.1.2.3.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
@@ -2213,7 +2213,7 @@ If there is interest, this draft would extend to propose a maintenance endpoint,
             <p id="section-9.3-6.2.1">If the access token is self-contained, the resource server must follow the regular validation process for signed access tokens (<span><a href="https://rfc-editor.org/rfc/rfc7515#section-5.2" class="relref">Section 5.2</a> of [<a href="#RFC7515" class="cite xref">RFC7515</a>]</span>).<a href="#section-9.3-6.2.1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-9.3-6.2.2.1">
-                <p id="section-9.3-6.2.2.1.1">When discovering the public keys to validate the token, the resource server must validate that the JWKS URI where the public keys are listed and the content of such JSON document referred by it match the signed checklist issued by the ASN contained in the access token claims.<a href="#section-9.3-6.2.2.1.1" class="pilcrow">¶</a></p>
+                <p id="section-9.3-6.2.2.1.1">After discovering the valid public keys used to sign the token, the resource server must validate that the JWKS URI where the public keys have been discovered, and the content of such JSON document referred by it, match the signed checklist issued by the ASN contained in the access token claims.<a href="#section-9.3-6.2.2.1.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
@@ -2228,7 +2228,8 @@ If there is interest, this draft would extend to propose a maintenance endpoint,
         <h3 id="name-request-integrity-and-proof">
 <a href="#section-9.4" class="section-number selfRef">9.4. </a><a href="#name-request-integrity-and-proof" class="section-name selfRef">Request integrity and proof of possession</a>
         </h3>
-<p id="section-9.4-1">This document describes a peering API that follows REST (<span>[<a href="#rest" class="cite xref">rest</a>]</span>) principles over an HTTP channel to model the transfer of requests and responses between peers. Implementations of this API should use the best common practices for the API transport (<span>[<a href="#RFC9325" class="cite xref">RFC9325</a>]</span>) such as TLS. However, even in the presence of a TLS channel with OAuth2 bearer tokens alone, neither the client application nor the API can guarantee the end-to-end integrity of the message request or the authenticity of its content. This document proposes to address the message integrity by cryptographically signing the parameters of the request with key pair using and HTTP message signature (<span>[<a href="#RFC9421" class="cite xref">RFC9421</a>]</span>). The client application controls the lifecycle of this key pair and to address the authenticity of messages signed wih it, the client must bind the pair to the JWT access token used to communicate with the resource server demonstrating proof of possession of the private key <span>[<a href="#RFC9449" class="cite xref">RFC9449</a>]</span>. With these two, the resource server should authenticate, authorize, and validate the integrity of the request using the same JWT access token that claims to represent the given ASN.<a href="#section-9.4-1" class="pilcrow">¶</a></p>
+<p id="section-9.4-1">The API described in this document follows REST (<span>[<a href="#rest" class="cite xref">rest</a>]</span>) principles over an HTTP channel to model the transfer of requests and responses between peers. Implementations of this API should use the best common practices for the API transport (<span>[<a href="#RFC9325" class="cite xref">RFC9325</a>]</span>) such as TLS. However, even in the presence of a TLS channel with OAuth2 bearer tokens alone, neither the client application nor the API can guarantee the end-to-end integrity of the message request or the authenticity of its content. One mechanism to add cryptographic integrity and authenticity validation can be the use a mutual authentication scheme to negotiate the parameters of the TLS channel. This requires the use of a web PKI (<span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>) to carry claims for use in authorization controls, to bind such PKI to ASNs for proof of holdership, and the use of client certificates on the application.<a href="#section-9.4-1" class="pilcrow">¶</a></p>
+<p id="section-9.4-2">Instead, this document proposes to address the message integrity property by cryptographically signing the parameters of the request with a key pair that creates a HTTP message signature to be included in the request (<span>[<a href="#RFC9421" class="cite xref">RFC9421</a>]</span>). The client application controls the lifecycle of this key pair. The authenticity property of the messages signed with such key pair is addressed by binding the public key of the pair to the JWT access token in one of its claims of the access token using a mechanism that demonstrates proof of possession of the private key <span>[<a href="#RFC9449" class="cite xref">RFC9449</a>]</span>. With these two mechanisms, the resource server should authenticate, authorize, and validate the integrity of the request using a JWT access token that can rightfully claim to represent a given ASN.<a href="#section-9.4-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2303,6 +2304,10 @@ If there is interest, this draft would extend to propose a maintenance endpoint,
         <dd>
 <span class="refAuthor">Bertocci, V.</span>, <span class="refTitle">"JSON Web Token (JWT) Profile for OAuth 2.0 Access Tokens"</span>, <span class="seriesInfo">RFC 9068</span>, <span class="seriesInfo">DOI 10.17487/RFC9068</span>, <time datetime="2021-10" class="refDate">October 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9068">https://www.rfc-editor.org/rfc/rfc9068</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC9323">[RFC9323]</dt>
+        <dd>
+<span class="refAuthor">Snijders, J.</span>, <span class="refAuthor">Harrison, T.</span>, and <span class="refAuthor">B. Maddison</span>, <span class="refTitle">"A Profile for RPKI Signed Checklists (RSCs)"</span>, <span class="seriesInfo">RFC 9323</span>, <span class="seriesInfo">DOI 10.17487/RFC9323</span>, <time datetime="2022-11" class="refDate">November 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9323">https://www.rfc-editor.org/rfc/rfc9323</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC9421">[RFC9421]</dt>
         <dd>
 <span class="refAuthor">Backman, A., Ed.</span>, <span class="refAuthor">Richer, J., Ed.</span>, and <span class="refAuthor">M. Sporny</span>, <span class="refTitle">"HTTP Message Signatures"</span>, <span class="seriesInfo">RFC 9421</span>, <span class="seriesInfo">DOI 10.17487/RFC9421</span>, <time datetime="2024-02" class="refDate">February 2024</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9421">https://www.rfc-editor.org/rfc/rfc9421</a>&gt;</span>. </dd>
@@ -2328,6 +2333,10 @@ If there is interest, this draft would extend to propose a maintenance endpoint,
         <dd>
 <span class="refAuthor">Rekhter, Y., Ed.</span>, <span class="refAuthor">Li, T., Ed.</span>, and <span class="refAuthor">S. Hares, Ed.</span>, <span class="refTitle">"A Border Gateway Protocol 4 (BGP-4)"</span>, <span class="seriesInfo">RFC 4271</span>, <span class="seriesInfo">DOI 10.17487/RFC4271</span>, <time datetime="2006-01" class="refDate">January 2006</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4271">https://www.rfc-editor.org/rfc/rfc4271</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC5280">[RFC5280]</dt>
+        <dd>
+<span class="refAuthor">Cooper, D.</span>, <span class="refAuthor">Santesson, S.</span>, <span class="refAuthor">Farrell, S.</span>, <span class="refAuthor">Boeyen, S.</span>, <span class="refAuthor">Housley, R.</span>, and <span class="refAuthor">W. Polk</span>, <span class="refTitle">"Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile"</span>, <span class="seriesInfo">RFC 5280</span>, <span class="seriesInfo">DOI 10.17487/RFC5280</span>, <time datetime="2008-05" class="refDate">May 2008</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5280">https://www.rfc-editor.org/rfc/rfc5280</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC6480">[RFC6480]</dt>
         <dd>
 <span class="refAuthor">Lepinski, M.</span> and <span class="refAuthor">S. Kent</span>, <span class="refTitle">"An Infrastructure to Support Secure Internet Routing"</span>, <span class="seriesInfo">RFC 6480</span>, <span class="seriesInfo">DOI 10.17487/RFC6480</span>, <time datetime="2012-02" class="refDate">February 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6480">https://www.rfc-editor.org/rfc/rfc6480</a>&gt;</span>. </dd>
@@ -2347,10 +2356,6 @@ If there is interest, this draft would extend to propose a maintenance endpoint,
 <dt id="RFC9092">[RFC9092]</dt>
         <dd>
 <span class="refAuthor">Bush, R.</span>, <span class="refAuthor">Candela, M.</span>, <span class="refAuthor">Kumari, W.</span>, and <span class="refAuthor">R. Housley</span>, <span class="refTitle">"Finding and Using Geofeed Data"</span>, <span class="seriesInfo">RFC 9092</span>, <span class="seriesInfo">DOI 10.17487/RFC9092</span>, <time datetime="2021-07" class="refDate">July 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9092">https://www.rfc-editor.org/rfc/rfc9092</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC9323">[RFC9323]</dt>
-        <dd>
-<span class="refAuthor">Snijders, J.</span>, <span class="refAuthor">Harrison, T.</span>, and <span class="refAuthor">B. Maddison</span>, <span class="refTitle">"A Profile for RPKI Signed Checklists (RSCs)"</span>, <span class="seriesInfo">RFC 9323</span>, <span class="seriesInfo">DOI 10.17487/RFC9323</span>, <time datetime="2022-11" class="refDate">November 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9323">https://www.rfc-editor.org/rfc/rfc9323</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9325">[RFC9325]</dt>
       <dd>

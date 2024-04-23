@@ -5,14 +5,14 @@
 Network Working Group                                          C. Aguado
 Internet-Draft                                                    Amazon
 Intended status: Informational                               M. Griswold
-Expires: 24 October 2024                                         FullCtl
+Expires: 25 October 2024                                         FullCtl
                                                              J. Ramseyer
                                                                     Meta
                                                                A. Servin
                                                                   Google
                                                               T. Strickx
                                                               Cloudflare
-                                                           22 April 2024
+                                                           23 April 2024
 
 
                               Peering API
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 October 2024.
+   This Internet-Draft will expire on 25 October 2024.
 
 Copyright Notice
 
@@ -743,11 +743,11 @@ Request session status
    systems (AS) using an out-of-band application programming interface
    (API).  With it, AS operators take a step to operationalize their
    peering policy with new and existing peers in ways that improve or
-   completely replace manual business validations ultimately leading to
+   completely replace manual business validations, ultimately leading to
    the automation of the interconnection.  However, this improvement can
    only be fully materialized when operators are certain that such API
    follows the operational trust and threat models they are comfortable
-   with and some of which are documented in BGP operations and security
+   with, some of which are documented in BGP operations and security
    best practices ([RFC7454]).  To that extent, this document assumes
    the peering API will be deployed following a strategy of defense in-
    depth and proposes the following common baseline threat model below.
@@ -756,95 +756,99 @@ Request session status
 
    Each of the following threats assume a scenario where an arbitrary
    actor is capable of reaching the peering API instance of a given
-   operator, the operator and client follow their own endpoint security
-   and maintenance practices, and where the trust anchors in use are
-   already established with guidelines outside of this document.
+   operator, the client and the operator follow their own endpoint
+   security and maintenance practices, and the trust anchors in use are
+   already established following guidelines outside of the scope of this
+   document.
 
-   *  T1: A malicious actor with physical access to the same IX fabric
-      and peering API of the receiver can use ASN or IP address
-      information to impersonate a different IX member to discover,
-      create, update or delete peering information which leads to loss
-      of authenticity, confidentiality, and authorization of the spoofed
-      IX member.
+   *  T1: A malicious actor with physical access to the IX fabric and
+      peering API of the receiver can use ASN or IP address information
+      to impersonate a different IX member to discover, create, update
+      or delete peering information which leads to loss of authenticity,
+      confidentiality, and authorization of the spoofed IX member.
 
-   *  T2: A malicious actor with physical access to the same IX fabric
-      can expose a peering API for an IX member different of its own to
-      accept requests on behalf of such third party and supplant it
-      (MITM), leading to a loss of authenticity, integrity, non-
-      repudiability, and confidentiality between IX members.
+   *  T2: A malicious actor with physical access to the IX fabric can
+      expose a peering API for an IX member different of its own to
+      accept requests on behalf of such third party and supplant it,
+      leading to a loss of authenticity, integrity, non-repudiability,
+      and confidentiality between IX members.
 
-   *  T3: A malicious actor without physical access to the same IX
-      fabric but with access the the peering API can use any ASN to
-      impersonate any autonomous system and overload the receiver's
-      peering API internal validations leading to a denial of service.
+   *  T3: A malicious actor without physical access to the IX fabric but
+      with access the the peering API can use any ASN to impersonate any
+      autonomous system and overload the receiver's peering API internal
+      validations leading to a denial of service.
 
 9.1.1.  Mitigations
 
-   The following list of mitigations address some of the threats
-   identified above:
+   The following list of mitigations address different parts of the
+   threats identified above:
 
    *  M1: Authorization controls - A initiator using a client
-      application is authorized from the claims presented in the request
-      prior to any interaction with the peering API (T1, T2).
+      application is authorized using the claims presented in the
+      request prior to any interaction with the peering API (addresses
+      T1, T2).
 
    *  M2: Proof of holdership - The initiator of a request through a
-      client and prove their holdership of an Internet-assigned resource
-      (T1, T3).
+      client can prove their holdership of an Internet Number Resource
+      (addresses T1, T3).
 
-   *  M3: Request integrity and proof of possession - The client
-      application can cryptographically sign HTTP requests with a key
-      that is bound to the authorized initiator (T1, T2).
+   *  M3: Request integrity and proof of possession - The peering API
+      can verify HTTP requests signed with a key that is
+      cryptographically bound to the authorized initiator (addresses T1,
+      T2).
 
    The Peering API does not enforce any kind of peering policy on the
-   incoming requests.  It is left to the server implementation to
-   enforce the AS-specific peering policy.  This document encourages
-   each peer to consider the needs of their peering policy and implement
-   request validation as desired.
+   incoming requests.  It is left to the peering API instance
+   implementation to enforce the AS-specific peering policy.  This
+   document encourages each peer to consider the needs of their peering
+   policy and implement request validation as desired.
 
 9.2.  Authorization controls
 
-   The peering API receives HTTP requests from a client application from
-   a peering initiator.  Those requests must be authorized using the
-   authorization model based on OAuth 2.0 ([RFC6749]) with the OpenID
-   Connect [oidc] core attribute set.  The choice of OpenID Connect is
-   to use a standardized and widely adopted authorization exchange
-   format based on JSON Web Tokens ([RFC7519]) which allows
-   interoperation with existing web-based application flows.  JWT tokens
-   also supply sufficient claims to implement receiver-side
-   authorization decisions by third parties when used as bearer access
-   tokens ([RFC9068]) and for which best common practices also exist
-   ([RFC8725]).  To this extent, implementations should follow the
-   bearer token usage ([RFC6750]) that describes an access token
-   obtained from the Oauth 2.0 Authorization Server and whose audience
-   must be constrained to the resource server the peering API
-   implements.  Upon successful validation, the peering API should
-   decide whether to proceed with the request based on the presence of
-   matching claims in the access token or reject it altogether.  The
+   The peering API instance receives HTTP requests from a client
+   application from a peering initiator.  Those requests can be
+   authorized using the authorization model based on OAuth 2.0
+   ([RFC6749]) with the OpenID Connect [oidc] core attribute set.  The
+   choice of OpenID Connect is to use a standardized and widely adopted
+   authorization exchange format based on JSON Web Tokens ([RFC7519])
+   which allows interoperation with existing web-based application
+   flows.  JWT tokens also supply sufficient claims to implement
+   receiver-side authorization decisions by third parties when used as
+   bearer access tokens ([RFC9068]).  The peering API instance (a
+   resource server in OAuth2 terms) should follow the bearer token usage
+   ([RFC6750]) which describes the format and validation of an access
+   token obtained from the Oauth 2.0 Authorization Server.  The resource
+   server should follow the best practices for JWT access validation
+   ([RFC8725]) and in particular verify that the access token is
+   constrained to the resource server via the audience claim.  Upon
+   successful access token validation, the resource server should decide
+   whether to proceed with the request based on the presence of expected
+   and matching claims in the access token or reject it altogether.  The
    core identity and authorization claims present in the access token
    may be augmented with specific claims vended by the Authorization
-   Service, this document proposes to use PeeringDB's JWT access token
-   claims as the baseline, however the specific matching of those that
-   conform the authorization business decision are specific to each
-   operator and outside of this specification.  The use of access tokens
-   vended through OAuth2 flows for every peering API resource also
-   allows operators to use those to preserve the callers' identity for
-   auditing purposes.
+   Service.  This document proposes to use PeeringDB's access token
+   claims as a baseline to use for authorization, however the specific
+   matching of those claims to an authorization business decision is
+   specific to each operator and outside of this specification.
+   Resource servers may also use the claims in the access token to
+   present the callers' identity to the application and for auditing
+   purposes.
 
 9.3.  Proof of holdership
 
    The peering API defined in this document uses ASNs as primary
    identifiers to identify each party on a peering session besides other
-   properties like IP addresses.  ASNs will be explicit expected in some
+   resources such as IP addresses.  ASNs are explicitly expected in some
    API payloads but are also implicitly expected when making
    authorization business decisions such as listing resources that
-   belong to an AS operator.  Given that ASNs are Internet Number
-   Resources assigned by RIRs and that the Authorization Server may not
-   be operated by one of those RIRs, as it is the case of PeeringDB or
-   any other commercial OAuth2 service, JWT claims containing an ASN
-   cannot be proved to be legitimately bound to the initiator.  For that
-   purpose, this document proposes an additional mechanism based on RPKI
-   ([RFC6480]) to attest ASN resource holdership based on RPKI Signed
-   Checklists (RSCs) ([RFC9323]).
+   belong to an operator.  Given that ASNs are Internet Number Resources
+   assigned by RIRs and that the OAuth2 Authorization Server in use may
+   not be operated by any of those RIRs, as it is the case of PeeringDB
+   or any other commercial OAuth2 service, JWT claims that contain an
+   ASN need be proved to be legitimately used by the initiator.  This
+   document proposes to attest ASN resource holdership using a mechanism
+   based on RPKI ([RFC6480]) and in particular with the use of RPKI
+   Signed Checklists (RSCs) ([RFC9323]).
 
    JWT access tokens can be of two kinds, identifier-based tokens or
    self-contained tokens (Section 1.4 of [RFC6749]).  Resource servers
@@ -854,18 +858,19 @@ Request session status
    specific to the different validation methods as described below.
 
    For Identifier-based access tokens, if the Authorization Server
-   supports metadata, ASN holders must create an RSC that contains the
-   well-known Authorization Server Metadata URI and a digest of the JSON
-   document contained (Section 3 of [RFC8414]).  If the authorization
-   server does not support metadata, the RSC contains the token
-   introspection URI and its digest.
+   supports metadata, ASN holders must create a signed checklist that
+   contains the well-known Authorization Server Metadata URI and a
+   digest of the JSON document contained (Section 3 of [RFC8414]).  If
+   the authorization server does not support metadata, the signed
+   checklist contains the token introspection URI and its digest.
 
    Self-contained access tokens are cryptographically signed by the
    token issuer using a JSON Web Signature (JWS) ([RFC7515]).  The
    cryptographic keys used for signature validation is exposed as a JSON
-   Web Key (JWK) ([RFC7517]).  ASN holders must create a RSC for the
-   "jwks_uri" field of the Authorization Server Metadata URI and a
-   digest of the JSON document contained (Section 3.2 of [RFC8414]).
+   Web Key (JWK) ([RFC7517]).  ASN holders must create a signed
+   checklist for the "jwks_uri" field of the Authorization Server
+   Metadata URI and a digest of the JSON document contained (Section 3.2
+   of [RFC8414]).
 
    Resource servers must validate the JWT access token in the following
    manner:
@@ -885,42 +890,51 @@ Request session status
          matches exactly the URI contained in a signed checklist issued
          by the ASN contained in the access token claims.
 
-      -  Upon successful RSC validation, resource servers must use the
-         introspection endpoint for regular access token validation
-         process ([RFC7662]).
+      -  Upon successful signed checklist validation, resource servers
+         must use the introspection endpoint for regular access token
+         validation process ([RFC7662]).
 
    *  If the access token is self-contained, the resource server must
       follow the regular validation process for signed access tokens
       (Section 5.2 of [RFC7515]).
 
-      -  When discovering the public keys to validate the token, the
-         resource server must validate that the JWKS URI where the
-         public keys are listed and the content of such JSON document
-         referred by it match the signed checklist issued by the ASN
-         contained in the access token claims.
+      -  After discovering the valid public keys used to sign the token,
+         the resource server must validate that the JWKS URI where the
+         public keys have been discovered, and the content of such JSON
+         document referred by it, match the signed checklist issued by
+         the ASN contained in the access token claims.
 
    *  Resource servers must reject the request if any of these
       validations fail.
 
 9.4.  Request integrity and proof of possession
 
-   This document describes a peering API that follows REST ([rest])
-   principles over an HTTP channel to model the transfer of requests and
-   responses between peers.  Implementations of this API should use the
-   best common practices for the API transport ([RFC9325]) such as TLS.
+   The API described in this document follows REST ([rest]) principles
+   over an HTTP channel to model the transfer of requests and responses
+   between peers.  Implementations of this API should use the best
+   common practices for the API transport ([RFC9325]) such as TLS.
    However, even in the presence of a TLS channel with OAuth2 bearer
    tokens alone, neither the client application nor the API can
    guarantee the end-to-end integrity of the message request or the
-   authenticity of its content.  This document proposes to address the
-   message integrity by cryptographically signing the parameters of the
-   request with key pair using and HTTP message signature ([RFC9421]).
-   The client application controls the lifecycle of this key pair and to
-   address the authenticity of messages signed wih it, the client must
-   bind the pair to the JWT access token used to communicate with the
-   resource server demonstrating proof of possession of the private key
-   [RFC9449].  With these two, the resource server should authenticate,
-   authorize, and validate the integrity of the request using the same
-   JWT access token that claims to represent the given ASN.
+   authenticity of its content.  One mechanism to add cryptographic
+   integrity and authenticity validation can be the use a mutual
+   authentication scheme to negotiate the parameters of the TLS channel.
+   This requires the use of a web PKI ([RFC5280]) to carry claims for
+   use in authorization controls, to bind such PKI to ASNs for proof of
+   holdership, and the use of client certificates on the application.
+
+   Instead, this document proposes to address the message integrity
+   property by cryptographically signing the parameters of the request
+   with a key pair that creates a HTTP message signature to be included
+   in the request ([RFC9421]).  The client application controls the
+   lifecycle of this key pair.  The authenticity property of the
+   messages signed with such key pair is addressed by binding the public
+   key of the pair to the JWT access token in one of its claims of the
+   access token using a mechanism that demonstrates proof of possession
+   of the private key [RFC9449].  With these two mechanisms, the
+   resource server should authenticate, authorize, and validate the
+   integrity of the request using a JWT access token that can rightfully
+   claim to represent a given ASN.
 
 10.  Possible Extensions
 
@@ -980,6 +994,11 @@ Request session status
               Access Tokens", RFC 9068, DOI 10.17487/RFC9068, October
               2021, <https://www.rfc-editor.org/rfc/rfc9068>.
 
+   [RFC9323]  Snijders, J., Harrison, T., and B. Maddison, "A Profile
+              for RPKI Signed Checklists (RSCs)", RFC 9323,
+              DOI 10.17487/RFC9323, November 2022,
+              <https://www.rfc-editor.org/rfc/rfc9323>.
+
    [RFC9421]  Backman, A., Ed., Richer, J., Ed., and M. Sporny, "HTTP
               Message Signatures", RFC 9421, DOI 10.17487/RFC9421,
               February 2024, <https://www.rfc-editor.org/rfc/rfc9421>.
@@ -999,6 +1018,12 @@ Request session status
               Border Gateway Protocol 4 (BGP-4)", RFC 4271,
               DOI 10.17487/RFC4271, January 2006,
               <https://www.rfc-editor.org/rfc/rfc4271>.
+
+   [RFC5280]  Cooper, D., Santesson, S., Farrell, S., Boeyen, S.,
+              Housley, R., and W. Polk, "Internet X.509 Public Key
+              Infrastructure Certificate and Certificate Revocation List
+              (CRL) Profile", RFC 5280, DOI 10.17487/RFC5280, May 2008,
+              <https://www.rfc-editor.org/rfc/rfc5280>.
 
    [RFC6480]  Lepinski, M. and S. Kent, "An Infrastructure to Support
               Secure Internet Routing", RFC 6480, DOI 10.17487/RFC6480,
@@ -1020,11 +1045,6 @@ Request session status
               "Finding and Using Geofeed Data", RFC 9092,
               DOI 10.17487/RFC9092, July 2021,
               <https://www.rfc-editor.org/rfc/rfc9092>.
-
-   [RFC9323]  Snijders, J., Harrison, T., and B. Maddison, "A Profile
-              for RPKI Signed Checklists (RSCs)", RFC 9323,
-              DOI 10.17487/RFC9323, November 2022,
-              <https://www.rfc-editor.org/rfc/rfc9323>.
 
    [RFC9325]  Sheffer, Y., Saint-Andre, P., and T. Fossati,
               "Recommendations for Secure Use of Transport Layer
