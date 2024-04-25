@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-04-23T01:19:54.891675+00:00",
+  "timestamp": "2024-04-25T01:21:18.513376+00:00",
   "repo": "bgp/draft-ietf-peering-api",
   "labels": [
     {
@@ -1679,13 +1679,13 @@
       "labels": [],
       "body": "This commit delves more into the security considerations to operate the peering API and introduces a baseline threat model that supports the addition of authorization, proof of resource holdership and request integrity to address them.\r\n\r\nThis commit also moves the security considerations sections to the end of the document to align with other RFCs.",
       "createdAt": "2024-04-22T19:49:06Z",
-      "updatedAt": "2024-04-22T19:57:00Z",
+      "updatedAt": "2024-04-23T11:35:39Z",
       "baseRepository": "bgp/draft-ietf-peering-api",
       "baseRefName": "main",
       "baseRefOid": "41f188910faa1e5b9bf1aa9a6ea9c7c727cf722f",
       "headRepository": "bgp/draft-ietf-peering-api",
       "headRefName": "contrib/caguado/security-section-iteration",
-      "headRefOid": "1e5697b1fda3b6a71fdd8a3549605451e5d2f6a3",
+      "headRefOid": "71d78bca0ade6527f6d902b943bb5f0a95512e38",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
