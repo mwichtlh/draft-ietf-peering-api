@@ -95,7 +95,7 @@ Table of Contents
        6.2.3.  Private Peering (DRAFT)
    7.  Public Peering Session Negotiation
    8.  Private Peering
-   9.  IXP Route Servers Peerings
+   9.  IXP Route Server Peering
    10. Maintenance
    11. Possible Extensions
    12. IANA Considerations
@@ -749,7 +749,7 @@ Request session status
    includes Letter of Authorization (LOA) negotiation, and how to
    coordinate unfiltering and configuration checks.
 
-9.  IXP Route Servers Peerings
+9.  IXP Route Server Peering
 
    Terminology:
 
