@@ -5,14 +5,14 @@
 Network Working Group                                          C. Aguado
 Internet-Draft                                                    Amazon
 Intended status: Informational                               M. Griswold
-Expires: 24 October 2024                                         FullCtl
+Expires: 9 November 2024                                         FullCtl
                                                              J. Ramseyer
                                                                     Meta
                                                                A. Servin
                                                                   Google
                                                               T. Strickx
                                                               Cloudflare
-                                                           22 April 2024
+                                                              8 May 2024
 
 
                               Peering API
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 October 2024.
+   This Internet-Draft will expire on 9 November 2024.
 
 Copyright Notice
 
@@ -506,6 +506,10 @@ Request session status
 
                   -  Unauthorized to perform the operation
 
+               *  422:
+
+                  -  Please contact us, human intervention required
+
       -  List all session resources.  The response is paginated.
 
          o  Given a request ID, query for the status of that request.
@@ -618,6 +622,10 @@ Request session status
 
                   -  The session referred by the specified session_id
                      does not exist or is not visible to the caller
+
+               *  422:
+
+                  -  Please contact us, human intervention required
 
 6.2.2.  UTILITY API CALLS
 
