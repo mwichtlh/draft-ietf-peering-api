@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-05-07T01:21:22.597960+00:00",
+  "timestamp": "2024-05-09T01:21:05.376842+00:00",
   "repo": "bgp/draft-ietf-peering-api",
   "labels": [
     {
@@ -1679,7 +1679,7 @@
       "labels": [],
       "body": "This commit delves more into the security considerations to operate the peering API and introduces a baseline threat model that supports the addition of authorization, proof of resource holdership and request integrity to address them.\r\n\r\nThis commit also moves the security considerations sections to the end of the document to align with other RFCs.",
       "createdAt": "2024-04-22T19:49:06Z",
-      "updatedAt": "2024-04-23T11:35:39Z",
+      "updatedAt": "2024-05-08T19:33:11Z",
       "baseRepository": "bgp/draft-ietf-peering-api",
       "baseRefName": "main",
       "baseRefOid": "41f188910faa1e5b9bf1aa9a6ea9c7c727cf722f",
@@ -1723,8 +1723,184 @@
               "updatedAt": "2024-04-22T19:57:00Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOKwWQEM558wGa",
+          "commit": {
+            "abbreviatedOid": "1e5697b"
+          },
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-08T15:14:32Z",
+          "updatedAt": "2024-05-08T15:14:32Z",
+          "comments": [
+            {
+              "originalPosition": 63,
+              "body": "I think the bare minimum that we want is for them to have a \"claim\" to the ASN (which I know is not a proper OAuth2 \"claim\").  If we are talking about proper OAuth \"claims\", maybe the minimum should be a \"Peering\" related claim?",
+              "createdAt": "2024-05-08T15:14:32Z",
+              "updatedAt": "2024-05-08T15:14:32Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKwWQEM558zY0",
+          "commit": {
+            "abbreviatedOid": "1e5697b"
+          },
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-08T15:20:41Z",
+          "updatedAt": "2024-05-08T15:20:41Z",
+          "comments": [
+            {
+              "originalPosition": 73,
+              "body": "I think we could make the RSC model is an either-or case.  Either the server will use OAuth, or they will use RSC.  \r\nIdeally, everyone should use RSC, but until we reach that case, people can use OAuth.  \r\n\r\nOnce a client and server both use RSC, I don't see a reason why one would want to auth with *both* OAuth AND RSC, so it should be fair to make it an either-or option.  \r\n\r\n(I may have missed a reason why we would want both RSC and OAuth in the same request)\r\n\r\nRelated to:\r\n> Additionally, as it is, brokerage federation models where resource servers trust an intermediate OAuth2 authorization server will not work because the RSC will sign properties they don't have immediate access to.\r\n\r\nIn the RSC case, the client and server would negotiate the RSC handshake outside of the OAuth server, so the OAuth server would not be involved, right?\r\n",
+              "createdAt": "2024-05-08T15:20:41Z",
+              "updatedAt": "2024-05-08T15:20:41Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKwWQEM5580MJ",
+          "commit": {
+            "abbreviatedOid": "1e5697b"
+          },
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-08T15:22:10Z",
+          "updatedAt": "2024-05-08T15:22:10Z",
+          "comments": [
+            {
+              "originalPosition": 89,
+              "body": "Looking at https://datatracker.ietf.org/doc/rfc9323/\r\nCould RSC just sign the json blob of the sesssion request/location list payload?",
+              "createdAt": "2024-05-08T15:22:10Z",
+              "updatedAt": "2024-05-08T15:22:10Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKwWQEM55-hVb",
+          "commit": {
+            "abbreviatedOid": "1e5697b"
+          },
+          "author": "caguado",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-08T18:59:10Z",
+          "updatedAt": "2024-05-08T18:59:10Z",
+          "comments": [
+            {
+              "originalPosition": 89,
+              "body": "What is the expected outcome or concern?\r\n\r\nI did not originally because of 2 drawbacks:\r\n- unable to trust the incoming identity (e.g. someone@example.net) as it would not be cryptographically tied to the ASN it claims represents. Without a trustworthy identity, audit logging would become less effective.\r\n- I don't think organizations would want to be forced to provide access to the signing CA to the client for every request. An alternative would be to introduce signing sub CAs, but I find that suboptimal as it would still not address the identity issue.",
+              "createdAt": "2024-05-08T18:59:10Z",
+              "updatedAt": "2024-05-08T18:59:10Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKwWQEM55-ikA",
+          "commit": {
+            "abbreviatedOid": "1e5697b"
+          },
+          "author": "caguado",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-08T19:02:07Z",
+          "updatedAt": "2024-05-08T19:02:07Z",
+          "comments": [
+            {
+              "originalPosition": 89,
+              "body": "Similarly, even if we don't consider OAuth and people prefer to use other identities like ARIN's or RIPE maintainers, I would still expect to have a mechanism to cryptographically tie back the incoming identity to the ASN. With something like this, implementations would have the choice to support RIPE, PeeringDB, Okta or any Oauth2 provider.",
+              "createdAt": "2024-05-08T19:02:07Z",
+              "updatedAt": "2024-05-08T19:02:07Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKwWQEM55-i1V",
+          "commit": {
+            "abbreviatedOid": "1e5697b"
+          },
+          "author": "caguado",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-08T19:02:45Z",
+          "updatedAt": "2024-05-08T19:02:46Z",
+          "comments": [
+            {
+              "originalPosition": 63,
+              "body": "Yes, I did not include a claim as not sure what would we want. Something simple like `asn: 123` or something more aligned to whois/RDAP fields? IIRC, `asn` is also used there.",
+              "createdAt": "2024-05-08T19:02:45Z",
+              "updatedAt": "2024-05-08T19:02:46Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKwWQEM55-vY-",
+          "commit": {
+            "abbreviatedOid": "1e5697b"
+          },
+          "author": "caguado",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-08T19:33:11Z",
+          "updatedAt": "2024-05-08T19:33:11Z",
+          "comments": [
+            {
+              "originalPosition": 73,
+              "body": "I would say they answer different questions. RPKI is not designed to be an identity management protocol so without OAuth, the signer of the checklist is saying nothing about the individual identity of the caller. And without an identity of the caller, implementations will need to agree on the minimal set of identifiable information of the caller they are willing to accept for auditing or troubleshoot requests.\r\n\r\nWhat is the concern for both? Is it privacy?",
+              "createdAt": "2024-05-08T19:33:11Z",
+              "updatedAt": "2024-05-08T19:33:11Z"
+            }
+          ]
         }
       ]
+    },
+    {
+      "number": 28,
+      "id": "PR_kwDOKwWQEM5u4W1s",
+      "title": "add 422 for human intervention",
+      "url": "https://github.com/bgp/draft-ietf-peering-api/pull/28",
+      "state": "MERGED",
+      "author": "grizz",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-05-08T13:22:44Z",
+      "updatedAt": "2024-05-08T15:10:58Z",
+      "baseRepository": "bgp/draft-ietf-peering-api",
+      "baseRefName": "main",
+      "baseRefOid": "41f188910faa1e5b9bf1aa9a6ea9c7c727cf722f",
+      "headRepository": "bgp/draft-ietf-peering-api",
+      "headRefName": "grizz-updates",
+      "headRefOid": "291f613731fbd641d7d94246e989fcd5038cfb88",
+      "closedAt": "2024-05-08T15:10:58Z",
+      "mergedAt": "2024-05-08T15:10:58Z",
+      "mergedBy": "jramseyer",
+      "mergeCommit": {
+        "oid": "1e8b4d6be4b6c6e7a5227aafb24f894f4a92ce7e"
+      },
+      "comments": [
+        {
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "body": "looks good to me!",
+          "createdAt": "2024-05-08T15:10:35Z",
+          "updatedAt": "2024-05-08T15:10:35Z"
+        }
+      ],
+      "reviews": []
     }
   ]
 }
