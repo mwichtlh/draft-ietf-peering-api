@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-05-09T01:21:05.376842+00:00",
+  "timestamp": "2024-05-12T01:33:14.782295+00:00",
   "repo": "bgp/draft-ietf-peering-api",
   "labels": [
     {
@@ -1679,7 +1679,7 @@
       "labels": [],
       "body": "This commit delves more into the security considerations to operate the peering API and introduces a baseline threat model that supports the addition of authorization, proof of resource holdership and request integrity to address them.\r\n\r\nThis commit also moves the security considerations sections to the end of the document to align with other RFCs.",
       "createdAt": "2024-04-22T19:49:06Z",
-      "updatedAt": "2024-05-08T19:33:11Z",
+      "updatedAt": "2024-05-10T18:47:31Z",
       "baseRepository": "bgp/draft-ietf-peering-api",
       "baseRefName": "main",
       "baseRefOid": "41f188910faa1e5b9bf1aa9a6ea9c7c727cf722f",
@@ -1861,6 +1861,46 @@
               "body": "I would say they answer different questions. RPKI is not designed to be an identity management protocol so without OAuth, the signer of the checklist is saying nothing about the individual identity of the caller. And without an identity of the caller, implementations will need to agree on the minimal set of identifiable information of the caller they are willing to accept for auditing or troubleshoot requests.\r\n\r\nWhat is the concern for both? Is it privacy?",
               "createdAt": "2024-05-08T19:33:11Z",
               "updatedAt": "2024-05-08T19:33:11Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKwWQEM56Oouy",
+          "commit": {
+            "abbreviatedOid": "1e5697b"
+          },
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-10T18:46:00Z",
+          "updatedAt": "2024-05-10T18:46:01Z",
+          "comments": [
+            {
+              "originalPosition": 63,
+              "body": "I think either one is fine by me. ' asn: 123' and/or 'peering' (to indicate 'ok to do requests') would work.",
+              "createdAt": "2024-05-10T18:46:00Z",
+              "updatedAt": "2024-05-10T18:46:01Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKwWQEM56OpOK",
+          "commit": {
+            "abbreviatedOid": "1e5697b"
+          },
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-10T18:47:31Z",
+          "updatedAt": "2024-05-10T18:47:31Z",
+          "comments": [
+            {
+              "originalPosition": 73,
+              "body": "Do we care who the original caller is?  I figured we didn't really care, as long as the request came from a legitimate entity.  That is to say, I don't think we care if it is Alice or Bob requesting, as long as we can verify that person is allowed to request for the desired ASN.  ",
+              "createdAt": "2024-05-10T18:47:31Z",
+              "updatedAt": "2024-05-10T18:47:31Z"
             }
           ]
         }
