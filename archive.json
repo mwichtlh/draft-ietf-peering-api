@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-05-14T01:22:00.777801+00:00",
+  "timestamp": "2024-05-16T01:22:30.436360+00:00",
   "repo": "bgp/draft-ietf-peering-api",
   "labels": [
     {
@@ -1679,7 +1679,7 @@
       "labels": [],
       "body": "This commit delves more into the security considerations to operate the peering API and introduces a baseline threat model that supports the addition of authorization, proof of resource holdership and request integrity to address them.\r\n\r\nThis commit also moves the security considerations sections to the end of the document to align with other RFCs.",
       "createdAt": "2024-04-22T19:49:06Z",
-      "updatedAt": "2024-05-10T18:47:31Z",
+      "updatedAt": "2024-05-14T17:49:42Z",
       "baseRepository": "bgp/draft-ietf-peering-api",
       "baseRefName": "main",
       "baseRefOid": "41f188910faa1e5b9bf1aa9a6ea9c7c727cf722f",
@@ -1901,6 +1901,26 @@
               "body": "Do we care who the original caller is?  I figured we didn't really care, as long as the request came from a legitimate entity.  That is to say, I don't think we care if it is Alice or Bob requesting, as long as we can verify that person is allowed to request for the desired ASN.  ",
               "createdAt": "2024-05-10T18:47:31Z",
               "updatedAt": "2024-05-10T18:47:31Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKwWQEM56jPCP",
+          "commit": {
+            "abbreviatedOid": "71d78bc"
+          },
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-14T17:49:33Z",
+          "updatedAt": "2024-05-14T17:49:42Z",
+          "comments": [
+            {
+              "originalPosition": 68,
+              "body": "@job or @benmaddison , could you take a look at these RSC sections?  Anything you would propose that we add?  We would like to submit a new version to GROW soon, but would like to address the RPKI signed checklists comments.",
+              "createdAt": "2024-05-14T17:49:34Z",
+              "updatedAt": "2024-05-14T17:49:42Z"
             }
           ]
         }
