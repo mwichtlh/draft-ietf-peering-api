@@ -5,14 +5,14 @@
 Network Working Group                                          C. Aguado
 Internet-Draft                                                    Amazon
 Intended status: Informational                               M. Griswold
-Expires: 9 November 2024                                         FullCtl
+Expires: 22 November 2024                                        FullCtl
                                                              J. Ramseyer
                                                                     Meta
                                                                A. Servin
                                                                   Google
                                                               T. Strickx
                                                               Cloudflare
-                                                              8 May 2024
+                                                             21 May 2024
 
 
                               Peering API
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 November 2024.
+   This Internet-Draft will expire on 22 November 2024.
 
 Copyright Notice
 
@@ -80,13 +80,14 @@ Table of Contents
    3.  Security Considerations
    4.  Audience
    5.  Protocol
-     5.1.  Example Request Flow
-     5.2.  AUTH
-     5.3.  REQUEST
-     5.4.  CLIENT CONFIGURATION
-     5.5.  SERVER CONFIGURATION
-     5.6.  MONITORING
-     5.7.  COMPLETION
+     5.1.  Example Peering Request Negotiation
+     5.2.  Example API Flow
+     5.3.  AUTH
+     5.4.  REQUEST
+     5.5.  CLIENT CONFIGURATION
+     5.6.  SERVER CONFIGURATION
+     5.7.  MONITORING
+     5.8.  COMPLETION
    6.  API Endpoints and Specifications
      6.1.  DATA TYPES
      6.2.  Endpoints
@@ -214,7 +215,106 @@ Table of Contents
    list potential interconnection locations, and query for upcoming
    maintenance events on behalf of the AS resource owner.
 
-5.1.  Example Request Flow
+5.1.  Example Peering Request Negotiation
+
+   Diagram of the Peering Request Process
+
++-------------------+                    +-------------------+
+|     Step 1        |                    |     Step 2        |
+|    Network 1      |------------------->|    Network 1      |
+|  Identifies need  |                    |   Checks details  |
++-------------------+                    +-------------------+
+                                                 |
+                                                 v
++-------------------+                    +-------------------+
+|      Step 4       |                    |      Step 3       |
+|    Network 1      |<-------------------|    Network 1      |
+|  gets approval    |                    |     Public or     |
+|      token        |                    | Private Peering   |
++-------------------+                    +-------------------+
+        |
+        v
++-------------------+                    +-------------------+
+|      Step 5       |                    |      Step 6       |
+|  Network 1 finds  |------------------->|    Network 1      |
+| common locations  |                    |  request peering  |
++-------------------+                    +-------------------+
+                                                  |
+                                                  v
++-------------------+                   +--------------------+
+|      Step 8       |                   |       Step 7       |
+|     Network 2     |<------------------|     Network 2      |
+| accepts or reject |                   |      verifies      |
+|    sessions       |                   |     credentials    |
++-------------------+                   +--------------------+
+       /     \
+      /       \
+     /         \
+(yes)           (no)
+      \          |
+       \         +-------------------------------|
+        \                                        |
+         \                                       |
+          v                                      |
++---------------+          +----------------+    |
+|    Step 9     |          |    Step 10     |    |
+| Sessions are  |          | Network 1 or 2 |    |
+|  provisioned  |--------->| checks session |    |
+|     status    |          | until it is up |    |
++---------------+          +----------------+    |
+                                   |             |
+                      +------------+             |
+                      |                          |
+                      v                          |
+            +-------------+                      |
+            |   Step 11   |                      |
+            |   Request   |<---------------------+
+            |  Terminate  |
+            +-------------+
+
+
+
+
+
+
+
+Step 1 [Human]: Network 1 identifies that it would be useful to peer with Network 2 to interchange traffic more optimally
+
+
+Step 2 [Human]: Network 1 checks technical and other peering details about Network 2 to check if peering is possible
+
+
+Step 3 [Human]: Network 1 decides in type (Public or PNI) of peering and facility
+
+
+Step 4 [API]: Network 1 gets approval/token that is authorized to ‘speak’ on behalf of Network 1’s ASN.
+
+
+Step 5 [API]: Network 1 checks PeeringDB for common places between Network 1 and Network 2.
+API: GET /locations
+
+
+Step 6 [API]: Network 1 request peering with Network 2
+API:      POST /add_sessions
+
+
+Step 7 [API]: Network 2 verifies Network 1 credentials, check requirements for peering
+
+
+Step 8 [API]: Network 2 accepts or rejects session(s)
+API Server gives yes/no for request
+
+
+Step 9 [API]: If yes, sessions are provisioned, Networks 1 or Network 2 can check status
+API: /sessions Get session status
+
+
+Step 10 [API]: API keeps polling until sessions are up
+
+
+Step 11 [API]: Process Terminate
+
+5.2.  Example API Flow
 
    The diagram below outlines the proposed API flow.
 
@@ -273,7 +373,7 @@ Request session status
       |                                      (200, 404, 202, etc.) |
       |<-----------------------------------------------------------|
 
-5.2.  AUTH
+5.3.  AUTH
 
    First, the initiating OAuth2 Client is also the Resource Owner (RO)
    so it can follow the OAuth2 client credentials grant Section 4.4 of
@@ -285,7 +385,7 @@ Request session status
    as OAuth2 scopes), to confirm the client is permitted to make API
    requests on behalf of the initiating AS.
 
-5.3.  REQUEST
+5.4.  REQUEST
 
    1.  ADD SESSION (CLIENT BATCHED REQUEST)
 
@@ -340,19 +440,19 @@ Request session status
       -  Server returns an error message which indicates that all of the
          sessions requested have been rejected and the reason for it.
 
-5.4.  CLIENT CONFIGURATION
+5.5.  CLIENT CONFIGURATION
 
    The client then configures the chosen peering sessions asynchronously
    using their internal mechanisms.  For every session that the server
    rejected, the client removes that session from the list to be
    configured.
 
-5.5.  SERVER CONFIGURATION
+5.6.  SERVER CONFIGURATION
 
    The server configures all sessions that are in its list of approved
    peering sessions from its reply to the client.
 
-5.6.  MONITORING
+5.7.  MONITORING
 
    Both client and server wait for sessions to establish.  At any point,
    client may send a "GET STATUS" request to the server, to request the
@@ -382,7 +482,7 @@ Request session status
    The server then responds with the same structure, with the
    information that it understands (status, etc).
 
-5.7.  COMPLETION
+5.8.  COMPLETION
 
    If both sides report that the session is established, then peering is
    complete.  If one side does not configure sessions within the
