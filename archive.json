@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-05-21T01:22:30.694739+00:00",
+  "timestamp": "2024-05-23T01:22:31.030106+00:00",
   "repo": "bgp/draft-ietf-peering-api",
   "labels": [
     {
@@ -1679,7 +1679,7 @@
       "labels": [],
       "body": "This commit delves more into the security considerations to operate the peering API and introduces a baseline threat model that supports the addition of authorization, proof of resource holdership and request integrity to address them.\r\n\r\nThis commit also moves the security considerations sections to the end of the document to align with other RFCs.",
       "createdAt": "2024-04-22T19:49:06Z",
-      "updatedAt": "2024-05-14T17:49:42Z",
+      "updatedAt": "2024-05-22T18:01:44Z",
       "baseRepository": "bgp/draft-ietf-peering-api",
       "baseRefName": "main",
       "baseRefOid": "41f188910faa1e5b9bf1aa9a6ea9c7c727cf722f",
@@ -1923,6 +1923,46 @@
               "updatedAt": "2024-05-14T17:49:42Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOKwWQEM57ThZR",
+          "commit": {
+            "abbreviatedOid": "1e5697b"
+          },
+          "author": "caguado",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-21T13:52:51Z",
+          "updatedAt": "2024-05-21T13:52:52Z",
+          "comments": [
+            {
+              "originalPosition": 73,
+              "body": "I see. I posit organizations where all roles involved (e.g. security, bizdev, capacity deployment, netops) are separate teams would care to know who did trigger a request on a peer. This may be implemented with internal logging of who did access the keys leading to create the RSC but I find it more opportunistic. If the concern is privacy, we should capture it in the assumptions.\r\n\r\nThe second aspect of decoupling RSC from the individual request signing is that we can follow tighter key recycling policies without asking organizations to provide their (OAuth) clients access to their signing CA to create and distribute the individual RSCs for authorization as this is what OAuth does well.",
+              "createdAt": "2024-05-21T13:52:52Z",
+              "updatedAt": "2024-05-21T13:52:52Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKwWQEM57f9gt",
+          "commit": {
+            "abbreviatedOid": "1e5697b"
+          },
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-22T18:01:43Z",
+          "updatedAt": "2024-05-22T18:01:44Z",
+          "comments": [
+            {
+              "originalPosition": 73,
+              "body": "That's a good point.  I had planned to leave it up to the client to log, but perhaps we should leave it as an option to the server if required.  At least, we should mention it in the doc.  Perhaps this falls under the \"fleet of authentication options that the client and server can choose from\"?  Some servers require RSC and OAuth, and some only require RSC.\r\n\r\nPerhaps the server should provide a blob in their IRR record that the client needs to sign and provide along with their request?",
+              "createdAt": "2024-05-22T18:01:43Z",
+              "updatedAt": "2024-05-22T18:01:44Z"
+            }
+          ]
         }
       ]
     },
@@ -1967,24 +2007,26 @@
       "id": "PR_kwDOKwWQEM5v1Dpf",
       "title": "Update draft-ramseyer-grow-peering-api.md",
       "url": "https://github.com/bgp/draft-ietf-peering-api/pull/29",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "jramseyer",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Including the diagram by Arturo",
       "createdAt": "2024-05-17T19:26:09Z",
-      "updatedAt": "2024-05-17T19:30:05Z",
+      "updatedAt": "2024-05-21T13:39:44Z",
       "baseRepository": "bgp/draft-ietf-peering-api",
       "baseRefName": "main",
       "baseRefOid": "1e8b4d6be4b6c6e7a5227aafb24f894f4a92ce7e",
       "headRepository": "bgp/draft-ietf-peering-api",
       "headRefName": "jramseyer-patch-diagram",
       "headRefOid": "a792bb1b3afc59239ad0477b2cdb5b5047a040a0",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-05-21T13:39:44Z",
+      "mergedAt": "2024-05-21T13:39:44Z",
+      "mergedBy": "caguado",
+      "mergeCommit": {
+        "oid": "d84db8fbfb4e9e7f823bad08d2c03f8cc658adac"
+      },
       "comments": [],
       "reviews": []
     }
