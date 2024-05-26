@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-05-23T01:22:31.030106+00:00",
+  "timestamp": "2024-05-26T01:34:38.762334+00:00",
   "repo": "bgp/draft-ietf-peering-api",
   "labels": [
     {
@@ -1679,7 +1679,7 @@
       "labels": [],
       "body": "This commit delves more into the security considerations to operate the peering API and introduces a baseline threat model that supports the addition of authorization, proof of resource holdership and request integrity to address them.\r\n\r\nThis commit also moves the security considerations sections to the end of the document to align with other RFCs.",
       "createdAt": "2024-04-22T19:49:06Z",
-      "updatedAt": "2024-05-22T18:01:44Z",
+      "updatedAt": "2024-05-24T14:41:22Z",
       "baseRepository": "bgp/draft-ietf-peering-api",
       "baseRefName": "main",
       "baseRefOid": "41f188910faa1e5b9bf1aa9a6ea9c7c727cf722f",
@@ -1961,6 +1961,106 @@
               "body": "That's a good point.  I had planned to leave it up to the client to log, but perhaps we should leave it as an option to the server if required.  At least, we should mention it in the doc.  Perhaps this falls under the \"fleet of authentication options that the client and server can choose from\"?  Some servers require RSC and OAuth, and some only require RSC.\r\n\r\nPerhaps the server should provide a blob in their IRR record that the client needs to sign and provide along with their request?",
               "createdAt": "2024-05-22T18:01:43Z",
               "updatedAt": "2024-05-22T18:01:44Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKwWQEM57kvGw",
+          "commit": {
+            "abbreviatedOid": "1e5697b"
+          },
+          "author": "caguado",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-23T08:22:54Z",
+          "updatedAt": "2024-05-23T08:22:54Z",
+          "comments": [
+            {
+              "originalPosition": 73,
+              "body": "The proposal of using this chain of trust of using an industry standard method for authz and RPKI for trust anchoring stems from the threat model. That's why I'm kind of insisting on validating the concerns with the threats, that is whether these would be something orgs would agree first, so that the mitigations (the authz, signing, logging and auditing, authenticated encryption, attribution, etc) follow suit on what are meant to mitigate against.\r\n\r\n> Perhaps the server should provide a blob in their IRR record that the client needs to sign and provide along with their request?\r\n\r\nI don't understand the involvement of the IRR, please help me walk through it with an example. What would a receiver endpoint do, check IRR and if some field is present enforce authz, in the absence of it, accept only a RSC signed request?\r\n\r\nIMO, the proposal here is simpler where the initiator simply uses their OAuth2 AS of choice, and the receiver will be able to accepted so long there is an RSC that crypto-links it to the ASN it claims to represent. No additional handshake required.",
+              "createdAt": "2024-05-23T08:22:54Z",
+              "updatedAt": "2024-05-23T08:22:54Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKwWQEM57kvJ-",
+          "commit": {
+            "abbreviatedOid": "1e5697b"
+          },
+          "author": "caguado",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-23T08:22:59Z",
+          "updatedAt": "2024-05-23T08:22:59Z",
+          "comments": [
+            {
+              "originalPosition": 73,
+              "body": "Another issue I've lately noticed, from my lack of experience using RSC but having seen Ben's [rpkimancer](https://github.com/benmaddison/rpkimancer) and re-reading the RSC [RFC 2.1](https://datatracker.ietf.org/doc/html/rfc9323#name-rsc-ee-certificates) is that EE certificates are single use. This would align well with key operations for signing a manifest, like the JWKS descriptor mentioned (or like ROA operations), where those can also be detached, handled by different teams owning IANA resources, etc. I don't see how we can create a single EE for _every_ API request if we were to sign each of them with a single RSC. I may be grossly misunderstanding the RFC.",
+              "createdAt": "2024-05-23T08:22:59Z",
+              "updatedAt": "2024-05-23T08:24:12Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKwWQEM57qgG7",
+          "commit": {
+            "abbreviatedOid": "1e5697b"
+          },
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-23T18:32:03Z",
+          "updatedAt": "2024-05-23T18:32:03Z",
+          "comments": [
+            {
+              "originalPosition": 73,
+              "body": "I think perhaps I may have overcomplicated this in my confusion.  (this is my first look at RSC as well)\r\n\r\n> IMO, the proposal here is simpler where the initiator simply uses their OAuth2 AS of choice, and the receiver will be able to accepted so long there is an RSC that crypto-links it to the ASN it claims to represent. No additional handshake required.\r\n\r\nThis is what I intended :) If we're in agreement that this is what we want, I say let's go with this--sorry if I overcomplicated it.  \r\n\r\nI do think we should think about how to use RSC as a standalone authenticator (without OAuth), but perhaps that's better done through the working group (or at least, they would be able to offer suggestions--this is hitting the limits of my knowledge on RSC)",
+              "createdAt": "2024-05-23T18:32:03Z",
+              "updatedAt": "2024-05-23T18:32:03Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKwWQEM57zEkq",
+          "commit": {
+            "abbreviatedOid": "1e5697b"
+          },
+          "author": "grizz",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-24T13:47:20Z",
+          "updatedAt": "2024-05-24T13:47:20Z",
+          "comments": [
+            {
+              "originalPosition": 73,
+              "body": "I'm a bit late to the party here, but I'm also in favor of \r\n\r\n> IMO, the proposal here is simpler where the initiator simply uses their OAuth2 AS of choice, and the receiver will be able to accepted so long there is an RSC that crypto-links it to the ASN it claims to represent. No additional handshake required.\r\n\r\nI think it should be up to the receiving side if they require RSC or if OAuth2 is sufficient.\r\n\r\nI'm also interested using RSC standalone, either through more discussion or for me it would be easier to sit down and try to do it once we have have the reference servers running. :)",
+              "createdAt": "2024-05-24T13:47:20Z",
+              "updatedAt": "2024-05-24T13:47:20Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKwWQEM57zl3z",
+          "commit": {
+            "abbreviatedOid": "1e5697b"
+          },
+          "author": "jramseyer",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-24T14:41:21Z",
+          "updatedAt": "2024-05-24T14:41:22Z",
+          "comments": [
+            {
+              "originalPosition": 73,
+              "body": "That seems reasonable to me.  Shall we go ahead with \"Oauth + RSC as optional addition\", and solicit working group feedback on how to do \"standalone RSC\"?  (Testing it out on the API instances would help, too)\r\n\r\nStandalone RSC will be interesting, but I don't know enough about how it works to write out a convincing proposal.  ",
+              "createdAt": "2024-05-24T14:41:21Z",
+              "updatedAt": "2024-05-24T14:41:22Z"
             }
           ]
         }
