@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-05-26T01:34:38.762334+00:00",
+  "timestamp": "2024-05-28T01:23:28.515866+00:00",
   "repo": "bgp/draft-ietf-peering-api",
   "labels": [
     {
@@ -1679,7 +1679,7 @@
       "labels": [],
       "body": "This commit delves more into the security considerations to operate the peering API and introduces a baseline threat model that supports the addition of authorization, proof of resource holdership and request integrity to address them.\r\n\r\nThis commit also moves the security considerations sections to the end of the document to align with other RFCs.",
       "createdAt": "2024-04-22T19:49:06Z",
-      "updatedAt": "2024-05-24T14:41:22Z",
+      "updatedAt": "2024-05-27T10:29:03Z",
       "baseRepository": "bgp/draft-ietf-peering-api",
       "baseRefName": "main",
       "baseRefOid": "41f188910faa1e5b9bf1aa9a6ea9c7c727cf722f",
@@ -2061,6 +2061,26 @@
               "body": "That seems reasonable to me.  Shall we go ahead with \"Oauth + RSC as optional addition\", and solicit working group feedback on how to do \"standalone RSC\"?  (Testing it out on the API instances would help, too)\r\n\r\nStandalone RSC will be interesting, but I don't know enough about how it works to write out a convincing proposal.  ",
               "createdAt": "2024-05-24T14:41:21Z",
               "updatedAt": "2024-05-24T14:41:22Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOKwWQEM58A3qD",
+          "commit": {
+            "abbreviatedOid": "1e5697b"
+          },
+          "author": "caguado",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-27T10:29:03Z",
+          "updatedAt": "2024-05-27T10:29:03Z",
+          "comments": [
+            {
+              "originalPosition": 73,
+              "body": "Ack, I'll be merging by EOB if all ok then.",
+              "createdAt": "2024-05-27T10:29:03Z",
+              "updatedAt": "2024-05-27T10:29:03Z"
             }
           ]
         }
